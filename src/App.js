@@ -1,9 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
+import Test from './Test'
+import styles from './App.module.css'
 
 class App extends Component {
   render() {
     return (
-        <Fragment />
+      <div>
+        <div className={styles.testClass}/>
+        <Test />
+      </div>
     );
   }
 }
