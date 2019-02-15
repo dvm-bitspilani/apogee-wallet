@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 
 import Test from './Test'
 import styles from './App.module.css'
-import store from '../store'
+import store from '@/store'
 
 
 class App extends Component {

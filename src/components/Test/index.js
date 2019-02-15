@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { changeAuthStatus } from '../../actionsCreators/auth'
+import { changeAuthStatus } from '@/actionsCreators/auth'
 import AuthRequired from '../AuthRequired'
 import styles from './Test.module.css'
 
