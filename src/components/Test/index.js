@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import AuthRequired from '../AuthRequired'
+
 import styles from './Test.module.css'
 
 class Test extends Component {
@@ -8,13 +10,17 @@ class Test extends Component {
         super(props)
     }
     render() {
-        return (<div 
-            className={styles.testClass} 
-            dataTest={this.props.testProp}
-            onClick={ _ => { 
-                this.props.a({type: "MAchuda"});
-            }}
-        />)
+        return (
+        <AuthRequired>
+            <div 
+                className={styles.testClass} 
+                dataTest={this.props.testProp}
+                onClick={ _ => { 
+                    this.props.a({type: "MAchuda"});
+                }}/>
+        </AuthRequired>
+        )
+
     }
 }
 
