@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+import { changeAuthStatus } from '../../actionsCreators/auth'
 import AuthRequired from '../AuthRequired'
-
 import styles from './Test.module.css'
 
 class Test extends Component {
@@ -16,7 +17,7 @@ class Test extends Component {
                 className={styles.testClass} 
                 dataTest={this.props.testProp}
                 onClick={ _ => { 
-                    this.props.a({type: "MAchuda"});
+                    this.props.changeAuthStatus('hello');
                 }}/>
         </AuthRequired>
         )
@@ -25,9 +26,9 @@ class Test extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        a: dispatch
-    }        
+    return bindActionCreators({
+        changeAuthStatus
+    }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Test);

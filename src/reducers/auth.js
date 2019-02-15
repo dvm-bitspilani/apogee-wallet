@@ -1,11 +1,15 @@
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: true
 }
 
-const reducer = (state = initialState, _) => {
-  console.log('Triggered1');
+const reducer = (state = initialState, action) => {
+  if(action.type === "TEST") {
+    return {
+      isLoggedIn: !state.isLoggedIn
+    }
+  }
   return {
-    isLoggedIn: !state.isLoggedIn
+    ...state
   }
 }
 
