@@ -5,10 +5,17 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 
-import auth from '@/actionCreators/auth'
+import * as auth from '@/actionCreators/auth'
 import classes from './styles.module.scss'
 
 class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: "",
+      password: ""
+    }
+  }
   render() {
     return (
       <div id={classes.loginRoot}>
@@ -18,6 +25,8 @@ class Login extends Component {
               id="name"
               label="Name"
               margin="normal"
+              value={this.state.username}
+              onChange={e => this.setState({username: e.target.value})}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
@@ -25,21 +34,22 @@ class Login extends Component {
               id="password-input"
               label="Password"
               type="password"
+              value={this.state.password}
+              onChange={e => this.setState({password: e.target.value})}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
               variant="contained"
               color="primary"
-              onClick={this.props.setJwt}>
+              onClick={ () => this.props.login(this.state.username, this.state.password)}>
               Login
             </Button>
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
               variant="contained"
-              color="primary"
-              onClick={this.props.setJwt}>
+              color="primary">
               Bitsian Login
             </Button>
           </Grid>
@@ -54,10 +64,10 @@ const mapDispatchToProps = (dispatch) => {
   // ...auth
   // }, dispatch)
   // console.log(auth)
-  console.log(bindActionCreators(Object.assign({}, auth), dispatch));
+  // console.log(bindActionCreators(Object.assign({}, auth), dispatch));
   return {
-    setJwt: (jwt) => dispatch(auth.setJwt("hello")),
-  // actions: bindActionCreators(auth, dispatch)
+    login: (username, password) => dispatch(auth.login(username, password)),
+    // actions: bindActionCreators(auth, dispatch)
   }
   // console.log(Object.assign({})); 
   // return bindActionCreators(Object.assign({}, auth), dispatch);

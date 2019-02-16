@@ -2,20 +2,19 @@ import React, { Component, Fragment } from 'react';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import classes from './index.module.scss';
+import classes from './styles.module.scss';
 
 export default class Nav extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       isDrawerOpen: false
     };
-
     this.toggleDrawer = this.toggleDrawer.bind(this);
   }
 
-  toggleDrawer (boolVal) {
+  toggleDrawer(boolVal) {
     this.setState({ isDrawerOpen: boolVal });
   }
 
@@ -33,7 +32,7 @@ export default class Nav extends Component {
       <Fragment>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
-            <IconButton color="inherit" aria-label="Menu" onClick = {this.toggleDrawer.bind(this, true)}>
+            <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer.bind(this, true)}>
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
@@ -45,14 +44,14 @@ export default class Nav extends Component {
 
         <SwipeableDrawer
           open={this.state.isDrawerOpen}
-          onClose = {this.toggleDrawer.bind(this, false)}
-          onOpen = {this.toggleDrawer.bind(this, true)}>
+          onClose={this.toggleDrawer.bind(this, false)}
+          onOpen={this.toggleDrawer.bind(this, true)}>
           <List>
             {pages.map((page) => (
-                <ListItem button key={page.name}>
-                  <ListItemIcon><page.icon /></ListItemIcon>
-                  <ListItemText primary={page.name} />
-                </ListItem>
+              <ListItem button key={page.name}>
+                <ListItemIcon><page.icon /></ListItemIcon>
+                <ListItemText primary={page.name} />
+              </ListItem>
             ))}
           </List>
         </SwipeableDrawer>

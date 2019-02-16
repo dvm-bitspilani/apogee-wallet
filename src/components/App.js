@@ -16,15 +16,10 @@ class App extends Component {
           <Fragment>
             <CssBaseline />
             <Switch> 
-              <Route exact path="/" component={Login}/>
-              <Route path="/nav" component={Nav}/>
+              <Route exact path="/login" component={Login}/>
+              <Route path="/" component={Nav}/>
             </Switch>
           </Fragment>
-          {/* <div> */}
-            {/* <div className={styles.testClass}/> */}
-              {/* <Route path="/test" component={() => <Test testProp="Hellow"/>}/> */}
-            {/* <Test testProp="Hello"/> */}
-          {/* </div> */}
         </Router>
       </Provider>
     );
