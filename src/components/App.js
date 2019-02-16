@@ -4,7 +4,6 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import Test from './Test'
 import Login from './Login'
 // import styles from './App.module.css'
 import store from '@/store'
