@@ -1,3 +1,12 @@
+.appBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
 .pageContainer {
   height: 100vh;
   width: 100vw;
