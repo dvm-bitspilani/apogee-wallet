@@ -12,26 +12,29 @@ class Login extends Component {
   render() {
     return (
       <div id={classes.loginRoot}>
-        <Grid container>
-          <Grid item xs={8}>
+        <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
+          <Grid item xs={8} container justify="center" alignItems="center">
             <TextField
               id="name"
               label="Name"
               margin="normal"
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={8} container justify="center" alignItems="center">
             <TextField
               id="password-input"
               label="Password"
               type="password"
             />
           </Grid>
-          <Button
-            variant="contained"
-            color="primary">
-            Login
-          </Button>
+          <Grid item xs={8} container justify="center" alignItems="center">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.setJwt}>
+              Login
+            </Button>
+          </Grid>
         </Grid>
       </div>
     )
@@ -39,11 +42,16 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  // return bindActionCreators(auth, dispatch)
-  return {
-    setJwt: (jwt) => dispatch(auth.setJwt("hello"))
-  }
+  // return bindActionCreators({
+  // ...auth
+  // }, dispatch)
+  // console.log(auth)
+  // return {
+  // setJwt: (jwt) => dispatch(auth.setJwt("hello")),
+  // actions: bindActionCreators(auth, dispatch)
+  // }
+
 }
 
-export default Login
-// export default connect(null, mapDispatchToProps)(Login)
+// export default Login
+export default connect(null, mapDispatchToProps)(Login)
