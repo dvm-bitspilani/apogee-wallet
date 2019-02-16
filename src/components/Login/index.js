@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 
-import * as auth from '@/actionCreators/auth'
+import auth from '@/actionCreators/auth'
 import classes from './styles.module.scss'
 
 class Login extends Component {
@@ -35,6 +35,14 @@ class Login extends Component {
               Login
             </Button>
           </Grid>
+          <Grid item xs={8} container justify="center" alignItems="center">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.setJwt}>
+              Bitsian Login
+            </Button>
+          </Grid>
         </Grid>
       </div>
     )
@@ -46,11 +54,13 @@ const mapDispatchToProps = (dispatch) => {
   // ...auth
   // }, dispatch)
   // console.log(auth)
-  // return {
-  // setJwt: (jwt) => dispatch(auth.setJwt("hello")),
+  console.log(bindActionCreators(Object.assign({}, auth), dispatch));
+  return {
+    setJwt: (jwt) => dispatch(auth.setJwt("hello")),
   // actions: bindActionCreators(auth, dispatch)
-  // }
-
+  }
+  // console.log(Object.assign({})); 
+  // return bindActionCreators(Object.assign({}, auth), dispatch);
 }
 
 // export default Login

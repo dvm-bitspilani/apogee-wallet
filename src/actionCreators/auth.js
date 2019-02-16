@@ -1,8 +1,12 @@
 import * as auth from '@/constants/auth'
 
-export const setJwt = jwt => ({
+const setJwt = jwt => ({
   type: auth.SET_JWT,
   payload: {
     jwt: "Hello"
   }
 })
+
+export default {
+  setJwt
+}
