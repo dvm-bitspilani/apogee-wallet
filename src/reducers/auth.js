@@ -1,11 +1,17 @@
+import * as auth from '@/constants/auth'
+
 const initialState = {
-  isLoggedIn: true
+  isLoggedIn: false,
+  jwt: null,
 }
 
 const reducer = (state = initialState, action) => {
-  if(action.type === "TEST") {
+  const { type } = action;
+  if(type === auth.SET_JWT) {
+    console.log("JWT to be set");
     return {
-      isLoggedIn: !state.isLoggedIn
+      ...state, 
+      jwt: action.payload.jwt
     }
   }
   return {
