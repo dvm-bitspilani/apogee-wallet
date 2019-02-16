@@ -8,7 +8,7 @@ import Test from './Test'
 import Login from './Login'
 // import styles from './App.module.css'
 import store from '@/store'
-
+import Nav from './Nav';
 
 class App extends Component {
   render() {
@@ -18,9 +18,15 @@ class App extends Component {
           <Fragment>
             <CssBaseline />
             <Switch> 
-              <Route path="/" component={Login}/> 
+              <Route exact path="/" component={Login}/>
+              <Route path="/nav" component={Nav}/>
             </Switch>
           </Fragment>
+          {/* <div> */}
+            {/* <div className={styles.testClass}/> */}
+              {/* <Route path="/test" component={() => <Test testProp="Hellow"/>}/> */}
+            {/* <Test testProp="Hello"/> */}
+          {/* </div> */}
         </Router>
       </Provider>
     );
