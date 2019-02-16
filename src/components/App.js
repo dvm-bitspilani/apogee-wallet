@@ -1,10 +1,12 @@
-import React, { Component} from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 import Test from './Test'
-import styles from './App.module.css'
+import Login from './Login'
+// import styles from './App.module.css'
 import store from '@/store'
 
 
@@ -13,12 +15,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <Test />
-          {/* <div> */}
-            {/* <div className={styles.testClass}/> */}
-              {/* <Route path="/test" component={() => <Test testProp="Hellow"/>}/> */}
-            {/* <Test testProp="Hello"/> */}
-          {/* </div> */}
+          <Fragment>
+            <CssBaseline />
+            <Switch> 
+              <Route path="/" component={Login}/> 
+            </Switch>
+          </Fragment>
         </Router>
       </Provider>
     );
