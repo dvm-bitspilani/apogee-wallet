@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
