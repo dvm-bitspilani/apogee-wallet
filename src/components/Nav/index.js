@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import AuthRequired from '../AuthRequired'
 import classes from './styles.module.scss';
 import * as auth from '@/actionCreators/auth'
+import Profile from '../Profile';
 
 class Nav extends Component {
   constructor(props) {
@@ -89,8 +90,8 @@ class Nav extends Component {
           onOpen={this.toggleDrawer.bind(this, true)}>
           <List className = {classes.list}>
             {pages.map((page) => (
-              <Link to = {page.link}>
-                <ListItem button key={page.name}>
+              <Link to = {page.link} key={page.name}>
+                <ListItem button>
                   <ListItemIcon><page.icon /></ListItemIcon>
                   <ListItemText primary={page.name} />
                 </ListItem>
@@ -99,11 +100,11 @@ class Nav extends Component {
           </List>
         </SwipeableDrawer>
 
-        {/* <div className = {classes.pageContainer}>
+        <div className = {classes.pageContainer}>
           <Switch>
-
+            <Route path = '/' component = {Profile} />
           </Switch>
-        </div> */}
+        </div>
       </AuthRequired>
     )
   }
