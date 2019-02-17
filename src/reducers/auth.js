@@ -3,22 +3,28 @@ import * as auth from '@/constants/auth'
 const initialState = {
   isLoggedIn: false,
   JWT: null,
+  isMessageSet: false,
+  message: ""
 }
 
 const reducer = (state = initialState, action) => {
   const { type } = action;
-  console.log(type)
-  if(type === auth.SET_LOGIN) {
+  if (type === auth.SET_LOGIN) {
     const {
       payload: {
         isLoggedIn, JWT
       }
     } = action
-    console.log(state);
     return {
-      ...state, 
+      ...state,
       JWT,
-      isLoggedIn 
+      isLoggedIn
+    }
+  }
+  if (type === auth.SET_ERRORMESSAGE) {
+    return {
+      ...state,
+      ...action.payload
     }
   }
   return {

@@ -11,11 +11,11 @@ const store = createStore(combineReducers(reducers), initStore, applyMiddleware(
 
 store.subscribe(() => {
   const state = store.getState();
-  const { auth, userProfile } = state;
+  let { auth, userProfile } = state;
+  auth = { ...auth, isMessageSet: false, message: ""}
   const localStorageItem = {
     auth, userProfile
   }
-  console.log(localStorageItem)
   localStorage.setItem(api.LOCALSTORAGE_LOGIN, JSON.stringify(localStorageItem));
 });
 

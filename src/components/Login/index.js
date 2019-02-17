@@ -5,6 +5,8 @@ import { withRouter, Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import * as auth from '@/actionCreators/auth'
 import classes from './styles.module.scss'
@@ -18,8 +20,8 @@ class Login extends Component {
     }
   }
   render() {
-    if(this.props.auth.isLoggedIn) {
-      return (<Redirect to="/"/>)
+    if (this.props.auth.isLoggedIn) {
+      return (<Redirect to="/" />)
     }
     return (
       <div id={classes.loginRoot}>
@@ -30,7 +32,7 @@ class Login extends Component {
               label="Name"
               margin="normal"
               value={this.state.username}
-              onChange={e => this.setState({username: e.target.value})}
+              onChange={e => this.setState({ username: e.target.value })}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
@@ -39,14 +41,14 @@ class Login extends Component {
               label="Password"
               type="password"
               value={this.state.password}
-              onChange={e => this.setState({password: e.target.value})}
+              onChange={e => this.setState({ password: e.target.value })}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
               variant="contained"
               color="primary"
-              onClick={ () => this.props.login(this.state.username, this.state.password)}>
+              onClick={() => this.props.login(this.state.username, this.state.password)}>
               Login
             </Button>
           </Grid>
@@ -58,6 +60,16 @@ class Login extends Component {
             </Button>
           </Grid>
         </Grid>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+          open={this.props.auth.isMessageSet}
+          autoHideDuration={6000} 
+          message={this.props.auth.message}
+          onClose={(e) => this.props.setErrorMessage(false, "")}/>
+
       </div>
     )
   }
@@ -68,7 +80,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth 
+  auth: state.auth
 })
 
 // export default Login

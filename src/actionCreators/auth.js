@@ -23,15 +23,26 @@ export const login = (username, password) => dispatch => {
       username, password
     })
   }, (error, response, body) => {
-    if(response.statusCode === 200) {
+    if(!response)
+        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+    else if(response.statusCode === 200) {
       try{
         body = JSON.parse(body)
         const { JWT } = body 
         dispatch(changeLoginStatus(true, JWT))
         dispatch(setProfile(body))
       }catch(e) {
-        console.log(e)
+        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
     }
   });
+}
+
+export const setErrorMessage = (isMessageSet, message) => {
+  return {
+    type: auth.SET_ERRORMESSAGE, 
+    payload: {
+      isMessageSet, message
+    }
+  }
 }

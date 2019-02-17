@@ -79,7 +79,7 @@ class Nav extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Wallet
           </Typography>
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit" onClick = {() => this.props.changeLoginStatus(false, null)}>Logout</Button>
           </Toolbar>
         </AppBar>
 
