@@ -39,7 +39,7 @@ export default class Nav extends Component {
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Apogee Wallet - 2019
-          </Typography>
+            </Typography>
             <Button color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
