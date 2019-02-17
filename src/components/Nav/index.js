@@ -27,9 +27,44 @@ export default class Nav extends Component {
     const pages = [
       {
         name: 'Profile',
-        link: '/asdf',
+        link: '/',
         icon: () => <MailIcon />
-      }
+      },
+      {
+        name: 'Stalls',
+        link: '/stalls',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Cart',
+        link: '/cart',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Send Money',
+        link: '/send_money',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Add Money',
+        link: '/add_money',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Current Orders',
+        link: '/current_orders',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Past Transactions',
+        link: '/past_transactions',
+        icon: () => <MailIcon />
+      },
+      {
+        name: 'Profshow Tickets',
+        link: '/profshow',
+        icon: () => <MailIcon />
+      },
     ]
     return (
       <AuthRequired>
