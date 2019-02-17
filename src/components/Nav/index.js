@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import AuthRequired from '../AuthRequired'
 import classes from './styles.module.scss';
+import * as auth from '@/actionCreators/auth'
 
-export default class Nav extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props);
 
@@ -105,3 +108,10 @@ export default class Nav extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  console.log(Object.assign({}, auth));
+  return bindActionCreators(Object.assign({}, auth), dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Nav);
