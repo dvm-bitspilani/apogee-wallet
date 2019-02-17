@@ -23,11 +23,15 @@ export const login = (username, password) => dispatch => {
       username, password
     })
   }, (error, response, body) => {
-    body = JSON.parse(body)
-    const { JWT } = body 
     if(response.statusCode === 200) {
-      dispatch(changeLoginStatus(true, JWT))
-      dispatch(setProfile(body))
+      try{
+        body = JSON.parse(body)
+        const { JWT } = body 
+        dispatch(changeLoginStatus(true, JWT))
+        dispatch(setProfile(body))
+      }catch(e) {
+        console.log(e)
+      }
     }
   });
 }
