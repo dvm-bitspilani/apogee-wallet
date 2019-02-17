@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -38,7 +39,7 @@ export default class Nav extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Apogee Wallet - 2019
+              Wallet
           </Typography>
             <Button color="inherit">Logout</Button>
           </Toolbar>
@@ -48,12 +49,14 @@ export default class Nav extends Component {
           open={this.state.isDrawerOpen}
           onClose={this.toggleDrawer.bind(this, false)}
           onOpen={this.toggleDrawer.bind(this, true)}>
-          <List>
+          <List className = {classes.list}>
             {pages.map((page) => (
-              <ListItem button key={page.name}>
-                <ListItemIcon><page.icon /></ListItemIcon>
-                <ListItemText primary={page.name} />
-              </ListItem>
+              <Link to = {page.link}>
+                <ListItem button key={page.name}>
+                  <ListItemIcon><page.icon /></ListItemIcon>
+                  <ListItemText primary={page.name} />
+                </ListItem>
+              </Link>
             ))}
           </List>
         </SwipeableDrawer>
