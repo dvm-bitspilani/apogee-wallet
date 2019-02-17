@@ -2,16 +2,23 @@ import * as auth from '@/constants/auth'
 
 const initialState = {
   isLoggedIn: false,
-  jwt: null,
+  JWT: null,
 }
 
 const reducer = (state = initialState, action) => {
   const { type } = action;
-  if(type === auth.SET_JWT) {
-    console.log("JWT to be set");
+  console.log(type)
+  if(type === auth.SET_LOGIN) {
+    const {
+      payload: {
+        isLoggedIn, JWT
+      }
+    } = action
+    console.log(state);
     return {
       ...state, 
-      jwt: action.payload.jwt
+      JWT,
+      isLoggedIn 
     }
   }
   return {

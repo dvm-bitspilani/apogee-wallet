@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter, Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -17,6 +18,9 @@ class Login extends Component {
     }
   }
   render() {
+    if(this.props.auth.isLoggedIn) {
+      return (<Redirect to="/"/>)
+    }
     return (
       <div id={classes.loginRoot}>
         <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
@@ -60,18 +64,12 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  // return bindActionCreators({
-  // ...auth
-  // }, dispatch)
-  // console.log(auth)
-  // console.log(bindActionCreators(Object.assign({}, auth), dispatch));
-  return {
-    login: (username, password) => dispatch(auth.login(username, password)),
-    // actions: bindActionCreators(auth, dispatch)
-  }
-  // console.log(Object.assign({})); 
-  // return bindActionCreators(Object.assign({}, auth), dispatch);
+  return bindActionCreators(Object.assign({}, auth), dispatch);
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.auth 
+})
+
 // export default Login
-export default connect(null, mapDispatchToProps)(Login)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

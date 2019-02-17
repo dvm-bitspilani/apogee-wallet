@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import AuthRequired from '../AuthRequired'
 import classes from './styles.module.scss';
 
 export default class Nav extends Component {
@@ -29,7 +31,7 @@ export default class Nav extends Component {
       }
     ]
     return (
-      <Fragment>
+      <AuthRequired>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer.bind(this, true)}>
@@ -61,7 +63,7 @@ export default class Nav extends Component {
 
           </Switch>
         </div> */}
-      </Fragment>
+      </AuthRequired>
     )
   }
 }

@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const authRequired = ({ isLoggedIn, children }) => {
-    return (isLoggedIn ? children : <Redirect to="/as" />)
+    console.log(isLoggedIn)
+    return (isLoggedIn ? children : <Redirect to="/login" />)
 }
 
 const mapStateToProps = state => ({
