@@ -4,7 +4,7 @@ import * as auth from '@/constants/auth'
 import * as api from '@/constants/api'
 import { setProfile } from './userProfile'
 
-const changeLoginStatus = (isLoggedIn, JWT) => ({
+export const changeLoginStatus = (isLoggedIn, JWT) => ({
   type: auth.SET_LOGIN,
   payload: {
     JWT, isLoggedIn
