@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuIcon from '@material-ui/icons/Menu';
+import { 
+  ShoppingCartOutlined as ShoppingCartIcon, 
+  Menu as MenuIcon, 
+  Mail as MailIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -69,8 +71,8 @@ class Nav extends Component {
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Wallet
-          </Typography>
-            <Button color="inherit" onClick = {() => this.props.changeLoginStatus(false, null)}>Logout</Button>
+            </Typography>
+            <Button color="inherit"><ShoppingCartIcon /></Button>
           </Toolbar>
         </AppBar>
 
