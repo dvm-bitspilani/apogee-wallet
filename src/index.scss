@@ -1,9 +1,19 @@
+@font-face {
+  font-family: 'Ikaros-Light';
+  src: url('fonts/Ikaros-Light.otf');
+}
+
+@font-face {
+  font-family: 'Ikaros-Regular';
+  src: url('fonts/Ikaros-Regular.otf');
+}
 * {
   margin: 0;
   padding: 0;
   outline: 0;
   border: 0;
   box-sizing: border-box;
+  font-family: 'Ikaros-Regular' !important;
 }
 
 html, body, #root{

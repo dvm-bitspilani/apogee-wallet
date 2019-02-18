@@ -12,6 +12,9 @@ const store = createStore(combineReducers(reducers), initStore, applyMiddleware(
 store.subscribe(() => {
   const state = store.getState();
   let { auth, userProfile } = state;
+  if(!auth.isLoggedIn) {
+    localStorage.removeItem(api.LOCALSTORAGE_LOGIN);
+  }
   auth = { ...auth, isMessageSet: false, message: ""}
   const localStorageItem = {
     auth, userProfile

@@ -23,14 +23,23 @@ export const login = (username, password) => dispatch => {
       username, password
     })
   }, (error, response, body) => {
-    if(!response)
+    if(!response) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+    }
     else if(response.statusCode === 200) {
       try{
         body = JSON.parse(body)
         const { JWT } = body 
         dispatch(changeLoginStatus(true, JWT))
         dispatch(setProfile(body))
+      }catch(e) {
+        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+      }
+    }
+    else {
+      try{
+        body = JSON.parse(body)
+        dispatch(setErrorMessage(true, body.detail));
       }catch(e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }

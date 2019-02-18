@@ -48,7 +48,10 @@ class Login extends Component {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => this.props.login(this.state.username, this.state.password)}>
+              onClick={() => {
+                this.props.login(this.state.username, this.state.password);
+                console.log('clicked');
+                }}>
               Login
             </Button>
           </Grid>
