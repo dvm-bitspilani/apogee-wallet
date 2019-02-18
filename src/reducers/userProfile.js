@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
       bitsian_id: bitsianId,
       name, 
     }} = action
-    console.log(state);
     const newState =  {
       ...state,
       qrCode,

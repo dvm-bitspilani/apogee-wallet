@@ -40,21 +40,6 @@ class Nav extends Component {
         icon: () => <MailIcon />
       },
       {
-        name: 'Cart',
-        link: '/cart',
-        icon: () => <MailIcon />
-      },
-      {
-        name: 'Send Money',
-        link: '/send_money',
-        icon: () => <MailIcon />
-      },
-      {
-        name: 'Add Money',
-        link: '/add_money',
-        icon: () => <MailIcon />
-      },
-      {
         name: 'Current Orders',
         link: '/current_orders',
         icon: () => <MailIcon />
@@ -69,6 +54,11 @@ class Nav extends Component {
         link: '/profshow',
         icon: () => <MailIcon />
       },
+      // {
+      //   name: 'Logout',
+      //   link: '/cart',
+      //   icon: () => <MailIcon />
+      // },
     ]
     return (
       <AuthRequired>
@@ -88,21 +78,25 @@ class Nav extends Component {
           open={this.state.isDrawerOpen}
           onClose={this.toggleDrawer.bind(this, false)}
           onOpen={this.toggleDrawer.bind(this, true)}>
-          <List className = {classes.list}>
+          <List className={classes.list}>
             {pages.map((page) => (
-              <Link to = {page.link} key={page.name}>
+              <Link to={page.link} key={page.name}>
                 <ListItem button>
                   <ListItemIcon><page.icon /></ListItemIcon>
                   <ListItemText primary={page.name} />
                 </ListItem>
               </Link>
             ))}
+              <ListItem button onClick = {() => this.props.changeLoginStatus(false, null)}>
+                <ListItemIcon><MailIcon /></ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItem>
           </List>
         </SwipeableDrawer>
 
-        <div className = {classes.pageContainer}>
+        <div className={classes.pageContainer}>
           <Switch>
-            <Route path = '/' component = {Profile} />
+            <Route path='/' component={Profile} />
           </Switch>
         </div>
       </AuthRequired>
@@ -111,7 +105,6 @@ class Nav extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log(Object.assign({}, auth));
   return bindActionCreators(Object.assign({}, auth), dispatch);
 }
 

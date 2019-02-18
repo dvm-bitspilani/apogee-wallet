@@ -11,6 +11,16 @@ export const changeLoginStatus = (isLoggedIn, JWT) => ({
   }
 })
 
+const testBody = {
+  qrCode: "HemanthChutiya",
+  phone: 6969696969,
+  occupation: "Dimag Chodna",
+  userId: "hva",
+  email: "hemanth@jhatu.com",
+  user_id: "2017JHATUJHA",
+  name: "Hemanth chu"
+}
+
 export const login = (username, password) => dispatch => {
   request({
     method: 'POST',
@@ -23,6 +33,10 @@ export const login = (username, password) => dispatch => {
       username, password
     })
   }, (error, response, body) => {
+    dispatch(changeLoginStatus(true, ""))
+    dispatch(setProfile(testBody));
+    return;
+    dispatch(setProfile(body))
     if(!response) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
     }
