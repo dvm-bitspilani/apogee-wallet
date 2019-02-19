@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url('../../images/texture.png');
+  background-repeat: repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .moneyDrawersCommon {

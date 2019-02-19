@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Typography, Button } from "@material-ui/core";
-import QRCode from "qrcode.react";
 import { connect } from "react-redux";
 
 import classes from "./styles.module.scss";
@@ -27,8 +26,6 @@ class Profile extends Component {
       <AuthRequired>
         <Typography variant="h4">{this.props.userProfile.name}</Typography>
         <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
-
-        <QRCode className={classes.qr} value="asdf" />
 
         <div className={classes.balance}>
           <Typography variant="h4">2500</Typography>
