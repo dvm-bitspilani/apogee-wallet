@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 
 import classes from "./styles.module.scss";
 import AuthRequired from "../AuthRequired";
-import MoneyDrawerBase from "../MoneyDrawerBase"
-import AddMoneyDrawer from "../MoneyDrawerBase/AddMoneyDrawer"
-import SendMoneyDrawer from "../MoneyDrawerBase/SendMoneyDrawer"
+import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
+import RecieveMoneyDrawer from "../MoneyDrawers/RecieveMoneyDrawer"
+import SendMoneyDrawer from "../MoneyDrawers/SendMoneyDrawer"
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -63,7 +63,7 @@ class Profile extends Component {
           <AddMoneyDrawer
             open={this.state.addMoneyDrawerOpened}
             close={this.closeDrawer('addMoney')} />
-          <MoneyDrawerBase
+          <RecieveMoneyDrawer
             open={this.state.recieveMoneyDrawerOpened} 
             close={this.closeDrawer('recieveMoney')} />
           <SendMoneyDrawer

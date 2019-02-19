@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Drawer, Button } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 
-import classes from './baseStyles.module.scss'
+import classes from './styles.module.scss'
 
 const MoneyDrawerBase = ({ children, open, close }) => {
   console.log(open)

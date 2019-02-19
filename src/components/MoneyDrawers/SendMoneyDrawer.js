@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
 
-import MoneyDrawerBase from './index'
-import classes from './addMoneyStyles.module.scss'
+import MoneyDrawerBase from './MoneyDrawerBase'
+import classes from './styles.module.scss'
 
-class AddMoneyDrawer extends Component {
+class SendMoneyDrawer extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,7 +15,7 @@ class AddMoneyDrawer extends Component {
   render() {
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
-        <div className={classes.addMoneyDrawer}>
+        <div className={classes.moneyDrawersCommon}>
           <h3>I WANT TO SEND</h3>
           <div style={{
             display: "flex",
@@ -51,4 +51,4 @@ class AddMoneyDrawer extends Component {
   }
 }
 
-export default AddMoneyDrawer
+export default SendMoneyDrawer
