@@ -82,12 +82,12 @@ class Nav extends Component {
 
         <SwipeableDrawer
           open={this.state.isDrawerOpen}
-          onClose={this.toggleDrawer.bind(this, false)}
-          onOpen={this.toggleDrawer.bind(this, true)}>
+          onClose={() => this.toggleDrawer(false)}
+          variant="temporary">
           <List className={classes.list}>
             {pages.map((page) => (
               <Link to={page.link} key={page.name}>
-                <ListItem button>
+                <ListItem button onClick={() => this.toggleDrawer(false)}>
                   <ListItemIcon><page.icon /></ListItemIcon>
                   <ListItemText primary={page.name} />
                 </ListItem>
