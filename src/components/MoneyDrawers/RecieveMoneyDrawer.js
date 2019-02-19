@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
+import { connect } from 'react-redux'
 import QRCode from "qrcode.react";
 
 import MoneyDrawerBase from './MoneyDrawerBase'
@@ -8,10 +9,6 @@ import classes from './styles.module.scss'
 class RecieveMoneyDrawer extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      walletId: "",
-      amount: ""
-    }
   }
   render() {
     return (
@@ -25,7 +22,7 @@ class RecieveMoneyDrawer extends Component {
           style={{
             marginBottom: "20px"
           }}>ASK THE SENDER TO SCAN THE QR CODE</h3>
-          <QRCode value="asdf" />
+          <QRCode value={this.props.userProfile.qrCode} />
         </div>
 
       </MoneyDrawerBase>
@@ -33,4 +30,7 @@ class RecieveMoneyDrawer extends Component {
   }
 }
 
-export default RecieveMoneyDrawer
+const mapStateToProps = state => ({
+  userProfile: state.userProfile
+})
+export default connect(mapStateToProps, null)(RecieveMoneyDrawer)

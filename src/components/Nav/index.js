@@ -83,7 +83,8 @@ class Nav extends Component {
         <SwipeableDrawer
           open={this.state.isDrawerOpen}
           onClose={() => this.toggleDrawer(false)}
-          variant="temporary">
+          variant="temporary"
+          transitionDuration={300}>
           <List className={classes.list}>
             {pages.map((page) => (
               <Link to={page.link} key={page.name}>

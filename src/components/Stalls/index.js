@@ -25,7 +25,7 @@ export default class Stalls extends Component {
       <AuthRequired>
         <Typography variant="h4">STALLS</Typography>
 
-        <AppList items = {sampleStruct}/>
+        <AppList items={sampleStruct}/>
 
       </AuthRequired>
     )
