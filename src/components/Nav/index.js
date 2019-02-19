@@ -18,6 +18,7 @@ import classes from './styles.module.scss';
 import * as auth from '@/actionCreators/auth'
 import Profile from '../Profile';
 import Cart from '../Cart';
+import Stalls from '../Stalls';
 
 class Nav extends Component {
   constructor(props) {
@@ -103,6 +104,7 @@ class Nav extends Component {
           <Switch>
             <Route exact path='/' component={Profile} />
             <Route path='/cart' component={Cart} />
+            <Route path='/stalls' component={Stalls} />
           </Switch>
         </div>
       </AuthRequired>

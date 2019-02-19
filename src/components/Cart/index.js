@@ -3,6 +3,7 @@ import AuthRequired from "../AuthRequired";
 
 import classes from './styles.module.scss';
 import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from "@material-ui/core";
+import { Mail as MailIcon } from "@material-ui/icons";
 
 export default class Cart extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class Cart extends Component {
                 {[0, 1, 2].map(item => (
                   <ListItem key={`item-${sectionId}-${item}`} className = {classes.cartItem}>
                     <ListItemText primary={`Item ${item}`} secondary = {`INR 123`}/>
+                    <MailIcon />
                   </ListItem>
                 ))}
                 <Divider />
