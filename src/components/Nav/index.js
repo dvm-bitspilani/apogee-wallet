@@ -4,7 +4,12 @@ import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, To
 import { 
   ShoppingCartOutlined as ShoppingCartIcon, 
   Menu as MenuIcon, 
-  Mail as MailIcon } from '@material-ui/icons';
+  Mail as MailIcon,
+  AccountCircle as AccountCircleIcon,
+  Store as StoreIcon,
+  Fastfood as FastfoodIcon,
+  Money as MoneyIcon, 
+  LocalActivity as LocalActivityIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -35,33 +40,28 @@ class Nav extends Component {
       {
         name: 'Profile',
         link: '/',
-        icon: () => <MailIcon />
+        icon: () => <AccountCircleIcon />
       },
       {
         name: 'Stalls',
         link: '/stalls',
-        icon: () => <MailIcon />
+        icon: () => <StoreIcon />
       },
       {
         name: 'Current Orders',
         link: '/current_orders',
-        icon: () => <MailIcon />
+        icon: () => <FastfoodIcon />
       },
       {
         name: 'Past Transactions',
         link: '/past_transactions',
-        icon: () => <MailIcon />
+        icon: () => <MoneyIcon />
       },
       {
         name: 'Profshow Tickets',
         link: '/profshow',
-        icon: () => <MailIcon />
+        icon: () => <LocalActivityIcon />
       },
-      // {
-      //   name: 'Logout',
-      //   link: '/cart',
-      //   icon: () => <MailIcon />
-      // },
     ]
     return (
       <AuthRequired>

@@ -5,7 +5,6 @@ import { withRouter, Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import * as auth from '@/actionCreators/auth'

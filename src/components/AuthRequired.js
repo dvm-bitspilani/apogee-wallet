@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const authRequired = ({ isLoggedIn, children }) => {
-    console.log(isLoggedIn)
     return (isLoggedIn ? children : <Redirect to="/login" />)
 }
 
