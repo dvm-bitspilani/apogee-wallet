@@ -21,6 +21,11 @@ html, body, #root{
   width: 100%;
 }
 
+a {
+  text-decoration: inherit !important;
+  color: inherit;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",

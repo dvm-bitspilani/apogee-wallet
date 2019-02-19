@@ -10,25 +10,36 @@ class Profile extends Component {
   render() {
     return (
       <AuthRequired>
-        <div className={classes.container}>
-          <Typography variant="h5" className={classes.name}>{this.props.userProfile.name}</Typography>
-          <Typography variant="h5" className={classes.id}>{this.props.userProfile.userId}</Typography>
-          <QRCode value="asdf" />
+        <div className={classes.info}>
+          <Typography variant="h4">{this.props.userProfile.name}</Typography>
+          <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
+        </div>
+        <QRCode className={classes.qr} value="asdf" />
+
+        <div className={classes.balance}>
+          <Typography variant="h4">2500</Typography>
+          <Typography variant="h6">BALANCE</Typography>
+        </div>
+
+        <div className={classes.btnWrap}>
           <Button
+            className={classes.btns}
             variant="contained"
             color="primary">
             Add Money
-          </Button>
+            </Button>
           <Button
+            className={classes.btns}
             variant="contained"
             color="primary">
             Receive Money
-          </Button>
+            </Button>
           <Button
+            className={classes.btns}
             variant="contained"
             color="primary">
             Send Money
-          </Button>
+            </Button>
         </div>
       </AuthRequired>
     )
