@@ -8,7 +8,7 @@ class AddMoneyDrawer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: ""
+      amount: ""
     }
   }
   render() {
@@ -18,8 +18,9 @@ class AddMoneyDrawer extends Component {
           <h3>I WANT TO ADD</h3>
           <TextField
             label="Amount"
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
+            value={this.state.amount}
+            onChange={e => this.setState({ amount: e.target.value })}
+            type="number"
             margin="normal"
             variant="outlined"
             helperText="INR"

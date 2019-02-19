@@ -7,6 +7,7 @@ import classes from "./styles.module.scss";
 import AuthRequired from "../AuthRequired";
 import MoneyDrawerBase from "../MoneyDrawerBase"
 import AddMoneyDrawer from "../MoneyDrawerBase/AddMoneyDrawer"
+import SendMoneyDrawer from "../MoneyDrawerBase/SendMoneyDrawer"
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -65,7 +66,7 @@ class Profile extends Component {
           <MoneyDrawerBase
             open={this.state.recieveMoneyDrawerOpened} 
             close={this.closeDrawer('recieveMoney')} />
-          <MoneyDrawerBase
+          <SendMoneyDrawer
             open={this.state.sendMoneyDrawerOpened} 
             close={this.closeDrawer('sendMoney')} />
 
