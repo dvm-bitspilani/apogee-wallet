@@ -1,12 +1,22 @@
 import React, { Component } from "react";
-import AuthRequired from "../AuthRequired";
 import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from "@material-ui/core";
 import { Mail as MailIcon, ArrowForwardIos as Arrow } from "@material-ui/icons";
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+import AuthRequired from "../AuthRequired";
 import classes from './styles.module.scss';
 import AppList from "../AppList";
+import * as vendors from "@/actionCreators/vendors"
 
-export default class Stalls extends Component {
+class Stalls extends Component {
+  constructor(props) {
+    super(props)
+  }
+  componentWillMount() {
+    console.log(this.props)
+    this.props.getVendors()
+  }
   render () {
     const sampleStruct = [
       {
@@ -31,3 +41,9 @@ export default class Stalls extends Component {
     )
   }
 }
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators(Object.assign({}, vendors), dispatch)
+)
+
+export default connect(null, mapDispatchToProps)(Stalls)

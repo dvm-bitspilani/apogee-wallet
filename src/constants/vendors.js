@@ -1,1 +1,1 @@
-export const GET_VENDOR = "GET_VENDOR"
+export const SET_VENDORS = "SET_VENDORS"

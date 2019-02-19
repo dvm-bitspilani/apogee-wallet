@@ -27,7 +27,8 @@ export const login = (username, password) => dispatch => {
     url: api.OUTSTATION_LOGIN,
     headers: {
       'Content-Type': 'application/json',
-      'X-Wallet-Token': api.WALLET_TOKEN
+      'X-Wallet-Token': api.WALLET_TOKEN,
+      'Access-Control-Allow-Origin' : '*'
     },
     body: JSON.stringify({
       username, password
