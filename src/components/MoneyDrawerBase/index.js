@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Drawer } from '@material-ui/core'
 
+import classes from './baseStyles.module.scss'
+
 const MoneyDrawerBase = ({ children, open, close }) => {
   console.log(open)
   return (
@@ -8,7 +10,10 @@ const MoneyDrawerBase = ({ children, open, close }) => {
       open={open} 
       onClose={close}
       variant="temporary" 
-      anchor="bottom">
+      anchor="bottom"
+      classes={{
+        paper: classes.moneyDrawerBase
+      }}>
       {children}
     </Drawer>
   )
