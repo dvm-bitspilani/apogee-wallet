@@ -12,6 +12,7 @@ import AuthRequired from '../AuthRequired'
 import classes from './styles.module.scss';
 import * as auth from '@/actionCreators/auth'
 import Profile from '../Profile';
+import Cart from '../Cart';
 
 class Nav extends Component {
   constructor(props) {
@@ -72,7 +73,9 @@ class Nav extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Wallet
             </Typography>
-            <Button color="inherit"><ShoppingCartIcon /></Button>
+            <Link to = "/cart">
+              <Button color="inherit"><ShoppingCartIcon /></Button>
+            </Link>
           </Toolbar>
         </AppBar>
 
@@ -98,7 +101,8 @@ class Nav extends Component {
 
         <div className={classes.pageContainer}>
           <Switch>
-            <Route path='/' component={Profile} />
+            <Route exact path='/' component={Profile} />
+            <Route path='/cart' component={Cart} />
           </Switch>
         </div>
       </AuthRequired>

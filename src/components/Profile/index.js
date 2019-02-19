@@ -10,10 +10,9 @@ class Profile extends Component {
   render() {
     return (
       <AuthRequired>
-        <div className={classes.info}>
-          <Typography variant="h4">{this.props.userProfile.name}</Typography>
-          <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
-        </div>
+        <Typography variant="h4">{this.props.userProfile.name}</Typography>
+        <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
+
         <QRCode className={classes.qr} value="asdf" />
 
         <div className={classes.balance}>
