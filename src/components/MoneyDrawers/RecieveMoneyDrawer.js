@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
+import QRCode from "qrcode.react";
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
@@ -15,37 +16,18 @@ class RecieveMoneyDrawer extends Component {
   render() {
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
-        <div className={classes.moneyDrawersCommon}>
-          <h3>I WANT TO SEND</h3>
-          <div style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
+        <div
+          className={classes.moneyDrawersCommon}
+          style={{
+            justifyContent: "center"
           }}>
-            <TextField
-              label="WalletId"
-              value={this.state.walletId}
-              onChange={e => this.setState({ walletId: e.target.value })}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextField
-              label="Amount"
-              value={this.state.amount}
-              onChange={e => this.setState({ amount: e.target.value })}
-              type="number"
-              margin="normal"
-              variant="outlined"
-              helperText="INR"
-            />
-          </div>
-          <Button
-            variant="contained"
-            color="secondary">
-            SEND
-          </Button>
+          <h3
+          style={{
+            marginBottom: "20px"
+          }}>ASK THE SENDER TO SCAN THE QR CODE</h3>
+          <QRCode value="asdf" />
         </div>
+
       </MoneyDrawerBase>
     )
   }
