@@ -4,6 +4,8 @@ import {
   RemoveCircleOutline as RemoveIcon
 } from '@material-ui/icons'
 import { List, ListItem, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
+import { connect } from 'react-redux'
+import request from 'request'
 
 import AppList from '../AppList'
 
@@ -11,24 +13,35 @@ class StallItems extends Component {
   constructor(props) {
     super(props)
     console.log(props)
+    this.state = {
+      items: []
+    }
+  }
+
+  componentWillMount() {
+    request({
+      method: 'GET',
+      url: `http://139.59.64.214/wallet/vendor/${this.props.match.params.id}/items`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Wallet-Token': 'samp1e_Token',
+        'Authorization': `JWT ${this.props.auth.JWT}`
+      }}, (error, response, body) => {
+      try {
+        body =  JSON.parse(body)
+        this.setState({
+          items: body
+        })
+      }catch(e) {}
+    });
   }
 
   render() {
-    console.log(AppList)
-    let sampleStruct = [
-      {
-        primary: "Pizza Hut",
-        secondary: "",
-        
-
-      },
-      {
-        primary: "Goosebumps",
-        secondary: "",
-        
-      },
-    ].map(item => ({
+    console.log(this.state.items)
+    let struct = this.state.items.map(item => ({
       ...item,
+      primary: item.name,
+      secondary: item.price,
       Icon: () => (<div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         <AddIcon style={{marginRight: "5px"}}/> <span>2</span> <RemoveIcon style={{marginLeft: "5px"}}/>
       </div>)
@@ -39,7 +52,7 @@ class StallItems extends Component {
         width: "100%"
       }}>
         {
-          sampleStruct.map(({ primary, secondary, Icon }) => (
+          struct.map(({ primary, secondary, Icon }) => (
             <ListItem key={primary}>
               <ListItemText primary={primary} secondary={secondary} />
               <ListItemSecondaryAction>
@@ -53,4 +66,7 @@ class StallItems extends Component {
   }
 }
 
-export default StallItems
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+export default connect(mapStateToProps, null)(StallItems)
