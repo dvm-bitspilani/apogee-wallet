@@ -1,9 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
   AddCircleOutline as AddIcon,
   RemoveCircleOutline as RemoveIcon
 } from '@material-ui/icons'
-import { List, ListItem, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  Typography,
+  ListItemText,
+  ListItemSecondaryAction,
+} from "@material-ui/core";
 import { connect } from 'react-redux'
 import request from 'request'
 
@@ -14,6 +20,7 @@ class StallItems extends Component {
     super(props)
     console.log(props)
     this.state = {
+      stallName: "",
       items: []
     }
   }
@@ -21,18 +28,35 @@ class StallItems extends Component {
   componentWillMount() {
     request({
       method: 'GET',
+      url: `http://139.59.64.214/wallet/vendor/${this.props.match.params.id}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Wallet-Token': 'samp1e_Token',
+        'Authorization': `JWT ${this.props.auth.JWT}`
+      }
+    }, (error, response, body) => {
+      try {
+        body = JSON.parse(body)
+        this.setState({
+          stallName: body.name
+        })
+      } catch (e) { }
+    });
+    request({
+      method: 'GET',
       url: `http://139.59.64.214/wallet/vendor/${this.props.match.params.id}/items`,
       headers: {
         'Content-Type': 'application/json',
         'X-Wallet-Token': 'samp1e_Token',
         'Authorization': `JWT ${this.props.auth.JWT}`
-      }}, (error, response, body) => {
+      }
+    }, (error, response, body) => {
       try {
-        body =  JSON.parse(body)
+        body = JSON.parse(body)
         this.setState({
           items: body
         })
-      }catch(e) {}
+      } catch (e) { }
     });
   }
 
@@ -42,26 +66,29 @@ class StallItems extends Component {
       ...item,
       primary: item.name,
       secondary: item.price,
-      Icon: () => (<div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <AddIcon style={{marginRight: "5px"}}/> <span>2</span> <RemoveIcon style={{marginLeft: "5px"}}/>
+      Icon: () => (<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <AddIcon style={{ marginRight: "5px" }} /> <span>2</span> <RemoveIcon style={{ marginLeft: "5px" }} />
       </div>)
 
     }));
     return (
-      <List style={{
-        width: "100%"
-      }}>
-        {
-          struct.map(({ primary, secondary, Icon }) => (
-            <ListItem key={primary}>
-              <ListItemText primary={primary} secondary={secondary} />
-              <ListItemSecondaryAction>
-                <Icon />
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))
-        }
-      </List >
+      <Fragment>
+        <Typography variant="h4"> {this.state.stallName} </Typography>
+        <List style={{
+          width: "100%"
+        }}>
+          {
+            struct.map(({ primary, secondary, Icon }) => (
+              <ListItem key={primary}>
+                <ListItemText primary={primary} secondary={secondary} />
+                <ListItemSecondaryAction>
+                  <Icon />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))
+          }
+        </List >
+      </Fragment>
     )
   }
 }
