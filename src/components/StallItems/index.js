@@ -12,68 +12,34 @@ import {
 } from "@material-ui/core";
 import { connect } from 'react-redux'
 import request from 'request'
+import { bindActionCreators } from 'redux'
+import * as vendors from "@/actionCreators/vendors"
 
 import AppList from '../AppList'
 
 class StallItems extends Component {
-  constructor(props) {
-    super(props)
-    console.log(props)
-    this.state = {
-      stallName: "",
-      items: []
-    }
-  }
-
   componentWillMount() {
-    request({
-      method: 'GET',
-      url: `http://139.59.64.214/wallet/vendor/${this.props.match.params.id}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Wallet-Token': 'samp1e_Token',
-        'Authorization': `JWT ${this.props.auth.JWT}`
-      }
-    }, (error, response, body) => {
-      try {
-        body = JSON.parse(body)
-        this.setState({
-          stallName: body.name
-        })
-      } catch (e) { }
-    });
-    request({
-      method: 'GET',
-      url: `http://139.59.64.214/wallet/vendor/${this.props.match.params.id}/items`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Wallet-Token': 'samp1e_Token',
-        'Authorization': `JWT ${this.props.auth.JWT}`
-      }
-    }, (error, response, body) => {
-      try {
-        body = JSON.parse(body)
-        this.setState({
-          items: body
-        })
-      } catch (e) { }
-    });
+    this.props.getItems(this.props.match.params.id);
   }
 
   render() {
-    console.log(this.state.items)
-    let struct = this.state.items.map(item => ({
-      ...item,
-      primary: item.name,
-      secondary: item.price,
-      Icon: () => (<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <AddIcon style={{ marginRight: "5px" }} /> <span>2</span> <RemoveIcon style={{ marginLeft: "5px" }} />
-      </div>)
+    let struct;
 
-    }));
+    if (!this.props.items) struct = [];
+    else {
+      struct = this.props.items.map(item => ({
+        ...item,
+        primary: item.name,
+        secondary: item.price,
+        Icon: () => (<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <AddIcon style={{ marginRight: "5px" }} /> <span>2</span> <RemoveIcon style={{ marginLeft: "5px" }} />
+        </div>)
+      }));
+    }
+
     return (
       <Fragment>
-        <Typography variant="h4"> {this.state.stallName} </Typography>
+        <Typography variant="h4"> {this.props.stallName} </Typography>
         <List style={{
           width: "100%"
         }}>
@@ -94,6 +60,12 @@ class StallItems extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  items: state.vendors.items,
+  stallName: state.vendors.name,
 })
-export default connect(mapStateToProps, null)(StallItems)
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators(Object.assign({}, vendors), dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(StallItems)

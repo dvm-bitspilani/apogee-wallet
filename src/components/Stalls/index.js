@@ -11,9 +11,6 @@ import AppList from "../AppList";
 import * as vendors from "@/actionCreators/vendors"
 
 class Stalls extends Component {
-  constructor(props) {
-    super(props)
-  }
   componentWillMount() {
     this.props.getVendors()
   }
