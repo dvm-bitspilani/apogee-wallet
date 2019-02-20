@@ -11,22 +11,22 @@ import { connect } from "react-redux";
 
 class Cart extends Component {
   render() {
-    console.log(this.props.cart);
     return (
       <AuthRequired>
         <Typography variant="h4">CART</Typography>
 
         <List className={classes.cartList} subheader={<li />}>
-          {[0, 1, 2, 3, 4].map(sectionId => (
-            <li key={`section-${sectionId}`}>
+          {
+            Object.keys(this.props.cart).map(stallId => (
+            <li key={this.props.cart[stallId].stallName}>
               <ul>
-                <ListSubheader className = {classes.stallName}>{`Pizza Hut`}</ListSubheader>
-                {[0, 1, 2].map(item => (
-                  <ListItem key={`item-${sectionId}-${item}`} className = {classes.cartItem}>
-                    <ListItemText primary={`Item ${item}`} secondary = {`INR 123`}/>
+                <ListSubheader className = {classes.stallName}>{this.props.cart[stallId].stallName}</ListSubheader>
+                {Object.keys(this.props.cart[stallId].items).map(itemId => (
+                  <ListItem key={itemId} className = {classes.cartItem}>
+                    <ListItemText primary={this.props.cart[stallId].items[itemId].itemName} secondary = {`INR ${this.props.cart[stallId].items[itemId].price}`}/>
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <AddIcon style={{ marginRight: "5px" }} />
-                          <span>0</span>
+                          <span>{this.props.cart[stallId].items[itemId].quantity}</span>
                         <RemoveIcon style={{ marginLeft: "5px" }} />
                       </div>
                   </ListItem>
@@ -34,7 +34,8 @@ class Cart extends Component {
                 <Divider />
               </ul>
             </li>
-          ))}
+          ))
+          }
         </List>
       </AuthRequired>
     )

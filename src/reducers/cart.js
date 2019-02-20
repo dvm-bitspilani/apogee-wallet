@@ -12,14 +12,14 @@ const reducer = (state = initialState, action) => {
         ...state,
         [action.stallId]: {
           ...state[action.stallId],
-          items: [
-            {
+          items: {
+            ...state[action.stallId].items,
+            [action.itemId]: {
               itemName: action.itemName,
-              itemId: action.itemId,
-              price: action.price
-            },
-            ...state[action.stallId].items.slice(0)
-          ]
+              price: action.price,
+              quantity: 1
+            }
+          }
         }
       }
     }
@@ -28,13 +28,13 @@ const reducer = (state = initialState, action) => {
         ...state,
         [action.stallId]: {
           stallName: action.stallName,
-          items: [
-            {
+          items: {
+            [action.itemId]: {
               itemName: action.itemName,
-              itemId: action.itemId,
-              price: action.price
+              price: action.price,
+              quantity: 1
             }
-          ]
+          }
         }
       }
     }

@@ -8,3 +8,5 @@ export const addToCart = (stallName, stallId, itemName, itemId, price) => ({
   itemId,
   price
 });
+
+// export const increaseQty = (stallName, stallId, )

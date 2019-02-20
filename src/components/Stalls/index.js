@@ -28,7 +28,6 @@ class Stalls extends Component {
       },
     ];
 
-    console.log(this.props)
     // let sampleStruct;
     if (!this.props.vendors || !this.props.vendors.vendors) sampleStruct = []
 
@@ -38,7 +37,6 @@ class Stalls extends Component {
         secondary: "",
         Icon:() => (<Link to={`/stall/${id}/items`}><Arrow /></Link>)
       }))
-      console.log(sampleStruct)
     }
     return (
       <AuthRequired>
