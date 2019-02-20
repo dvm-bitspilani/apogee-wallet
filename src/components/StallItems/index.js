@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import {
-  AddShoppingCart as AddCartIcon
+  AddShoppingCart as AddCartIcon,
+  ArrowBackIos as ArrowIcon
 } from '@material-ui/icons'
 import {
   List,
+  Button,
   ListItem,
   Typography,
   ListItemText,
@@ -12,10 +14,10 @@ import {
 import { connect } from 'react-redux'
 import request from 'request'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
+
 import * as vendors from "@/actionCreators/vendors"
 import * as cart from "@/actionCreators/cart"
-
-import AppList from '../AppList'
 
 class StallItems extends Component {
   componentWillMount() {
@@ -32,7 +34,7 @@ class StallItems extends Component {
         primary: item.name,
         secondary: item.price,
         Icon: () => (
-          <AddCartIcon onClick = {
+          <AddCartIcon onClick={
             () => this.props.addToCart(
               this.props.stallName,
               this.props.stallId,
@@ -40,13 +42,21 @@ class StallItems extends Component {
               item.id,
               item.price
             )
-          }/>
+          } />
         )
       }));
     }
 
     return (
       <Fragment>
+        <Link to="/stalls">
+          <Button style={{
+            position: "absolute",
+            left: "0px"
+          }}>
+            <ArrowIcon />
+          </Button>
+        </Link>
         <Typography variant="h4"> {this.props.stallName} </Typography>
         <List style={{
           width: "100%"

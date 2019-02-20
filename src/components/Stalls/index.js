@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from "@material-ui/core";
+import {
+  Typography,
+  List,
+  ListSubheader,
+  ListItem,
+  ListItemText,
+  Divider,
+  Button
+} from "@material-ui/core";
 import { Mail as MailIcon, ArrowForwardIos as Arrow } from "@material-ui/icons";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -35,7 +43,12 @@ class Stalls extends Component {
       sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
         primary: name,
         secondary: "",
-        Icon:() => (<Link to={`/stall/${id}/items`}><Arrow /></Link>)
+        Icon: () => (
+          <Link to={`/stall/${id}/items`}>
+            <Button>
+              <Arrow />
+            </Button>
+          </Link>)
       }))
     }
     return (
