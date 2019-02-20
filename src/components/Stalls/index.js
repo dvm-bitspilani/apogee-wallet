@@ -41,7 +41,7 @@ class Stalls extends Component {
       sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
         primary: name,
         secondary: "",
-        icon: Arrow
+        Icon: Arrow
       }))
       console.log(sampleStruct)
     }

@@ -16,9 +16,11 @@ import { bindActionCreators } from 'redux';
 import AuthRequired from '../AuthRequired'
 import classes from './styles.module.scss';
 import * as auth from '@/actionCreators/auth'
+
 import Profile from '../Profile';
 import Cart from '../Cart';
 import Stalls from '../Stalls';
+import StallItems from '../StallItems';
 
 class Nav extends Component {
   constructor(props) {
@@ -107,6 +109,7 @@ class Nav extends Component {
             <Route exact path='/' component={Profile} />
             <Route path='/cart' component={Cart} />
             <Route path='/stalls' component={Stalls} />
+            <Route path='/stall/:id/items' component={StallItems} />
           </Switch>
         </div>
       </AuthRequired>

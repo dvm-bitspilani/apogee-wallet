@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment} from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 
 import classes from './styles.module.scss';
@@ -9,10 +9,10 @@ export default class AppList extends Component {
     return (
       <List className={classes.appList} subheader={<li />}>
         {
-          this.props.items.map(item => (
-            <ListItem key={item.primary}>
-              <ListItemText primary={item.primary} secondary = {item.secondary}/>
-              <item.icon/>
+          this.props.items.map(({primary = "", secondary = "", Icon = Fragment}) => (
+            <ListItem key={primary}>
+              <ListItemText primary={primary} secondary = {secondary}/>
+              {<Icon />}
             </ListItem>
           ))
         }
