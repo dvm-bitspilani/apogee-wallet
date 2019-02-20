@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import {
-  AddShoppingCart as AddCartIcon
+  AddShoppingCart as AddCartIcon,
+  AddCircleOutline as AddIcon,
+  RemoveCircleOutline as RemoveIcon,
 } from '@material-ui/icons'
 import {
   List,
@@ -25,22 +27,25 @@ class StallItems extends Component {
   render() {
     let struct;
 
-    if (!this.props.items || !this.props.stallName || !this.props.stallId) struct = [];
+    if (!this.props.items || !this.props.stallName || !this.props.stallId || !this.props.cart) struct = [];
     else {
       struct = this.props.items.map(item => ({
         ...item,
         primary: item.name,
         secondary: item.price,
         Icon: () => (
-          <AddCartIcon onClick = {
-            () => this.props.addToCart(
-              this.props.stallName,
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <AddIcon onClick = {this.props.addToCart.bind(this, this.props.stallName,
               this.props.stallId,
               item.name,
               item.id,
-              item.price
-            )
-          }/>
+              item.price)} style={{ marginRight: "5px" }} />
+              <span>{
+                (this.props.cart[this.props.stallId] && this.props.cart[this.props.stallId].items[item.id]) ?
+                this.props.cart[this.props.stallId].items[item.id].quantity : 0
+              }</span>
+            <RemoveIcon onClick = {this.props.decreaseQty.bind(this, this.props.stallId, item.id)} style={{ marginLeft: "5px" }} />
+          </div>
         )
       }));
     }
