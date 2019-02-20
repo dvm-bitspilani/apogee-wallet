@@ -58,26 +58,30 @@ const reducer = (state = initialState, action) => {
   }
 
   else if (type === cart.DEC_QTY) {
-    let newState = {
-      ...state,
-      [action.stallId]: {
-        ...state[action.stallId],
-        items: {
-          ...state[action.stallId].items,
-          [action.itemId]: {
-            ...state[action.stallId].items[action.itemId],
-            quantity: state[action.stallId].items[action.itemId].quantity - 1
+
+    let newState = { ...state }
+    if (state[action.stallId] && state[action.stallId].items[action.itemId]) {
+      newState = {
+        ...state,
+        [action.stallId]: {
+          ...state[action.stallId],
+          items: {
+            ...state[action.stallId].items,
+            [action.itemId]: {
+              ...state[action.stallId].items[action.itemId],
+              quantity: state[action.stallId].items[action.itemId].quantity - 1
+            }
           }
         }
       }
-    }
-
-    if (newState[action.stallId].items[action.itemId].quantity === 0) {
-      delete newState[action.stallId].items[action.itemId];
-    }
-
-    if (Object.keys(newState[action.stallId].items).length <= 0) {
-      delete newState[action.stallId];
+  
+      if (newState[action.stallId].items[action.itemId].quantity === 0) {
+        delete newState[action.stallId].items[action.itemId];
+      }
+  
+      if (Object.keys(newState[action.stallId].items).length <= 0) {
+        delete newState[action.stallId];
+      }
     }
 
     return newState;
