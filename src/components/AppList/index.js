@@ -12,7 +12,7 @@ export default class AppList extends Component {
           this.props.items.map(({primary = "", secondary = "", Icon = Fragment}) => (
             <ListItem key={primary}>
               <ListItemText primary={primary} secondary = {secondary}/>
-              {<Icon />}
+              <Icon />
             </ListItem>
           ))
         }
