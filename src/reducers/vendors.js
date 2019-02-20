@@ -20,7 +20,8 @@ const reducer = (state = intitialState, action) => {
   else if (type === vendors.SET_CURR_VENDOR) {
     return {
       ...state,
-      name: action.name
+      name: action.name,
+      id: action.id,
     }
   }
 

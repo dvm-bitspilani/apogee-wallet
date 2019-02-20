@@ -3,9 +3,10 @@ import request from 'request'
 import * as vendors from '@/constants/vendors'
 import * as api from '@/constants/api'
 
-export const setCurrentVendor = name => ({
+export const setCurrentVendor = ({name, id}) => ({
   type: vendors.SET_CURR_VENDOR,
-  name
+  name,
+  id
 });
 
 export const setVendors = payload => ({
@@ -49,7 +50,8 @@ export const getVendor = id => (dispatch, getState) => {
       'Access-Control-Allow-Origin' : '*'
     }}, function (error, response, body) {
       body = JSON.parse(body);
-      dispatch(setCurrentVendor(body.name));
+      let { name, id } = body;
+      dispatch(setCurrentVendor({name, id}));
   });
 }
 
@@ -71,6 +73,7 @@ export const getItems = id => (dispatch, getState) => {
     }},
     function (error, response, body) {
       body = JSON.parse(body);
+      console.log(body);
       dispatch(setItems(body));
     }
   );

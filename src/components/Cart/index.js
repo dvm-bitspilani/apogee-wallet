@@ -3,10 +3,15 @@ import AuthRequired from "../AuthRequired";
 
 import classes from './styles.module.scss';
 import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from "@material-ui/core";
-import { Mail as MailIcon } from "@material-ui/icons";
+import {
+  AddCircleOutline as AddIcon,
+  RemoveCircleOutline as RemoveIcon,
+} from "@material-ui/icons";
+import { connect } from "react-redux";
 
-export default class Cart extends Component {
+class Cart extends Component {
   render() {
+    console.log(this.props.cart);
     return (
       <AuthRequired>
         <Typography variant="h4">CART</Typography>
@@ -19,7 +24,11 @@ export default class Cart extends Component {
                 {[0, 1, 2].map(item => (
                   <ListItem key={`item-${sectionId}-${item}`} className = {classes.cartItem}>
                     <ListItemText primary={`Item ${item}`} secondary = {`INR 123`}/>
-                    <MailIcon />
+                      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <AddIcon style={{ marginRight: "5px" }} />
+                          <span>0</span>
+                        <RemoveIcon style={{ marginLeft: "5px" }} />
+                      </div>
                   </ListItem>
                 ))}
                 <Divider />
@@ -31,3 +40,9 @@ export default class Cart extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps, null)(Cart);
