@@ -14,11 +14,13 @@ class Stalls extends Component {
     super(props)
   }
   componentWillMount() {
+    console.log('******************');
     console.log(this.props)
     this.props.getVendors()
+    this.props.getVendor(1)
   }
-  render () {
-    const sampleStruct = [
+  render() {
+    let sampleStruct = [
       {
         primary: "Pizza Hut",
         secondary: "",
@@ -31,11 +33,23 @@ class Stalls extends Component {
       },
     ];
 
+    console.log(this.props)
+    // let sampleStruct;
+    if (!this.props.vendors || !this.props.vendors.vendors) sampleStruct = []
+
+    else {
+      sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
+        primary: name,
+        secondary: "",
+        icon: Arrow
+      }))
+      console.log(sampleStruct)
+    }
     return (
       <AuthRequired>
         <Typography variant="h4">STALLS</Typography>
 
-        <AppList items={sampleStruct}/>
+        <AppList items={sampleStruct} />
 
       </AuthRequired>
     )
@@ -46,4 +60,8 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators(Object.assign({}, vendors), dispatch)
 )
 
-export default connect(null, mapDispatchToProps)(Stalls)
+const mapStateToProps = state => ({
+  vendors: state.vendors
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stalls)
