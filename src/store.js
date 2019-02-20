@@ -12,13 +12,14 @@ const store = createStore(combineReducers(reducers), initStore, composeEnhancers
 
 store.subscribe(() => {
   const state = store.getState();
-  let { auth, userProfile } = state;
+  let { auth, userProfile, cart } = state;
   if(!auth.isLoggedIn) {
     localStorage.removeItem(api.LOCALSTORAGE_LOGIN);
   }
   auth = { ...auth, isMessageSet: false, message: ""}
+
   const localStorageItem = {
-    auth, userProfile
+    auth, userProfile, cart
   }
   localStorage.setItem(api.LOCALSTORAGE_LOGIN, JSON.stringify(localStorageItem));
 });
