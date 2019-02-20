@@ -9,4 +9,14 @@ export const addToCart = (stallName, stallId, itemName, itemId, price) => ({
   price
 });
 
-// export const increaseQty = (stallName, stallId, )
+export const increaseQty = (stallId, itemId) => ({
+  type: cart.INC_QTY,
+  stallId,
+  itemId
+});
+
+export const decreaseQty = (stallId, itemId) => ({
+  type: cart.DEC_QTY,
+  stallId,
+  itemId
+});

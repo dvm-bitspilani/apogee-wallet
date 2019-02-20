@@ -41,6 +41,38 @@ const reducer = (state = initialState, action) => {
     return newState;
   }
 
+  else if (type === cart.INC_QTY) {
+    return {
+      ...state,
+      [action.stallId]: {
+        ...state[action.stallId],
+        items: {
+          ...state[action.stallId].items,
+          [action.itemId]: {
+            ...state[action.stallId].items[action.itemId],
+            quantity: state[action.stallId].items[action.itemId].quantity + 1
+          }
+        }
+      }
+    }
+  }
+
+  else if (type === cart.DEC_QTY) {
+    return {
+      ...state,
+      [action.stallId]: {
+        ...state[action.stallId],
+        items: {
+          ...state[action.stallId].items,
+          [action.itemId]: {
+            ...state[action.stallId].items[action.itemId],
+            quantity: state[action.stallId].items[action.itemId].quantity - 1
+          }
+        }
+      }
+    }
+  }
+
   return {
     ...state
   }

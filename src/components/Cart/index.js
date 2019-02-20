@@ -8,6 +8,8 @@ import {
   RemoveCircleOutline as RemoveIcon,
 } from "@material-ui/icons";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as cart from "@/actionCreators/cart"
 
 class Cart extends Component {
   render() {
@@ -25,9 +27,9 @@ class Cart extends Component {
                   <ListItem key={itemId} className = {classes.cartItem}>
                     <ListItemText primary={this.props.cart[stallId].items[itemId].itemName} secondary = {`INR ${this.props.cart[stallId].items[itemId].price}`}/>
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <AddIcon style={{ marginRight: "5px" }} />
+                        <AddIcon onClick = {this.props.increaseQty.bind(this, stallId, itemId)} style={{ marginRight: "5px" }} />
                           <span>{this.props.cart[stallId].items[itemId].quantity}</span>
-                        <RemoveIcon style={{ marginLeft: "5px" }} />
+                        <RemoveIcon onClick = {this.props.decreaseQty.bind(this, stallId, itemId)} style={{ marginLeft: "5px" }} />
                       </div>
                   </ListItem>
                 ))}
@@ -46,4 +48,8 @@ const mapStateToProps = state => ({
   cart: state.cart
 });
 
-export default connect(mapStateToProps, null)(Cart);
+const mapDispatchToProps = dispatch => (
+  bindActionCreators(Object.assign({}, cart), dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
