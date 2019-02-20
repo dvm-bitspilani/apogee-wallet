@@ -3,6 +3,7 @@ import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from
 import { Mail as MailIcon, ArrowForwardIos as Arrow } from "@material-ui/icons";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router-dom'
 
 import AuthRequired from "../AuthRequired";
 import classes from './styles.module.scss';
@@ -14,10 +15,7 @@ class Stalls extends Component {
     super(props)
   }
   componentWillMount() {
-    console.log('******************');
-    console.log(this.props)
     this.props.getVendors()
-    this.props.getVendor(1)
   }
   render() {
     let sampleStruct = [
@@ -41,7 +39,7 @@ class Stalls extends Component {
       sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
         primary: name,
         secondary: "",
-        Icon: Arrow
+        Icon:() => (<Link to={`/stall/${id}/items`}><Arrow /></Link>)
       }))
       console.log(sampleStruct)
     }
