@@ -24,14 +24,8 @@ export const getVendors = () => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}`,
       'Access-Control-Allow-Origin' : '*'
     }}, (error, response, body) => {
-    // console.log('Status:', response.statusCode);
-    // console.log('Headers:', JSON.stringify(response.headers));
-    // console.log('Response:', body);
     try {
       body = JSON.parse(body);
-      // console.log("Fetched data")
-      // console.log(setVendors(body))
-      // console.log(getState());
       dispatch(setVendors(body))
     }catch(e) {
 
@@ -73,7 +67,6 @@ export const getItems = id => (dispatch, getState) => {
     }},
     function (error, response, body) {
       body = JSON.parse(body);
-      console.log(body);
       dispatch(setItems(body));
     }
   );

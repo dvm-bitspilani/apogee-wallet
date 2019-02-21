@@ -5,7 +5,6 @@ import { Close as CloseIcon } from '@material-ui/icons'
 import classes from './styles.module.scss'
 
 const MoneyDrawerBase = ({ children, open, close }) => {
-  console.log(open)
   return (
     <Drawer
       open={open} 

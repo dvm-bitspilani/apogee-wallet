@@ -21,6 +21,7 @@ import Profile from '../Profile';
 import Cart from '../Cart';
 import Stalls from '../Stalls';
 import StallItems from '../StallItems';
+import PastTransactions from '../PastTransactions';
 
 class Nav extends Component {
   constructor(props) {
@@ -110,6 +111,7 @@ class Nav extends Component {
             <Route path='/cart' component={Cart} />
             <Route path='/stalls' component={Stalls} />
             <Route path='/stall/:id/items' component={StallItems} />
+            <Route path='/past_transactions' component={PastTransactions} />
           </Switch>
         </div>
       </AuthRequired>
