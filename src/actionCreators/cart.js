@@ -1,4 +1,7 @@
+import request from 'request'
+
 import * as cart from '@/constants/cart'
+import * as api from '@/constants/api'
 
 export const addNewItemToCart = (stallName, stallId, itemName, itemId, price) => ({
   type: cart.ADD_TO_CART,
@@ -31,3 +34,28 @@ export const decreaseQty = (stallId, itemId) => ({
   stallId,
   itemId
 });
+
+export const placeOrder = () => (dispatch, getState) => {
+  let requestBody = {};
+  let cart = getState().cart;
+
+  Object.keys(cart).map(stallId => {
+    requestBody[stallId] = {};
+    Object.keys(cart[stallId].items).map(itemId => {
+      requestBody[stallId][itemId] = cart[stallId].items[itemId].quantity;
+    })
+  })
+
+  request({
+    method: 'POST',
+    url: api.PLACE_ORDER,
+    body: JSON.stringify({orderdict: requestBody}),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Wallet-Token': api.WALLET_TOKEN, 
+      'Authorization': `JWT ${getState().auth.JWT}`,
+      'Access-Control-Allow-Origin' : '*'
+    }}, (error, response, body) => {
+      console.log(body);
+  });
+}

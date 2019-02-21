@@ -77,11 +77,7 @@ class Cart extends Component {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => this.setState({
-              addMoneyDrawerOpened: false,
-              recieveMoneyDrawerOpened: false,
-              sendMoneyDrawerOpened: true
-            })}>
+            onClick={this.props.placeOrder}>
             Place Order
           </Button>
         </div>
