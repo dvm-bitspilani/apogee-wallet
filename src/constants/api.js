@@ -1,3 +1,5 @@
+import { WALLET_TOKEN } from "@/../.env"
+
 //Routes
 export const API_ROOT = "http://139.59.64.214/wallet"
 
@@ -8,7 +10,7 @@ export const GET_ORDERS = `${API_ROOT}/orders/`
 export const PLACE_ORDER = `${API_ROOT}/orders/`
 
 //Wallet
-export const WALLET_TOKEN = "samp1e_Token"
+export { WALLET_TOKEN };
 
 //LocalStorage Key
 export const LOCALSTORAGE_LOGIN = "apooge-login"
