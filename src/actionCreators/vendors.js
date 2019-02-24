@@ -34,6 +34,7 @@ export const getVendors = () => (dispatch, getState) => {
 }
 
 export const getVendor = id => (dispatch, getState) => {
+  dispatch(setCurrentVendor({name: "", id: ""}));
   request({
     method: 'GET',
     url: api.GET_VENDORS + id,
@@ -55,6 +56,7 @@ export const setItems = payload => ({
 })
 
 export const getItems = id => (dispatch, getState) => {
+  dispatch(setItems([]));
   dispatch(getVendor(id));
   request({
     method: 'GET',
