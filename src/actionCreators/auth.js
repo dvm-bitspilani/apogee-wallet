@@ -36,7 +36,11 @@ export const login = (username, password) => dispatch => {
         body = JSON.parse(body)
         const { JWT } = body 
         dispatch(changeLoginStatus(true, JWT))
-        dispatch(setProfile(body))
+        dispatch(setProfile({
+          ...body,
+          isBitsian: body.bitsian_id.trim().length > 0
+
+        }))
       }catch(e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }

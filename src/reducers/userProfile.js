@@ -7,7 +7,8 @@ const initialState = {
   userId: null,
   email: null,
   bitsianId: null,
-  name: null
+  name: null,
+  isBitsian: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const reducer = (state = initialState, action) => {
       email,
       bitsian_id: bitsianId,
       name, 
+      isBitsian
     }} = action
     const newState =  {
       ...state,
@@ -30,7 +32,8 @@ const reducer = (state = initialState, action) => {
       userId,
       email,
       bitsianId,
-      name
+      name,
+      isBitsian
     }
     console.log(newState)
     return newState;

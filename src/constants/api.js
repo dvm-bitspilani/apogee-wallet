@@ -1,4 +1,4 @@
-import { WALLET_TOKEN } from "@/../.env"
+import { WALLET_TOKEN } from "@/.env"
 
 //Routes
 export const API_ROOT = "http://139.59.64.214/wallet"
