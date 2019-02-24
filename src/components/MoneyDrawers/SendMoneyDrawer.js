@@ -1,17 +1,77 @@
 import React, { Component } from 'react'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Snackbar } from '@material-ui/core'
+import { connect } from 'react-redux'
+import request from 'request'
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
+import * as api from '@/constants/api'
 
 class SendMoneyDrawer extends Component {
   constructor(props) {
     super(props)
     this.state = {
       walletId: "",
-      amount: ""
+      amount: "",
+      snackbarOpen: false,
+      snackbarMessage: "",
     }
+    this.sendMoney = this.sendMoney.bind(this)
+    this.showSnackbar = this.showSnackbar.bind(this)
   }
+
+  sendMoney() {
+    const amount = Number(this.state.amount)
+    if (Number.isNaN(amount)) return this.showSnackbar('Please enter a valid amount');
+    const { qrCode: qr_code } = this.props.userProfile
+
+    request({
+      method: 'POST',
+      url: api.TRANSFER_MONEY,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Wallet-Token': api.WALLET_TOKEN,
+        'Authorization': `JWT ${this.props.auth.JWT}`
+      },
+      body: JSON.stringify({ qr_code, amount }),
+    }, (error, response, body) => {
+
+      console.log('call made')
+      console.log('Status:', response.statusCode);
+      console.log('Headers:', JSON.stringify(response.headers));
+      console.log('Response:', body);
+      if (!response) {
+        this.showSnackbar("Unknown error, please contact administrator")
+      }
+      else if (response.statusCode === 200) {
+        try {
+          this.showSnackbar("Money transferred succesfully")
+          this.setState({
+            walletId: "",
+            amount: "",
+          })
+        } catch (e) {
+          this.showSnackbar("Unknown error, please contact administrator")
+        }
+      }
+      else {
+        try {
+          body = JSON.parse(body)
+          this.showSnackbar(body.display_message);
+        } catch (e) {
+          this.showSnackbar("Unknown error, please contact adminstrators");
+        }
+      }
+    });
+  }
+
+  showSnackbar(msg) {
+    this.setState({
+      snackbarMessage: msg,
+      snackbarOpen: true
+    })
+  }
+
   render() {
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
@@ -42,13 +102,33 @@ class SendMoneyDrawer extends Component {
           </div>
           <Button
             variant="contained"
-            color="secondary">
+            color="secondary"
+            onClick={() => {
+              console.log('clicked')
+              this.sendMoney()
+            }}>
             SEND
           </Button>
         </div>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left'
+          }}
+          open={this.state.snackbarOpen}
+          autoHideDuration={6000}
+          message={this.state.snackbarMessage}
+          onClose={(e) => this.setState({ snackbarOpen: false })} />
+
       </MoneyDrawerBase>
     )
   }
 }
 
-export default SendMoneyDrawer
+const mapStateToProps = state => ({
+  auth: state.auth,
+  userProfile: state.userProfile,
+
+})
+
+export default connect(mapStateToProps, null)(SendMoneyDrawer)
