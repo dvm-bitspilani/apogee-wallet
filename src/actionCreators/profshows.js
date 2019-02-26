@@ -1,8 +1,12 @@
 import request from 'request'
 
+import * as profshows from '@/constants/profshows'
 import * as api from '@/constants/api'
 
-export const SET_ALL_PROFSHOWS = () => ({})
+export const setAllProfshows = (showsData) => ({
+  type: profshows.SET_ALL_PROFSHOWS,
+  payload: showsData
+});
 
 export const getAllProfshows = () => (dispatch, getState) => {
   request({
@@ -13,9 +17,7 @@ export const getAllProfshows = () => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}` 
     }
   }, function (error, response, body) {
-    console.log('here')
-    console.log('Status:', response.statusCode);
-    console.log('Headers:', JSON.stringify(response.headers));
-    console.log('Response:', body);
+    let profshowsData = JSON.parse(body);
+    dispatch(setAllProfshows(profshowsData));
   });
 }
