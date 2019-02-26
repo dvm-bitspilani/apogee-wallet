@@ -58,7 +58,7 @@ class Login extends Component {
             <Button
               variant="contained"
               color="primary"
-              onClick = {_ => this.props.googleLogin()}
+              onClick = {_ => this.props.getIdToken()}
               >
               Bitsian Login
             </Button>

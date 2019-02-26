@@ -17,11 +17,11 @@ export const changeLoginStatus = (isLoggedIn, JWT) => ({
 export const login = (username, password) => dispatch => {
   request({
     method: 'POST',
-    url: api.OUTSTATION_LOGIN,
+    url: api.LOGIN,
     headers: {
       'Content-Type': 'application/json',
       'X-Wallet-Token': api.WALLET_TOKEN,
-      'Access-Control-Allow-Origin' : '*'
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
       username, password
@@ -31,53 +31,85 @@ export const login = (username, password) => dispatch => {
     // dispatch(setProfile(testBody));
     // return;
     dispatch(setProfile(body))
-    if(!response) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+    if (!response) {
+      dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
     }
-    else if(response.statusCode === 200) {
-      try{
+    else if (response.statusCode === 200) {
+      try {
         body = JSON.parse(body)
-        const { JWT } = body 
+        const { JWT } = body
         dispatch(changeLoginStatus(true, JWT))
         dispatch(setProfile({
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
 
         }))
-      }catch(e) {
+      } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
     }
     else {
-      try{
+      try {
         body = JSON.parse(body)
         dispatch(setErrorMessage(true, body.detail));
-      }catch(e) {
+      } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
     }
   });
 }
 
-export const googleLogin = () => (dispatch, getState) => {
-  console.log('Here')
-  console.log(firebase)
-  /*firebase.auth().getRedirectResult().then(result => {
-    console.log(result)
-  }).catch(e => {
-    console.log(e)
-  })*/
-  firebase.auth().signInWithRedirect(provider);
-  firebase.auth().getRedirectResult().then(result => {
-    console.log(result)
-  }).catch(e => {
-    console.log(e)
-  })
+export const getIdToken = () => (dispatch, getState) => {
+  firebase.auth().signInWithRedirect(provider)
+}
+
+export const googleLogin = id => dispatch => {
+  console.log(id)
+  request({
+    method: 'POST',
+    url: api.LOGIN,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Wallet-Token': api.WALLET_TOKEN,
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      id_token: id
+    })
+  }, (error, response, body) => {
+    console.log('herer')
+    dispatch(setProfile(body))
+    if (!response) {
+      dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+    }
+    else if (response.statusCode === 200) {
+      try {
+        body = JSON.parse(body)
+        const { JWT } = body
+        dispatch(changeLoginStatus(true, JWT))
+        dispatch(setProfile({
+          ...body,
+          isBitsian: body.bitsian_id.trim().length > 0
+
+        }))
+      } catch (e) {
+        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+      }
+    }
+    else {
+      try {
+        body = JSON.parse(body)
+        dispatch(setErrorMessage(true, body.detail));
+      } catch (e) {
+        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+      }
+    }
+  });
 }
 
 export const setErrorMessage = (isMessageSet, message) => {
   return {
-    type: auth.SET_ERRORMESSAGE, 
+    type: auth.SET_ERRORMESSAGE,
     payload: {
       isMessageSet, message
     }
