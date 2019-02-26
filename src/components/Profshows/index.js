@@ -62,6 +62,8 @@ class Profshows extends Component {
   render() {
     let shows = this.props.profshows.allProfshowsData.shows;
     let combos = this.props.profshows.allProfshowsData.combos;
+    console.log(shows);
+    console.log(combos);
     return (
       <>
         <Typography variant="h4">PROFSHOWS</Typography>
@@ -73,11 +75,13 @@ class Profshows extends Component {
             shows
             &&
             shows.map(show => 
+              // ((show.allow_bitsians && this.props.isBitsian) || (show.allow_participants && !this.props.isBitsian))
+              // &&
               <ListItem key={show.id}>
                 <ListItemText primary={show.name} secondary={`INR ${show.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <AddIcon onClick = {this.props.increaseShowQty.bind(null, show.id)} style={{ marginRight: "5px" }} />
-                  <span>{this.props.profshows.showsCart.individual[show.id] ? this.props.profshows.showsCart.individual[show.id] : 0}</span>
+                  <span className = "qty-display">{this.props.profshows.showsCart.individual[show.id] ? this.props.profshows.showsCart.individual[show.id] : 0}</span>
                   <RemoveIcon onClick = {this.props.decreaseShowQty.bind(null, show.id)} style={{ marginLeft: "5px" }} />
                 </div>
               </ListItem>
@@ -90,11 +94,13 @@ class Profshows extends Component {
             combos
             &&
             combos.map(combo =>
+              // ((combo.allow_bitsians && this.props.isBitsian) || (combo.allow_participants && !this.props.isBitsian))
+              // &&
               <ListItem key={combo.id}>
                 <ListItemText primary={combo.name} secondary={`${combo.shows.map(show => Object.values(show))} INR${combo.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                   <AddIcon onClick = {this.props.increaseComboQty.bind(null, combo.id)} style={{ marginRight: "5px" }} />
-                  <span>{this.props.profshows.showsCart.combos[combo.id] ? this.props.profshows.showsCart.combos[combo.id] : 0}</span>
+                  <span className = "qty-display">{this.props.profshows.showsCart.combos[combo.id] ? this.props.profshows.showsCart.combos[combo.id] : 0}</span>
                   <RemoveIcon onClick = {this.props.decreaseComboQty.bind(null, combo.id)} style={{ marginLeft: "5px" }} />
                 </div>
               </ListItem>
@@ -118,7 +124,8 @@ class Profshows extends Component {
 }
 
 const mapStateToProps = state => ({
-  profshows: state.profshows
+  profshows: state.profshows,
+  isBitsian: state.userProfile.isBitsian
 })
 const mapDispatchToProps = dispatch => bindActionCreators(
   Object.assign({}, profshows), 
