@@ -22,7 +22,7 @@ class RecieveMoneyDrawer extends Component {
   componentWillMount() {
     request({
       method: 'GET',
-      url: api.GET_PROFSHOWS,
+      url: api.GET_MY_PROFSHOWS,
       headers: {
         'X-Wallet-Token': api.WALLET_TOKEN,
         'Authorization': `JWT ${this.props.auth.JWT}`

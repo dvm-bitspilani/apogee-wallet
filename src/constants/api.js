@@ -12,7 +12,8 @@ export const PLACE_ORDER = `${API_ROOT}/orders/`
 
 export const TRANSFER_MONEY = `${API_ROOT}/monetary/transfer`
 
-export const GET_PROFSHOWS = `${TICKET_MANAGER}/tickets`
+export const GET_MY_PROFSHOWS = `${TICKET_MANAGER}/tickets`
+export const GET_ALL_PROFSHOWS = `${TICKET_MANAGER}/shows`
 
 //Wallet
 export { WALLET_TOKEN };
