@@ -59,7 +59,9 @@ class Profshows extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  profshows: state.profshows
+})
 const mapDispatchToProps = dispatch => bindActionCreators(
   Object.assign({}, profshows), 
   dispatch

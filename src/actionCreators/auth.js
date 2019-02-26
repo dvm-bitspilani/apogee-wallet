@@ -3,6 +3,9 @@ import request from 'request'
 import * as auth from '@/constants/auth'
 import * as api from '@/constants/api'
 import { setProfile } from './userProfile'
+// import firebase from '../firebaseConfig'
+import firebase from 'firebase/app'
+import { provider } from '@/firebaseConfig'
 
 export const changeLoginStatus = (isLoggedIn, JWT) => ({
   type: auth.SET_LOGIN,
@@ -54,6 +57,22 @@ export const login = (username, password) => dispatch => {
       }
     }
   });
+}
+
+export const googleLogin = () => (dispatch, getState) => {
+  console.log('Here')
+  console.log(firebase)
+  /*firebase.auth().getRedirectResult().then(result => {
+    console.log(result)
+  }).catch(e => {
+    console.log(e)
+  })*/
+  firebase.auth().signInWithRedirect(provider);
+  firebase.auth().getRedirectResult().then(result => {
+    console.log(result)
+  }).catch(e => {
+    console.log(e)
+  })
 }
 
 export const setErrorMessage = (isMessageSet, message) => {

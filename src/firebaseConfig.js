@@ -1,7 +1,13 @@
 import firebase from "firebase/app";
-import * as db from "firebase/database";
+import "firebase/auth"
 import { config } from "@/.env";
 
 firebase.initializeApp(config);
 
-export default db;
+//OAuth Config
+const provider = new firebase.auth.GoogleAuthProvider();
+
+
+export {
+  provider
+}

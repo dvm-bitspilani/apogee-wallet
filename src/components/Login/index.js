@@ -57,7 +57,9 @@ class Login extends Component {
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
               variant="contained"
-              color="primary">
+              color="primary"
+              onClick = {_ => this.props.googleLogin()}
+              >
               Bitsian Login
             </Button>
           </Grid>
