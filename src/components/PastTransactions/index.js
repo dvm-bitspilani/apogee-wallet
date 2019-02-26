@@ -1,7 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
-import { Typography, List, ListSubheader, ListItem, ListItemText, Divider } from "@material-ui/core";
+import {
+  Typography,
+  List, 
+  ListSubheader, 
+  ListItem, 
+  ListItemText, 
+  Divider
+} from "@material-ui/core";
 
 import AppList from '../AppList'
 import * as orders from '@/actionCreators/orders'
@@ -17,9 +24,9 @@ class PastTransactions extends Component {
   }
   render() {
     // return <></>
-    if (!this.props.orders.pastTransactions) return <Fragment />
+    if (!this.props.orders.pastTransactions) return <></>
     return (
-      <Fragment>
+      <>
         <Typography variant="h4">PAST TRANSACTIONS</Typography>
         <List id={classes.pastTransactionTable} subheader={<li />}>
           {
@@ -40,7 +47,7 @@ class PastTransactions extends Component {
 
           }
         </List>
-      </Fragment>
+      </>
     )
   }
 }

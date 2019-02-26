@@ -11,7 +11,7 @@ let x;
 const initStore = (x = localStorage.getItem(api.LOCALSTORAGE_LOGIN)) ? JSON.parse(x) : {}
 const store = createStore(combineReducers(reducers), initStore, composeEnhancers(applyMiddleware(thunk)))
 
-if (initStore.userProfile.userId) {
+if (initStore.userProfile && initStore.userProfile.userId) {
   console.log(initStore.userProfile.userId)
   const state = store.getState()
   setupRealtimeDatabase(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch);

@@ -23,6 +23,7 @@ import Stalls from '../Stalls';
 import StallItems from '../StallItems';
 import PastTransactions from '../PastTransactions';
 import Profshows from '../Profshows';
+import CurrentOrders from '../CurrentOrders';
 
 class Nav extends Component {
   constructor(props) {
@@ -112,6 +113,7 @@ class Nav extends Component {
             <Route path='/cart' component={Cart} />
             <Route path='/stalls' component={Stalls} />
             <Route path='/stall/:id/items' component={StallItems} />
+            <Route path='/current_orders' component={CurrentOrders} />
             <Route path='/past_transactions' component={PastTransactions} />
             <Route path='/profshows' component={Profshows} />
           </Switch>
