@@ -7,6 +7,7 @@ import AuthRequired from "../AuthRequired";
 import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
 import RecieveMoneyDrawer from "../MoneyDrawers/RecieveMoneyDrawer"
 import SendMoneyDrawer from "../MoneyDrawers/SendMoneyDrawer"
+import ProfshowDrawer from "../MoneyDrawers/ProfshowDrawer"
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -18,6 +19,7 @@ class Profile extends Component {
       addMoneyDrawerOpened: false,
       recieveMoneyDrawerOpened: false,
       sendMoneyDrawerOpened: false,
+      profshowDrawerOpened: false,
     }
     this.closeDrawer = this.closeDrawer.bind(this);
   }
@@ -41,6 +43,7 @@ class Profile extends Component {
               addMoneyDrawerOpened: true,
               recieveMoneyDrawerOpened: false,
               sendMoneyDrawerOpened: false,
+              profshowDrawerOpened: false,
             })}>
             Add Money
             </Button>
@@ -52,6 +55,7 @@ class Profile extends Component {
               addMoneyDrawerOpened: false,
               recieveMoneyDrawerOpened: true,
               sendMoneyDrawerOpened: false,
+              profshowDrawerOpened: false,
             })}>
             Receive Money
             </Button>
@@ -62,9 +66,22 @@ class Profile extends Component {
             onClick={() => this.setState({
               addMoneyDrawerOpened: false,
               recieveMoneyDrawerOpened: false,
-              sendMoneyDrawerOpened: true
+              sendMoneyDrawerOpened: true,
+              profshowDrawerOpened: false,
             })}>
             Send Money
+          </Button>
+          <Button
+            className={classes.btns}
+            variant="contained"
+            color="primary"
+            onClick={() => this.setState({
+              addMoneyDrawerOpened: false,
+              recieveMoneyDrawerOpened: false,
+              sendMoneyDrawerOpened: false,
+              profshowDrawerOpened: true,
+            })}>
+            View Profshows
           </Button>
 
           <AddMoneyDrawer
@@ -76,6 +93,9 @@ class Profile extends Component {
           <SendMoneyDrawer
             open={this.state.sendMoneyDrawerOpened} 
             close={this.closeDrawer('sendMoney')} />
+          <ProfshowDrawer
+            open={this.state.profshowDrawerOpened} 
+            close={this.closeDrawer('profshow')} />
 
         </div>
       </AuthRequired>

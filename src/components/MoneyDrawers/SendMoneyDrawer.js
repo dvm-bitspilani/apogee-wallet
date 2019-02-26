@@ -35,11 +35,6 @@ class SendMoneyDrawer extends Component {
       },
       body: JSON.stringify({ qr_code, amount }),
     }, (error, response, body) => {
-
-      console.log('call made')
-      console.log('Status:', response.statusCode);
-      console.log('Headers:', JSON.stringify(response.headers));
-      console.log('Response:', body);
       if (!response) {
         this.showSnackbar("Unknown error, please contact administrator")
       }

@@ -56,6 +56,8 @@ export const placeOrder = () => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}`,
       'Access-Control-Allow-Origin' : '*'
     }}, (error, response, body) => {
+      console.log(response);
+      console.log(error);
       console.log(body);
   });
 }
