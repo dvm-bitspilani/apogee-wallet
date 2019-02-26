@@ -22,6 +22,7 @@ import Cart from '../Cart';
 import Stalls from '../Stalls';
 import StallItems from '../StallItems';
 import PastTransactions from '../PastTransactions';
+import Profshows from '../Profshows';
 
 class Nav extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class Nav extends Component {
       },
       {
         name: 'Profshow Tickets',
-        link: '/profshow',
+        link: '/profshows',
         icon: () => <LocalActivityIcon />
       },
     ]
@@ -112,6 +113,7 @@ class Nav extends Component {
             <Route path='/stalls' component={Stalls} />
             <Route path='/stall/:id/items' component={StallItems} />
             <Route path='/past_transactions' component={PastTransactions} />
+            <Route path='/profshows' component={Profshows} />
           </Switch>
         </div>
       </AuthRequired>

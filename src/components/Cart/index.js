@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import AuthRequired from "../AuthRequired";
 
 import classes from './styles.module.scss';
-import { Typography, List, ListSubheader, ListItem, ListItemText, Divider, Button } from "@material-ui/core";
+import {
+  Typography,
+  List,
+  ListSubheader, 
+  ListItem, 
+  ListItemText, 
+  Divider, 
+  Button
+} from "@material-ui/core";
 import {
   AddCircleOutline as AddIcon,
   RemoveCircleOutline as RemoveIcon,
@@ -12,7 +20,7 @@ import { bindActionCreators } from "redux";
 import * as cart from "@/actionCreators/cart"
 
 class Cart extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -22,15 +30,15 @@ class Cart extends Component {
     this.computeTotalPrice.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.computeTotalPrice();
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.computeTotalPrice();
   }
 
-  computeTotalPrice () {
+  computeTotalPrice() {
     let totalPrice = 0;
     Object.keys(this.props.cart).map(stallId => {
       Object.keys(this.props.cart[stallId].items).map(itemId => {
@@ -52,27 +60,27 @@ class Cart extends Component {
         <List className={classes.cartList} subheader={<li />}>
           {
             Object.keys(this.props.cart).map(stallId => (
-            <li key={this.props.cart[stallId].stallName}>
-              <ul>
-                <ListSubheader className = {classes.stallName}>{this.props.cart[stallId].stallName}</ListSubheader>
-                {Object.keys(this.props.cart[stallId].items).map(itemId => (
-                  <ListItem key={itemId} className = {classes.cartItem}>
-                    <ListItemText primary={this.props.cart[stallId].items[itemId].itemName} secondary = {`INR ${this.props.cart[stallId].items[itemId].price}`}/>
+              <li key={this.props.cart[stallId].stallName}>
+                <ul>
+                  <ListSubheader className={classes.stallName}>{this.props.cart[stallId].stallName}</ListSubheader>
+                  {Object.keys(this.props.cart[stallId].items).map(itemId => (
+                    <ListItem key={itemId} className={classes.cartItem}>
+                      <ListItemText primary={this.props.cart[stallId].items[itemId].itemName} secondary={`INR ${this.props.cart[stallId].items[itemId].price}`} />
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <AddIcon onClick = {this.props.increaseQty.bind(this, stallId, itemId)} style={{ marginRight: "5px" }} />
-                          <span>{this.props.cart[stallId].items[itemId].quantity}</span>
-                        <RemoveIcon onClick = {this.props.decreaseQty.bind(this, stallId, itemId)} style={{ marginLeft: "5px" }} />
+                        <AddIcon onClick={this.props.increaseQty.bind(this, stallId, itemId)} style={{ marginRight: "5px" }} />
+                        <span>{this.props.cart[stallId].items[itemId].quantity}</span>
+                        <RemoveIcon onClick={this.props.decreaseQty.bind(this, stallId, itemId)} style={{ marginLeft: "5px" }} />
                       </div>
-                  </ListItem>
-                ))}
-                <Divider />
-              </ul>
-            </li>
-          ))
+                    </ListItem>
+                  ))}
+                  <Divider />
+                </ul>
+              </li>
+            ))
           }
         </List>
-        <div className = {classes.bottom}>
-          <Typography variant = "h6">Total Price: INR <span>{this.state.totalPrice}</span></Typography>
+        <div className={classes.bottom}>
+          <Typography variant="h6">Total Price: INR <span>{this.state.totalPrice}</span></Typography>
 
           <Button
             variant="contained"
