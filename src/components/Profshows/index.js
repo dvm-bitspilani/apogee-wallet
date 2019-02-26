@@ -7,7 +7,6 @@ import {
   ListSubheader,
   ListItem,
   ListItemText,
-  Divider,
   Button
 } from "@material-ui/core";
 import {
@@ -19,14 +18,50 @@ import * as profshows from '@/actionCreators/profshows'
 import classes from './styles.module.scss'
 
 class Profshows extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      totalPrice: 0
+    }
+
+    this.computeTotalPrice.bind(this);
+  }
   componentWillMount() {
     console.log('All profshows being fetched')
     this.props.getAllProfshows();
+    this.computeTotalPrice()
   }
+
+  componentDidUpdate() {
+    this.computeTotalPrice()
+  }
+
+  computeTotalPrice() {
+    let showsCart = this.props.profshows.showsCart;
+    let allProfshowsData = this.props.profshows.allProfshowsData;
+    let totalPrice = 0;
+
+    if (showsCart && allProfshowsData && allProfshowsData.shows && allProfshowsData.combos) {
+      Object.keys(showsCart.individual).map(showId => {
+        let show = allProfshowsData.shows.filter(show => show.id == showId)[0];
+        totalPrice += (show.price * showsCart.individual[showId]);
+      });
+
+      Object.keys(showsCart.combos).map(comboId => {
+        let combo = allProfshowsData.combos.filter(combo => combo.id == comboId)[0];
+        totalPrice += (combo.price * showsCart.combos[comboId]);
+      });
+    }
+
+    if (totalPrice !== this.state.totalPrice) {
+      this.setState({ totalPrice });
+    }
+  }
+
   render() {
     let shows = this.props.profshows.allProfshowsData.shows;
     let combos = this.props.profshows.allProfshowsData.combos;
-    console.log(combos)
     return (
       <>
         <Typography variant="h4">PROFSHOWS</Typography>
@@ -41,9 +76,9 @@ class Profshows extends Component {
               <ListItem key={show.id}>
                 <ListItemText primary={show.name} secondary={`INR ${show.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <AddIcon style={{ marginRight: "5px" }} />
-                  <span>{0}</span>
-                  <RemoveIcon style={{ marginLeft: "5px" }} />
+                  <AddIcon onClick = {this.props.increaseShowQty.bind(null, show.id)} style={{ marginRight: "5px" }} />
+                  <span>{this.props.profshows.showsCart.individual[show.id] ? this.props.profshows.showsCart.individual[show.id] : 0}</span>
+                  <RemoveIcon onClick = {this.props.decreaseShowQty.bind(null, show.id)} style={{ marginLeft: "5px" }} />
                 </div>
               </ListItem>
             )
@@ -58,22 +93,23 @@ class Profshows extends Component {
               <ListItem key={combo.id}>
                 <ListItemText primary={combo.name} secondary={`${combo.shows.map(show => Object.values(show))} INR${combo.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <AddIcon style={{ marginRight: "5px" }} />
-                  <span>{0}</span>
-                  <RemoveIcon style={{ marginLeft: "5px" }} />
+                  <AddIcon onClick = {this.props.increaseComboQty.bind(null, combo.id)} style={{ marginRight: "5px" }} />
+                  <span>{this.props.profshows.showsCart.combos[combo.id] ? this.props.profshows.showsCart.combos[combo.id] : 0}</span>
+                  <RemoveIcon onClick = {this.props.decreaseComboQty.bind(null, combo.id)} style={{ marginLeft: "5px" }} />
                 </div>
               </ListItem>
             )
           }
         </List>
         <div className={classes.bottom}>
-          <Typography variant="h6">Total Price: INR <span>{}</span></Typography>
+          <Typography variant="h6">Total Price: INR <span>{this.state.totalPrice}</span></Typography>
 
           <Button
             variant="contained"
             color="primary"
+            onClick = {this.props.buyTickets}
             >
-            Place Order
+            Buy Tickets
           </Button>
         </div>
       </>

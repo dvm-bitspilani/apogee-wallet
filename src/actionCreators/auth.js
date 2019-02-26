@@ -79,6 +79,7 @@ export const googleLogin = id => dispatch => {
   }, (error, response, body) => {
     console.log('herer')
     dispatch(setProfile(body))
+    console.log(JSON.parse(body))
     if (!response) {
       dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
     }

@@ -5,8 +5,14 @@ import { config } from "@/.env";
 firebase.initializeApp(config);
 
 //OAuth Config
-const provider = new firebase.auth.GoogleAuthProvider();
-
+let provider = new firebase.auth.OAuthProvider('google.com');
+provider.addScope('profile');
+provider.addScope('email');
+// provider.addScope('openid');
+// provider.addScope('https://www.googleapis.com/auth/plus.me');
+// provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+// provider.addScope('https://www.googleapis.com/auth/plus.login');
+// provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
 
 export {
   provider
