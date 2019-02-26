@@ -30,7 +30,7 @@ class Profile extends Component {
         <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
 
         <div className={classes.balance}>
-          <Typography variant="h4">2500</Typography>
+          <Typography variant="h4">{this.props.userProfile.balance}</Typography>
           <Typography variant="h6">BALANCE</Typography>
         </div>
 

@@ -6,3 +6,10 @@ export const setProfile = (payload) => {
     payload 
   }
 }
+
+export const updateBalance = balance => {
+  return {
+    type: userProfile.UPDATE_BALANCE,
+    payload: { balance }
+  }
+}

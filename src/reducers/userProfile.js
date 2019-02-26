@@ -8,7 +8,8 @@ const initialState = {
   email: null,
   bitsianId: null,
   name: null,
-  isBitsian: null
+  isBitsian: null,
+  balance: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,13 @@ const reducer = (state = initialState, action) => {
     }
     console.log(newState)
     return newState;
+  }
+  if(type === userProfile.UPDATE_BALANCE) { 
+    const { balance } = action.payload;
+    return {
+      ...state, 
+      balance
+    }
   }
   return {
     ...state

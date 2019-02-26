@@ -2,10 +2,10 @@ import request from 'request'
 
 import * as auth from '@/constants/auth'
 import * as api from '@/constants/api'
-import { setProfile } from './userProfile'
-// import firebase from '../firebaseConfig'
+import { setProfile, updateBalance } from './userProfile'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
+import { setupRealtimeDatabase } from '@/firebaseDatabase'
 
 export const changeLoginStatus = (isLoggedIn, JWT) => ({
   type: auth.SET_LOGIN,
@@ -14,7 +14,7 @@ export const changeLoginStatus = (isLoggedIn, JWT) => ({
   }
 })
 
-export const login = (username, password) => dispatch => {
+export const login = (username, password) => (dispatch, getState) => {
   request({
     method: 'POST',
     url: api.LOGIN,
@@ -27,9 +27,6 @@ export const login = (username, password) => dispatch => {
       username, password
     })
   }, (error, response, body) => {
-    // dispatch(changeLoginStatus(true, ""))
-    // dispatch(setProfile(testBody));
-    // return;
     dispatch(setProfile(body))
     if (!response) {
       dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
@@ -42,8 +39,9 @@ export const login = (username, password) => dispatch => {
         dispatch(setProfile({
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
-
         }))
+        setupRealtimeDatabase(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
+
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
@@ -63,7 +61,7 @@ export const getIdToken = () => (dispatch, getState) => {
   firebase.auth().signInWithRedirect(provider)
 }
 
-export const googleLogin = id => dispatch => {
+export const googleLogin = id => (dispatch, getState) => {
   console.log(id)
   request({
     method: 'POST',
@@ -91,8 +89,8 @@ export const googleLogin = id => dispatch => {
         dispatch(setProfile({
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
-
         }))
+        setupRealtimeDatabase(getState().userProfile.isBitsian, getState().userProfile.userId);
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
@@ -116,3 +114,17 @@ export const setErrorMessage = (isMessageSet, message) => {
     }
   }
 }
+
+/*const setupRealtimeDatabase = (isBitsian, id, dispatch) => {
+  const pre = isBitsian ? 'bitsian' : 'participant'
+  const userPath = `users/${pre} - ${id}`;
+  const database = firebase.database();
+
+  const balancePath = `${userPath}/total_balance`
+  const balanceRef = database.ref(balancePath)
+  balanceRef.on('value', snap => {
+    const balance = snap.val()
+    console.log(balance)
+    dispatch(updateBalance(balance));
+  })
+}*/
