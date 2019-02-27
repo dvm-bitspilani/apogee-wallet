@@ -5,7 +5,7 @@ import * as api from '@/constants/api'
 import { setProfile, updateBalance } from './userProfile'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
-import { setupRealtimeDatabase } from '@/firebaseDatabase'
+import { setupRealtimeBalance } from '@/firebaseDatabase'
 
 export const changeLoginStatus = (isLoggedIn, JWT) => ({
   type: auth.SET_LOGIN,
@@ -40,7 +40,7 @@ export const login = (username, password) => (dispatch, getState) => {
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
         }))
-        setupRealtimeDatabase(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
+        setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
 
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
@@ -90,7 +90,7 @@ export const googleLogin = id => (dispatch, getState) => {
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
         }))
-        setupRealtimeDatabase(getState().userProfile.isBitsian, getState().userProfile.userId);
+        setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId);
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
@@ -115,7 +115,7 @@ export const setErrorMessage = (isMessageSet, message) => {
   }
 }
 
-/*const setupRealtimeDatabase = (isBitsian, id, dispatch) => {
+/*const setupRealtimeBalance = (isBitsian, id, dispatch) => {
   const pre = isBitsian ? 'bitsian' : 'participant'
   const userPath = `users/${pre} - ${id}`;
   const database = firebase.database();

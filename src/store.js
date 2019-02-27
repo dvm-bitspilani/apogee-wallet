@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 
 import * as reducers from './reducers'
 import * as api from './constants/api'
-import { setupRealtimeDatabase } from './firebaseDatabase'
+import { setupRealtimeBalance } from './firebaseDatabase'
 
 let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,7 +14,7 @@ const store = createStore(combineReducers(reducers), initStore, composeEnhancers
 if (initStore.userProfile && initStore.userProfile.userId) {
   console.log(initStore.userProfile.userId)
   const state = store.getState()
-  setupRealtimeDatabase(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch);
+  setupRealtimeBalance(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch);
 }
 
 store.subscribe(() => {

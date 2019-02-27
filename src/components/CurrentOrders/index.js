@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
-  Typography,
   List,
+  Divider,
   ListItem,
-  ListItemText
+  Typography,
+  ListItemText,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
 } from '@material-ui/core'
+
+import {
+  ExpandMore as ExpandMoreIcon
+} from "@material-ui/icons"
+
+import * as orders from "@/actionCreators/orders"
 
 class CurrentOrders extends Component {
   CircularDiv = (props) => (
@@ -16,13 +27,21 @@ class CurrentOrders extends Component {
       borderRadius: "20px",
     }}></div>
   )
+
+  componentWillMount() {
+    console.log(this.props)
+    this.props.getCurrentOrders();
+  }
+
   render() {
-    const CircularDiv = this.CircularDiv
+    const { CircularDiv } = this
     return (
       <>
         <Typography variant="h4">CURRENT ORDERS</Typography>
-        <List
-          style={{ width: "100%" }}
+        {/* <List
+          style={{
+            width: "100%"
+          }}
           subheader={<li />}>
           <ListItem>
             <ListItemText primary="this sis " secondary="INR 20" />
@@ -39,14 +58,42 @@ class CurrentOrders extends Component {
               </div>
             </div>
           </ListItem>
-        </List>
+        </List> */}
+        <ExpansionPanel style={{ width: "100%" }}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
+              <Typography >Vendor 1</Typography>
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center"
+              }}>
+                <Typography>Accepted</Typography>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <CircularDiv backgroundColor="red" marginRight="4px" />
+                  <CircularDiv backgroundColor="yellow" marginRight="4px" />
+                  <CircularDiv backgroundColor="green" />
+                </div>
+              </div>
+            </div>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <List>
+              <ListItemText primary="this sis " secondary="INR 20" />
+            </List>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
       </>
     )
   }
 }
 
-const mapStateToProps = state => ({
+const mapDispatchToProps = dispatch => bindActionCreators(
+  Object.assign({}, orders), dispatch
+)
 
+const mapStateToProps = state => ({
+  orders: state.orders
 })
 
-export default connect(mapStateToProps, null)(CurrentOrders)
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentOrders)

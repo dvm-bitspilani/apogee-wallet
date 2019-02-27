@@ -23,7 +23,6 @@ class PastTransactions extends Component {
     this.props.getPastTransactions()
   }
   render() {
-    // return <></>
     if (!this.props.orders.pastTransactions) return <></>
     return (
       <>
