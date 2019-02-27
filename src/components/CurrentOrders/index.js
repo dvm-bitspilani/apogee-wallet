@@ -41,72 +41,61 @@ class CurrentOrders extends Component {
 
   render() {
     const { CircularDiv } = this
+    const { currentOrders } = this.props.orders
+    // console.log(this.props.orders.currentOrders)
     return (
       <>
         <Typography variant="h4">CURRENT ORDERS</Typography>
-        {/* <List
-          style={{
-            width: "100%"
-          }}
-          subheader={<li />}>
-          <ListItem>
-            <ListItemText primary="this sis " secondary="INR 20" />
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center"
-            }}>
-              <Typography>Accepted</Typography>
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <CircularDiv backgroundColor="red" marginRight="4px" />
-                <CircularDiv backgroundColor="yellow" marginRight="4px" />
-                <CircularDiv backgroundColor="green" />
-              </div>
-            </div>
-          </ListItem>
-        </List> */}
-        <ExpansionPanel style={{ width: "100%" }}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-            <div style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
-              <Typography >Vendor 1</Typography>
-              <div style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center"
-              }}>
-                <Typography>Accepted</Typography>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <CircularDiv backgroundColor="red" marginRight="4px" />
-                  <CircularDiv backgroundColor="yellow" marginRight="4px" />
-                  <CircularDiv backgroundColor="green" />
-                </div>
-              </div>
-            </div>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails
-            classes={{
-              root: classes.expansionTable
-            }}>
-            {/* <List>
-              <ListItemText primary="this sis" />
-              <Typography>INR 20</Typography>
-            </List> */}
-            <Table>
-              <TableHead />
-              <TableBody>
-                <TableRow>
-                  <TableCell>Cheetos</TableCell>
-                  <TableCell align="right">2</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Fresca</TableCell>
-                  <TableCell align="right">1</TableCell>
-                </TableRow>
-              </TableBody>
 
-            </Table>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        {currentOrders.map(
+          shell => shell.orders.map(order => (
+            <ExpansionPanel key={`${shell.id}-${order.id}`} style={{ width: "100%" }}>
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+                <div style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  justifyContent: "space-between"
+                }}>
+                  <Typography >{order.vendor.name}</Typography>
+                  <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center"
+                  }}>
+                    <Typography>Accepted</Typography>
+                    <div style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center"
+                    }}>
+                      <CircularDiv backgroundColor="red" marginRight="4px" />
+                      <CircularDiv backgroundColor="yellow" marginRight="4px" />
+                      <CircularDiv backgroundColor="green" />
+                    </div>
+                  </div>
+                </div>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails
+                classes={{
+                  root: classes.expansionTable
+                }}>
+                <Table>
+                  <TableHead />
+                  <TableBody>
+                    {order.items.map(item => (
+                      <TableRow key={item.id}>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell align="right">{item.quantity}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+          ))
+        ).flat()}
       </>
     )
   }

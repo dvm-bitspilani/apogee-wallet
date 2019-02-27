@@ -1,7 +1,8 @@
 import * as orders from '@/constants/orders'
 
 const initialState = {
-  pastTransactions: []
+  pastTransactions: [],
+  currentOrders: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +13,13 @@ const reducer = (state = initialState, action) => {
       pastTransactions: action.payload
     }
   }
+  else if(type === orders.SET_CURRENT_ORDERS) {
+    return {
+      ...state,
+      currentOrders: action.payload
+    }
+  }
+  
   return {
     ...state
   }

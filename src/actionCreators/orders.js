@@ -70,6 +70,19 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
       try {
         body = JSON.parse(body)
         console.log(body)
+        const currentOrdersCode = [0, 1, 2];
+        /*body = body.map(
+          ({orders}) => orders.filter(
+            ({status}) => currentOrdersCode.includes(status)))*/
+
+        body = body.map(
+          shell => ({
+            ...shell,
+            orders: shell.orders.filter(({status}) => currentOrdersCode.includes(status))
+          })
+        )
+        console.log(body)
+        dispatch(setCurrentOrders(body))
       } catch (e) { }
     }
 
@@ -77,8 +90,13 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
       try {
         body = JSON.parse(body)
       } catch (e) {
+
       }
     }
   });
 }
 
+export const setCurrentOrders = payload => ({
+  type: orders.SET_CURRENT_ORDERS,
+  payload
+})
