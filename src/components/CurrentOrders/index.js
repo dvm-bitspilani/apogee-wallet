@@ -57,21 +57,39 @@ class CurrentOrders extends Component {
                   width: "100%",
                   justifyContent: "space-between"
                 }}>
-                  <Typography >{order.vendor.name}</Typography>
+                  <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}>
+                    <Typography >{order.vendor.name}</Typography>
+                    <Typography
+                      fontWeight={300}
+                      variant="subtitle2"
+                      classes={{
+                        root: classes.timestampDisplay
+                      }}
+                    >
+                      {shell.timestamp}
+                    </Typography>
+                  </div>
                   <div style={{
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center"
                   }}>
-                    <Typography>Accepted</Typography>
+                    <Typography>{
+                      ["Pending", "Accepted", "Finished"][order.status]
+                    }</Typography>
                     <div style={{
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center"
                     }}>
-                      <CircularDiv backgroundColor="red" marginRight="4px" />
-                      <CircularDiv backgroundColor="yellow" marginRight="4px" />
-                      <CircularDiv backgroundColor="green" />
+                      {
+                        [<CircularDiv key="pending" backgroundColor="red" marginRight="4px" />,
+                          <CircularDiv key="accepted" backgroundColor="yellow" marginRight="4px" />,
+                          <CircularDiv key="finished" backgroundColor="green" />].splice(0, 1+order.status)
+                      }
                     </div>
                   </div>
                 </div>
@@ -93,7 +111,6 @@ class CurrentOrders extends Component {
                 </Table>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-
           ))
         ).flat()}
       </>

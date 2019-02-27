@@ -2,6 +2,7 @@ import request from 'request'
 
 import * as orders from '@/constants/orders'
 import * as api from '@/constants/api'
+import { setupRealtimeOrders } from '@/firebaseDatabase'
 
 export const setPastTransactions = transactions => ({
   type: orders.SET_PAST_TRANSACTIONS,
@@ -39,42 +40,13 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}`
     }
   }, (error, response, body) => {
-    // let ordersExtraData = {};
-    // try {
-    //   ordersExtraData = JSON.parse(body)
-    // } catch (e) { }
-
-    // for (const shell of orders) {
-    //   try {
-    //     const order = orders[shell]
-    //     const shellId = Number(shell.splice(shell.indexOf(' - ') + 3))
-
-    //     for(const item in order) {
-    //       const itemStatus = order[item]
-    //       const itemId = Number(item.splice(item.indexOf(' - ') + 3))
-    //       const itemsData = 
-    //         ordersExtraData.find(({id}) => id === shellId) //Find that shell
-    //           .orders.find(({id}) => id === itemId)        //Find that order
-
-
-
-    //     }
-
-    //   } catch (e) {
-
-    //   }
-    // }
     if (!response) { }
-
     else if (response.statusCode === 200) {
       try {
         body = JSON.parse(body)
         console.log(body)
         const currentOrdersCode = [0, 1, 2];
-        /*body = body.map(
-          ({orders}) => orders.filter(
-            ({status}) => currentOrdersCode.includes(status)))*/
-
+        
         body = body.map(
           shell => ({
             ...shell,
@@ -83,6 +55,7 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
         )
         console.log(body)
         dispatch(setCurrentOrders(body))
+        setupRealtimeOrders(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) { }
     }
 
@@ -98,5 +71,10 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
 
 export const setCurrentOrders = payload => ({
   type: orders.SET_CURRENT_ORDERS,
+  payload
+})
+
+export const updateOrderStatuses = payload => ({
+  type: orders.UPDATE_ORDER_STATUSES,
   payload
 })
