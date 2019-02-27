@@ -23,24 +23,23 @@ const reducer = (state = initialState, action) => {
   }
 
   else if (type === orders.UPDATE_ORDER_STATUSES) {
-    console.log('herex')
     const statuses = action.payload
     const newState = JSON.parse(JSON.stringify(state.currentOrders))
     for (const shellName in statuses) {
       for (const orderName in statuses[shellName]) {
-        console.log(shellName, orderName)
+        // console.log(shellName, orderName)
         const newStatus = statuses[shellName][orderName];
         const shellId = Number(shellName.slice(shellName.indexOf(' - ') + 3))
         const orderId = Number(orderName.slice(orderName.indexOf(' - ') + 3))
-        console.log(shellId, orderId)
-        console.log(newState)
+        // console.log(shellId, orderId)
+        // console.log(newState)
         const shell = newState.find(({id}) => id === shellId)
-        console.log(shell)
+        // console.log(shell)
         if(shell){
           const order = shell.orders.find(({id}) => id === orderId)
           if(order) {
-            console.log(order)
-            console.log(newStatus)
+            // console.log(order)
+            // console.log(newStatus)
             order.status = newStatus;
           }
         }

@@ -35,7 +35,6 @@ class CurrentOrders extends Component {
   )
 
   componentWillMount() {
-    console.log(this.props)
     this.props.getCurrentOrders();
   }
 

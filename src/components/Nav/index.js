@@ -58,11 +58,11 @@ class Nav extends Component {
         link: '/current_orders',
         icon: () => <FastfoodIcon />
       },
-      {
-        name: 'Past Transactions',
-        link: '/past_transactions',
-        icon: () => <MoneyIcon />
-      },
+      // {
+      //   name: 'Past Transactions',
+      //   link: '/past_transactions',
+      //   icon: () => <MoneyIcon />
+      // },
       {
         name: 'Profshow Tickets',
         link: '/profshows',
@@ -114,7 +114,7 @@ class Nav extends Component {
             <Route path='/stalls' component={Stalls} />
             <Route path='/stall/:id/items' component={StallItems} />
             <Route path='/current_orders' component={CurrentOrders} />
-            <Route path='/past_transactions' component={PastTransactions} />
+            {/* <Route path='/past_transactions' component={PastTransactions} /> */}
             <Route path='/profshows' component={Profshows} />
           </Switch>
         </div>

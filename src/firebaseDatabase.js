@@ -15,7 +15,6 @@ export const setupRealtimeBalance = (isBitsian, id, dispatch) => {
     const balance = snap.val()
     dispatch(updateBalance(balance));
   })
- 
 }
 
 export const setupRealtimeOrders = (isBitsian, id, dispatch) => {

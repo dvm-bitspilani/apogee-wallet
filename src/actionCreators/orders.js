@@ -9,26 +9,27 @@ export const setPastTransactions = transactions => ({
   payload: transactions,
 })
 
-export const getPastTransactions = () => (dispatch, getState) => {
-  request({
-    method: 'GET',
-    url: api.GET_ORDERS,
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Wallet-Token': 'samp1e_Token',
-      'Authorization': `JWT ${getState().auth.JWT}`
-    }
-  }, (error, response, body) => {
-    try {
-      body = JSON.parse(body)
-      const pastTransactionStatusCodes = [3, 4];
-      body = body.filter(({ status }) => pastTransactionStatusCodes.includes(status))
-      dispatch(setPastTransactions(body))
-    } catch (e) {
-      console.log(e)
-    }
-  });
-}
+// export const getPastTransactions = () => (dispatch, getState) => {
+//   request({
+//     method: 'GET',
+//     url: api.GET_ORDERS,
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-Wallet-Token': 'samp1e_Token',
+//       'Authorization': `JWT ${getState().auth.JWT}`
+//     }
+//   }, (error, response, body) => {
+//     try {
+//       body = JSON.parse(body)
+//       console.log(body);
+//       const pastTransactionStatusCodes = [3, 4];
+//       body = body.filter(({ status }) => pastTransactionStatusCodes.includes(status))
+//       dispatch(setPastTransactions(body))
+//     } catch (e) {
+//       console.log(e)
+//     }
+//   });
+// }
 
 export const getCurrentOrders = orders => (dispatch, getState) => {
   request({
@@ -45,15 +46,15 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
       try {
         body = JSON.parse(body)
         console.log(body)
-        const currentOrdersCode = [0, 1, 2];
+        // const currentOrdersCode = [0, 1, 2];
         
-        body = body.map(
-          shell => ({
-            ...shell,
-            orders: shell.orders.filter(({status}) => currentOrdersCode.includes(status))
-          })
-        )
-        console.log(body)
+        // body = body.map(
+        //   shell => ({
+        //     ...shell,
+        //     orders: shell.orders.filter(({status}) => currentOrdersCode.includes(status))
+        //   })
+        // )
+        // console.log(body)
         dispatch(setCurrentOrders(body))
         setupRealtimeOrders(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) { }

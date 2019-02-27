@@ -17,7 +17,16 @@ class Login extends Component {
       username: "",
       password: ""
     }
+
+    let that = this;
+    window.onSignIn = function (googleUser) {
+      console.log(window.gapi);
+      // Useful data for your client-side scripts:
+      let id_token = googleUser.getAuthResponse().id_token;
+      that.props.googleLogin(id_token);
+    }
   }
+
   render() {
     if (this.props.auth.isLoggedIn) {
       return (<Redirect to="/" />)
@@ -55,13 +64,15 @@ class Login extends Component {
             </Button>
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
-            <Button
+            {/* <Button
               variant="contained"
               color="primary"
               onClick = {_ => this.props.getIdToken()}
               >
               Bitsian Login
-            </Button>
+            </Button> */}
+            <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-ux_mode = "redirect"></div>
+
           </Grid>
         </Grid>
         <Snackbar
