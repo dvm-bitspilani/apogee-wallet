@@ -10,6 +10,11 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
+  Table,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell
 } from '@material-ui/core'
 
 import {
@@ -17,6 +22,7 @@ import {
 } from "@material-ui/icons"
 
 import * as orders from "@/actionCreators/orders"
+import classes from './styles.module.scss'
 
 class CurrentOrders extends Component {
   CircularDiv = (props) => (
@@ -60,8 +66,8 @@ class CurrentOrders extends Component {
           </ListItem>
         </List> */}
         <ExpansionPanel style={{ width: "100%" }}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+            <div style={{ display: "flex", flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
               <Typography >Vendor 1</Typography>
               <div style={{
                 display: "flex",
@@ -77,10 +83,28 @@ class CurrentOrders extends Component {
               </div>
             </div>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <List>
-              <ListItemText primary="this sis " secondary="INR 20" />
-            </List>
+          <ExpansionPanelDetails
+            classes={{
+              root: classes.expansionTable
+            }}>
+            {/* <List>
+              <ListItemText primary="this sis" />
+              <Typography>INR 20</Typography>
+            </List> */}
+            <Table>
+              <TableHead />
+              <TableBody>
+                <TableRow>
+                  <TableCell>Cheetos</TableCell>
+                  <TableCell align="right">2</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Fresca</TableCell>
+                  <TableCell align="right">1</TableCell>
+                </TableRow>
+              </TableBody>
+
+            </Table>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </>
