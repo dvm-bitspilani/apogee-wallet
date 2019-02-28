@@ -9,31 +9,18 @@ import {
   TableRow
 } from '@material-ui/core'
 import { connect } from 'react-redux'
-import request from 'request'
+import { bindActionCreators } from 'redux'
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
-import * as api from '@/constants/api'
+import * as profshows from '@/actionCreators/profshows'
 
 class RecieveMoneyDrawer extends Component {
-  constructor(props) {
-    super(props)
-  }
   componentWillMount() {
-    request({
-      method: 'GET',
-      url: api.GET_MY_PROFSHOWS,
-      headers: {
-        'X-Wallet-Token': api.WALLET_TOKEN,
-        'Authorization': `JWT ${this.props.auth.JWT}`
-      }
-    }, function (error, response, body) {
-      console.log('Status:', response.statusCode);
-      console.log('Headers:', JSON.stringify(response.headers));
-      console.log('Response:', body);
-    });
+    this.props.getMyProfshows();
   }
   render() {
+    console.log(this.props.myProfshows)
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
         <div className={classes.moneyDrawersCommon}
@@ -48,19 +35,23 @@ class RecieveMoneyDrawer extends Component {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Profshow</TableCell>
-                <TableCell align="right">Quantity</TableCell>
+                <TableCell align="center">Profshow</TableCell>
+                <TableCell align="center">Quantity Remaining</TableCell>
+                <TableCell align="center">Quantity Used</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>SEL</TableCell>
-                <TableCell align="right">2</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Guthrie Govan</TableCell>
-                <TableCell align="right">1</TableCell>
-              </TableRow>
+              {
+                this.props.myProfshows
+                &&
+                Object.keys(this.props.myProfshows).map(key =>
+                  <TableRow key = {key}>
+                    <TableCell align="center">{this.props.myProfshows[key].show_name}</TableCell>
+                    <TableCell align="center">{this.props.myProfshows[key].unused_count}</TableCell>
+                    <TableCell align="center">{this.props.myProfshows[key].used_count}</TableCell>
+                  </TableRow>
+                )
+              }
             </TableBody>
 
           </Table>
@@ -75,5 +66,12 @@ class RecieveMoneyDrawer extends Component {
 const mapStateToProps = state => ({
   auth: state.auth,
   userProfile: state.userProfile,
+  myProfshows: state.profshows.myShows
 })
-export default connect(mapStateToProps, null)(RecieveMoneyDrawer)
+
+const mapDispatchToProps = dispatch => bindActionCreators(
+  Object.assign({}, profshows), 
+  dispatch
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecieveMoneyDrawer)

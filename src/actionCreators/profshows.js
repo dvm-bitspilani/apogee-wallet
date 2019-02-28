@@ -8,6 +8,11 @@ export const setAllProfshows = (showsData) => ({
   payload: showsData
 });
 
+export const setMyProfshows = (myShowsData) => ({
+  type: profshows.SET_MY_PROFSHOWS,
+  payload: myShowsData
+});
+
 export const getAllProfshows = () => (dispatch, getState) => {
   request({
     method: 'GET',
@@ -40,6 +45,23 @@ export const buyTickets = () => (dispatch, getState) => {
       console.log(body);
   });
 }
+
+export const getMyProfshows = () => (dispatch, getState) => {
+  request({
+    method: 'GET',
+    url: api.GET_MY_PROFSHOWS,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Wallet-Token': api.WALLET_TOKEN, 
+      'Authorization': `JWT ${getState().auth.JWT}`,
+      'Access-Control-Allow-Origin' : '*'
+    }
+  }, function (error, response, body) {
+    let profshowsData = JSON.parse(body);
+    dispatch(setMyProfshows(profshowsData));
+  });
+}
+
 
 export const increaseComboQty = (id) => ({
   type: profshows.INC_COMBO_QTY,

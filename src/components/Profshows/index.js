@@ -62,8 +62,6 @@ class Profshows extends Component {
   render() {
     let shows = this.props.profshows.allProfshowsData.shows;
     let combos = this.props.profshows.allProfshowsData.combos;
-    console.log(shows);
-    console.log(combos);
     return (
       <>
         <Typography variant="h4">PROFSHOWS</Typography>
@@ -75,8 +73,8 @@ class Profshows extends Component {
             shows
             &&
             shows.map(show => 
-              // ((show.allow_bitsians && this.props.isBitsian) || (show.allow_participants && !this.props.isBitsian))
-              // &&
+              ((show.allow_bitsians && this.props.isBitsian) || (show.allow_participants && !this.props.isBitsian))
+              &&
               <ListItem key={show.id}>
                 <ListItemText primary={show.name} secondary={`INR ${show.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -94,8 +92,8 @@ class Profshows extends Component {
             combos
             &&
             combos.map(combo =>
-              // ((combo.allow_bitsians && this.props.isBitsian) || (combo.allow_participants && !this.props.isBitsian))
-              // &&
+              ((combo.allow_bitsians && this.props.isBitsian) || (combo.allow_participants && !this.props.isBitsian))
+              &&
               <ListItem key={combo.id}>
                 <ListItemText primary={combo.name} secondary={`${combo.shows.map(show => Object.values(show))} INR${combo.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

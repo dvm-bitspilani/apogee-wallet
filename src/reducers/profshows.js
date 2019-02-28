@@ -5,7 +5,8 @@ const initialState = {
   showsCart: {
     individual: {},
     combos: {}
-  }
+  },
+  myShows: {}
 }
 
 const reducer = (state = initialState, action) => {
@@ -61,7 +62,7 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-      if (state.showsCart.combos[id] === 0) {
+      if (newState.showsCart.combos[id] === 0) {
         delete newState.showsCart.combos[id];
       }
     }
@@ -113,12 +114,20 @@ const reducer = (state = initialState, action) => {
         }
       }
 
-      if (state.showsCart.individual[id] === 0) {
+      if (newState.showsCart.individual[id] === 0) {
         delete newState.showsCart.individual[id];
       }
     }
 
     return newState;
+  }
+
+  else if (type === profshows.SET_MY_PROFSHOWS) {
+    let myShows = action.payload;
+    return {
+      ...state,
+      myShows
+    }
   }
 
   return { ...state };
