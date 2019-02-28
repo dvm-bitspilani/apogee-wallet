@@ -3,6 +3,7 @@ import request from 'request'
 import * as auth from '@/constants/auth'
 import * as api from '@/constants/api'
 import { setProfile, updateBalance } from './userProfile'
+import * as ui from './ui'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
 import { setupRealtimeBalance } from '@/firebaseDatabase'
@@ -15,6 +16,7 @@ export const changeLoginStatus = (isLoggedIn, JWT) => ({
 })
 
 export const login = (username, password) => (dispatch, getState) => {
+  dispatch(ui.showLoader());
   request({
     method: 'POST',
     url: api.LOGIN,
@@ -27,6 +29,8 @@ export const login = (username, password) => (dispatch, getState) => {
       username, password
     })
   }, (error, response, body) => {
+    dispatch(ui.hideLoader());
+    dispatch(ui.showSnackbar('Centralized working'));
     dispatch(setProfile(body))
     if (!response) {
       dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
@@ -49,7 +53,7 @@ export const login = (username, password) => (dispatch, getState) => {
     else {
       try {
         body = JSON.parse(body)
-        dispatch(setErrorMessage(true, body.detail));
+        // dispatch(setErrorMessage(true, body.detail));
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }
