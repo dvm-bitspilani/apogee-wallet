@@ -9,10 +9,9 @@
     />
     <meta name="theme-color" content="#000000" />
 
-    <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="873252659214-md1pcn2npkm82mu269plbogbhc7ap7r2.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <script src="https://apis.google.com/js/platform.js" onload="x()" async defer></script>
 
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -44,16 +43,10 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-        // function init() {
-        //   gapi.load('auth2', function(){
-        //     auth2 = gapi.auth2.init({
-        //       client_id: '873252659214-md1pcn2npkm82mu269plbogbhc7ap7r2.apps.googleusercontent.com',
-        //       ux_mode: 'redirect'
-        //     });
-        //   });
-
-        // }
-      </script>
-  
+      function x() {
+        window.isOauthScriptReady = true;
+        window.init();
+      }
+    </script>
   </body>
 </html>

@@ -18,12 +18,41 @@ class Login extends Component {
       password: ""
     }
 
-    let that = this;
-    window.onSignIn = function (googleUser) {
-      console.log(window.gapi);
-      // Useful data for your client-side scripts:
-      let id_token = googleUser.getAuthResponse().id_token;
-      that.props.googleLogin(id_token);
+    this.googleLogin = this.googleLogin.bind(this);
+  }
+
+  componentDidMount () {
+    this.googleLogin();
+  }
+
+  googleLogin () {
+    if (this.state.isOauthReady) {
+      this.state.gapi.auth2.getAuthInstance().signIn();
+    }
+    else if (!window.isOauthScriptReady) {
+      console.log('wait for oauth');
+    }
+    else {
+      let that = this;
+      window.init = function () {
+        let gapi = window.gapi;
+        gapi.load('auth2', function () {
+          let auth2 = gapi.auth2.init({
+              ux_mode: 'popup',
+              scope: 'profile email'
+          });
+
+          auth2.currentUser.listen((googleUser) => {
+            let id_token = googleUser.getAuthResponse().id_token;
+            if (id_token) {
+              that.props.googleLogin(id_token);
+            }
+          });
+
+          that.setState({ isOauthReady: true, gapi: gapi })
+        });
+      }
+      window.init();
     }
   }
 
@@ -64,15 +93,13 @@ class Login extends Component {
             </Button>
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
-            {/* <Button
+            <Button
               variant="contained"
               color="primary"
-              onClick = {_ => this.props.getIdToken()}
+              onClick = {this.googleLogin}
               >
               Bitsian Login
-            </Button> */}
-            <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-ux_mode = "redirect"></div>
-
+            </Button>
           </Grid>
         </Grid>
         <Snackbar

@@ -33,14 +33,18 @@ class Nav extends Component {
       isDrawerOpen: false
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
 
   toggleDrawer(boolVal) {
     this.setState({ isDrawerOpen: boolVal });
   }
 
+  logoutUser () {
+    this.props.changeLoginStatus(false, null);
+  }
+
   render() {
-    // const pages = ['Profile', 'Stalls', 'Cart', 'Transfer Money', 'Add Money', 'Past Transactions', 'Current Orders', 'Profshow tickets'];
 
     const pages = [
       {
@@ -100,7 +104,7 @@ class Nav extends Component {
                 </ListItem>
               </Link>
             ))}
-              <ListItem button onClick = {() => this.props.changeLoginStatus(false, null)}>
+              <ListItem button onClick = {this.logoutUser}>
                 <ListItemIcon><MailIcon /></ListItemIcon>
                 <ListItemText primary="Logout" />
               </ListItem>
