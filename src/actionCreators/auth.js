@@ -90,7 +90,7 @@ export const googleLogin = id => (dispatch, getState) => {
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
         }))
-        setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId);
+        setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
         dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
       }

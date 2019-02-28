@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import QRCode from "qrcode.react";
+import request from 'request'
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
+import * as api from '@/constants/api'
 
 class AddMoneyDrawer extends Component {
   constructor(props) {
@@ -12,7 +14,30 @@ class AddMoneyDrawer extends Component {
     this.state = {
       amount: ""
     }
+
+    this.addMoney = this.addMoney.bind(this);
   }
+
+  addMoney() {
+    const amount = Number(this.state.amount);
+    if (amount > 0 && amount < 10000) {
+      request({
+        method: 'POST',
+        url: api.ADD_MONEY,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Wallet-Token': api.WALLET_TOKEN,
+          'Authorization': `JWT ${this.props.auth.JWT}`
+        },
+        body: JSON.stringify({ amount }) 
+      }, (error, response, body) => {
+        console.log('Status:', response.statusCode);
+        console.log('Headers:', JSON.stringify(response.headers));
+        console.log('Response:', body);
+      });
+    }
+  }
+
   render() {
 
     const isBitsian = this.props.userProfile.isBitsian;
@@ -32,9 +57,11 @@ class AddMoneyDrawer extends Component {
         />
         <Button
           variant="contained"
-          color="secondary">
+          color="secondary"
+          onClick={this.addMoney}
+          >
           Using SWD
-          </Button>
+        </Button>
       </>) :
       (<><QRCode value={this.props.userProfile.qrCode} /></>)
 
@@ -71,6 +98,7 @@ class AddMoneyDrawer extends Component {
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   userProfile: state.userProfile
 })
 

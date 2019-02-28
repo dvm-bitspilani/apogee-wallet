@@ -20,11 +20,11 @@ if (initStore.userProfile && initStore.userProfile.userId) {
 store.subscribe(() => {
   const state = store.getState();
   let { auth, userProfile, cart, profshows: { showsCart } } = state;
-  if(!auth.isLoggedIn) {
+  if (!auth.isLoggedIn) {
     localStorage.removeItem(api.LOCALSTORAGE_LOGIN);
   }
-  auth = { ...auth, isMessageSet: false, message: ""}
-  userProfile = { ...userProfile, balance: null}
+  auth = { ...auth, isMessageSet: false, message: "" }
+  userProfile = { ...userProfile, balance: null }
 
   const localStorageItem = {
     auth, userProfile, cart, profshows: { showsCart, allProfshowsData: {} }
