@@ -41,7 +41,7 @@ export const login = (username, password) => (dispatch, getState) => {
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
-        throw new Error(e);
+        throw new Error(e.message || "");
       }
     })
   });
@@ -52,6 +52,8 @@ export const getIdToken = () => (dispatch, getState) => {
 }
 
 export const googleLogin = id => (dispatch, getState) => {
+  console.log("xv")
+  ui.showLoader();
   request({
     method: 'POST',
     url: api.LOGIN,
@@ -64,10 +66,7 @@ export const googleLogin = id => (dispatch, getState) => {
       id_token: id
     })
   }, (error, response, body) => {
-    if (!response) {
-      dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-    }
-    else if (response.statusCode === 200) {
+    handleResponse(error, response, body, dispatch, () => {
       try {
         body = JSON.parse(body)
         const { JWT } = body
@@ -78,17 +77,9 @@ export const googleLogin = id => (dispatch, getState) => {
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+        throw new Error(e.message || "");
       }
-    }
-    else {
-      try {
-        body = JSON.parse(body)
-        dispatch(setErrorMessage(true, body.detail));
-      } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-      }
-    }
+    })
   });
 }
 
