@@ -7,6 +7,10 @@
   overflow-x: hidden;
 }
 
+.loginGrid {
+  margin-top: 30px !important;
+}
+
 .appName {
   text-align: center;
 }
@@ -15,7 +19,8 @@
   color: red;
 }
 
-// .loginGrid {
-  // height: 100%;
-  // width: 100%;
-// }
+.inputIcon {
+  align-self: flex-end;
+  margin: 0 5px 5px 0;
+}
+

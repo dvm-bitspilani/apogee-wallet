@@ -77,37 +77,23 @@ class Login extends Component {
         <Typography className = {classes.appName} variant="h4">STORE WEB APP</Typography>
         <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
           <Grid item xs={8} container justify="center" alignItems="center">
+            <AccountCircle className = {classes.inputIcon}/>
             <TextField
               id="name"
               label="Name"
-              margin="normal"
               value={this.state.username}
               onChange={e => this.setState({ username: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
-              <Lock />
+              <Lock className = {classes.inputIcon}/>
               <TextField
                 id="password-input"
                 label="Password"
                 type="password"
                 value={this.state.password}
                 onChange={e => this.setState({ password: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Lock />
-                  </InputAdornment>
-                ),
-              }}
-            />
+              />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
