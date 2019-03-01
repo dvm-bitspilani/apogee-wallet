@@ -4,7 +4,8 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
+  Tooltip
 } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -12,6 +13,7 @@ import { bindActionCreators } from 'redux'
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
 import * as profshows from '@/actionCreators/profshows'
+import { Help as HelpIcon } from '@material-ui/icons';
 
 class RecieveMoneyDrawer extends Component {
   componentWillMount() {
@@ -34,8 +36,9 @@ class RecieveMoneyDrawer extends Component {
             <TableHead className = {classes.profshowTableHead}>
               <TableRow>
                 <TableCell align="center">Profshow</TableCell>
-                <TableCell align="center">Quantity Remaining</TableCell>
-                <TableCell align="center">Quantity Used</TableCell>
+                <TableCell align="center">Tickets&nbsp;<Tooltip title = "Remaining/Total" placement = "top" ><div style = {{float: 'right', display: 'flex'}}>
+                  <HelpIcon/>
+                </div></Tooltip> </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -45,8 +48,7 @@ class RecieveMoneyDrawer extends Component {
                 Object.keys(this.props.myProfshows).map(key =>
                   <TableRow key = {key} className = {classes.profshowTableRow}>
                     <TableCell align="center">{this.props.myProfshows[key].show_name}</TableCell>
-                    <TableCell align="center">{this.props.myProfshows[key].unused_count}</TableCell>
-                    <TableCell align="center">{this.props.myProfshows[key].used_count}</TableCell>
+                    <TableCell align="center">{this.props.myProfshows[key].unused_count}/{this.props.myProfshows[key].used_count + this.props.myProfshows[key].unused_count}</TableCell>
                   </TableRow>
                 )
               }
