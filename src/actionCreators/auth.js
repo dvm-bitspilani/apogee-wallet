@@ -52,8 +52,7 @@ export const getIdToken = () => (dispatch, getState) => {
 }
 
 export const googleLogin = id => (dispatch, getState) => {
-  console.log("xv")
-  ui.showLoader();
+  dispatch(ui.showLoader());
   request({
     method: 'POST',
     url: api.LOGIN,
@@ -91,17 +90,3 @@ export const setErrorMessage = (isMessageSet, message) => {
     }
   }
 }
-
-/*const setupRealtimeBalance = (isBitsian, id, dispatch) => {
-  const pre = isBitsian ? 'bitsian' : 'participant'
-  const userPath = `users/${pre} - ${id}`;
-  const database = firebase.database();
-
-  const balancePath = `${userPath}/total_balance`
-  const balanceRef = database.ref(balancePath)
-  balanceRef.on('value', snap => {
-    const balance = snap.val()
-    console.log(balance)
-    dispatch(updateBalance(balance));
-  })
-}*/
