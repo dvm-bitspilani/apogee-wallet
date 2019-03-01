@@ -30,7 +30,7 @@ export const login = (username, password) => (dispatch, getState) => {
       username, password
     })
   }, (error, response, body) => {
-    handleResponse(error, response, body, dispatch, () => {
+    handleResponse(error, response, body, () => {
       try {
         body = JSON.parse(body)
         const { JWT } = body
@@ -65,7 +65,7 @@ export const googleLogin = id => (dispatch, getState) => {
       id_token: id
     })
   }, (error, response, body) => {
-    handleResponse(error, response, body, dispatch, () => {
+    handleResponse(error, response, body, () => {
       try {
         body = JSON.parse(body)
         const { JWT } = body

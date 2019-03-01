@@ -27,7 +27,7 @@ export const getVendors = () => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}`,
     }
   }, (error, response, body) => {
-    handleResponse(error, response, body, dispatch, () => {
+    handleResponse(error, response, body, () => {
       try {
         body = JSON.parse(body);
         dispatch(setVendors(body));

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import QRCode from "qrcode.react";
 import request from 'request'
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
 import * as api from '@/constants/api'
+import * as ui from '@/actionCreators/ui'
+import { handleResponse } from '@/utils'
 
 class AddMoneyDrawer extends Component {
   constructor(props) {
@@ -21,6 +24,8 @@ class AddMoneyDrawer extends Component {
   addMoney() {
     const amount = Number(this.state.amount);
     if (amount > 0) {
+      this.props.showLoader();
+
       request({
         method: 'POST',
         url: api.ADD_MONEY,
@@ -31,13 +36,14 @@ class AddMoneyDrawer extends Component {
         },
         body: JSON.stringify({ amount }) 
       }, (error, response, body) => {
-        console.log('Status:', response.statusCode);
-        console.log('Headers:', JSON.stringify(response.headers));
-        console.log('Response:', body);
+        handleResponse(error, response, body, () => {
+          this.props.showSnackbar("Money added successfully.");
+          this.props.close();
+        })
       });
     }
     else {
-      // TODO: handle err
+      this.props.showSnackbar("Please enter a valid amount");
     }
   }
 
@@ -91,4 +97,9 @@ const mapStateToProps = state => ({
   userProfile: state.userProfile
 })
 
-export default connect(mapStateToProps, null)(AddMoneyDrawer)
+const mapDispatchToProps = dispatch => bindActionCreators(
+  Object.assign({}, ui),
+  dispatch
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddMoneyDrawer)

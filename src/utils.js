@@ -1,7 +1,10 @@
 import * as ui from '@/actionCreators/ui'
 import { UNKNOWN_ERROR } from '@/constants/ui'
+import store from '@/store.js'
 
-export const handleResponse = (error, response, body, dispatch, cb) => {
+const dispatch = store.dispatch;
+
+export const handleResponse = (error, response, body, cb) => {
   dispatch(ui.hideLoader());
   if (error || !response) {
     dispatch(ui.showSnackbar(UNKNOWN_ERROR));
@@ -10,16 +13,16 @@ export const handleResponse = (error, response, body, dispatch, cb) => {
     try {
       cb();
     } catch (e) {
-      ui.showSnackbar(UNKNOWN_ERROR);
+      dispatch(ui.showSnackbar(UNKNOWN_ERROR));
     }
   }
   else {
     try {
       body = JSON.parse(body)
       if(!body.display_message) throw new Error("No display message");
-      ui.showSnackbar(body.display_message);
+      dispatch(ui.showSnackbar(body.display_message));
     } catch (e) {
-      ui.showSnackbar(UNKNOWN_ERROR);
+      dispatch(ui.showSnackbar(UNKNOWN_ERROR));
     }
   }
 }

@@ -9,7 +9,6 @@ export const hideLoader = () => ({
 })
 
 export const showSnackbar = message => {
-  console.log(message)
   return {
     type: ui.SHOW_SNACKBAR,
     payload: { message }

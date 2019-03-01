@@ -46,12 +46,13 @@ class Login extends Component {
         setTimeout(()=>window.init(), 100);
       }
     }
+    window.init();
   }
 
   googleLogin () {
     if (this.state.isOauthReady) {
       this.state.gapi.auth2.getAuthInstance().signIn();
-
+      
       window.auth2.currentUser.listen((googleUser) => {
         let id_token = googleUser.getAuthResponse().id_token;
         if (id_token) {

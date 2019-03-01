@@ -12,8 +12,8 @@ export default class AppList extends Component {
           this.props.items.map(({primary = "", secondary = "", Icon = Fragment, link = ""}) => {
             if (link !== "") {
               return (
-                <Link to = {link}>
-                  <ListItem key={primary}>
+                <Link key={primary} to = {link}>
+                  <ListItem>
                     <ListItemText primary={primary} secondary = {secondary}/>
                     <Icon />
                   </ListItem>
