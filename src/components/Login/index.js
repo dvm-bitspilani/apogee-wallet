@@ -76,10 +76,11 @@ class Login extends Component {
         <Typography className = {classes.appName} variant="h3">APOGEE 2019</Typography>
         <Typography className = {classes.appName} variant="h4">STORE WEB APP</Typography>
         <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
-          <Grid item xs={8} container justify="center" alignItems="center">
+          <Grid item xs={8} container justify="center" alignItems="center" style = {{display: 'flex'}}>
             <AccountCircle className = {classes.inputIcon}/>
             <TextField
               id="name"
+              className = {classes.inp}
               label="Name"
               value={this.state.username}
               onChange={e => this.setState({ username: e.target.value })}
@@ -89,6 +90,7 @@ class Login extends Component {
               <Lock className = {classes.inputIcon}/>
               <TextField
                 id="password-input"
+                className = {classes.inp}
                 label="Password"
                 type="password"
                 value={this.state.password}

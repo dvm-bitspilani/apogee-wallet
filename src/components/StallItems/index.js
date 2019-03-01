@@ -35,12 +35,7 @@ class StallItems extends Component {
         secondary: item.price,
         Icon: () => (
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <AddIcon
-              onClick={this.props.addToCart.bind(this, this.props.stallName,
-                this.props.stallId,
-                item.name,
-                item.id,
-                item.price)} style={{ marginRight: "5px" }} />
+            <RemoveIcon onClick={this.props.decreaseQty.bind(this, this.props.stallId, item.id)} style={{ marginLeft: "5px" }} />
             <span style={{
               width: "17px",
               textAlign: "center"
@@ -48,7 +43,12 @@ class StallItems extends Component {
                 (this.props.cart[this.props.stallId] && this.props.cart[this.props.stallId].items[item.id]) ?
                   this.props.cart[this.props.stallId].items[item.id].quantity : 0
               }</span>
-            <RemoveIcon onClick={this.props.decreaseQty.bind(this, this.props.stallId, item.id)} style={{ marginLeft: "5px" }} />
+            <AddIcon
+              onClick={this.props.addToCart.bind(this, this.props.stallName,
+                this.props.stallId,
+                item.name,
+                item.id,
+                item.price)} style={{ marginRight: "5px" }} />
           </div>
         )
       }));

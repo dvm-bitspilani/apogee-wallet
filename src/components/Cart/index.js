@@ -67,9 +67,9 @@ class Cart extends Component {
                     <ListItem key={itemId} className={classes.cartItem}>
                       <ListItemText primary={this.props.cart[stallId].items[itemId].itemName} secondary={`INR ${this.props.cart[stallId].items[itemId].price}`} />
                       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <AddIcon onClick={this.props.increaseQty.bind(this, stallId, itemId)} style={{ marginRight: "5px" }} />
-                        <span className = "qty-display">{this.props.cart[stallId].items[itemId].quantity}</span>
                         <RemoveIcon onClick={this.props.decreaseQty.bind(this, stallId, itemId)} style={{ marginLeft: "5px" }} />
+                        <span className = "qty-display">{this.props.cart[stallId].items[itemId].quantity}</span>
+                        <AddIcon onClick={this.props.increaseQty.bind(this, stallId, itemId)} style={{ marginRight: "5px" }} />
                       </div>
                     </ListItem>
                   ))}

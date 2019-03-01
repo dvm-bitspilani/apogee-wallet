@@ -39,19 +39,15 @@ class Stalls extends Component {
       sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
         primary: name,
         secondary: "",
-        Icon: () => (
-          <Link to={`/stall/${id}/items`}>
-            <Button>
-              <Arrow />
-            </Button>
-          </Link>)
+        link: `/stall/${id}/items`,
+        Icon: () => <Arrow />
       }))
     }
     return (
       <AuthRequired>
         <Typography variant="h4">STALLS</Typography>
 
-        <AppList items={sampleStruct} />
+        <AppList items={sampleStruct}/>
 
       </AuthRequired>
     )

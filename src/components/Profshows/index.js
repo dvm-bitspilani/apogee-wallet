@@ -78,9 +78,9 @@ class Profshows extends Component {
               <ListItem key={show.id}>
                 <ListItemText primary={show.name} secondary={`INR ${show.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <AddIcon onClick = {this.props.increaseShowQty.bind(null, show.id)} style={{ marginRight: "5px" }} />
-                  <span className = "qty-display">{this.props.profshows.showsCart.individual[show.id] ? this.props.profshows.showsCart.individual[show.id] : 0}</span>
                   <RemoveIcon onClick = {this.props.decreaseShowQty.bind(null, show.id)} style={{ marginLeft: "5px" }} />
+                  <span className = "qty-display">{this.props.profshows.showsCart.individual[show.id] ? this.props.profshows.showsCart.individual[show.id] : 0}</span>
+                  <AddIcon onClick = {this.props.increaseShowQty.bind(null, show.id)} style={{ marginRight: "5px" }} />
                 </div>
               </ListItem>
             )
@@ -97,9 +97,9 @@ class Profshows extends Component {
               <ListItem key={combo.id}>
                 <ListItemText primary={combo.name} secondary={`${combo.shows.map(show => Object.values(show))} INR${combo.price}`} />
                 <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                  <AddIcon onClick = {this.props.increaseComboQty.bind(null, combo.id)} style={{ marginRight: "5px" }} />
-                  <span className = "qty-display">{this.props.profshows.showsCart.combos[combo.id] ? this.props.profshows.showsCart.combos[combo.id] : 0}</span>
                   <RemoveIcon onClick = {this.props.decreaseComboQty.bind(null, combo.id)} style={{ marginLeft: "5px" }} />
+                  <span className = "qty-display">{this.props.profshows.showsCart.combos[combo.id] ? this.props.profshows.showsCart.combos[combo.id] : 0}</span>
+                  <AddIcon onClick = {this.props.increaseComboQty.bind(null, combo.id)} style={{ marginRight: "5px" }} />
                 </div>
               </ListItem>
             )
