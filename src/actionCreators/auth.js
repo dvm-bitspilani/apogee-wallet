@@ -7,6 +7,7 @@ import * as ui from './ui'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
 import { setupRealtimeBalance } from '@/firebaseDatabase'
+import { handleResponse } from '@/utils'
 
 export const changeLoginStatus = (isLoggedIn, JWT) => ({
   type: auth.SET_LOGIN,
@@ -29,13 +30,7 @@ export const login = (username, password) => (dispatch, getState) => {
       username, password
     })
   }, (error, response, body) => {
-    dispatch(ui.hideLoader());
-    dispatch(ui.showSnackbar('Centralized working'));
-    dispatch(setProfile(body))
-    if (!response) {
-      dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-    }
-    else if (response.statusCode === 200) {
+    handleResponse(error, response, body, dispatch, () => {
       try {
         body = JSON.parse(body)
         const { JWT } = body
@@ -45,19 +40,10 @@ export const login = (username, password) => (dispatch, getState) => {
           isBitsian: body.bitsian_id.trim().length > 0
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
-
       } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+        throw new Error(e.message || "");
       }
-    }
-    else {
-      try {
-        body = JSON.parse(body)
-        // dispatch(setErrorMessage(true, body.detail));
-      } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-      }
-    }
+    })
   });
 }
 
@@ -66,7 +52,7 @@ export const getIdToken = () => (dispatch, getState) => {
 }
 
 export const googleLogin = id => (dispatch, getState) => {
-  console.log(id)
+  dispatch(ui.showLoader());
   request({
     method: 'POST',
     url: api.LOGIN,
@@ -79,13 +65,7 @@ export const googleLogin = id => (dispatch, getState) => {
       id_token: id
     })
   }, (error, response, body) => {
-    console.log(body);
-    dispatch(setProfile(body))
-    console.log(JSON.parse(body))
-    if (!response) {
-      dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-    }
-    else if (response.statusCode === 200) {
+    handleResponse(error, response, body, dispatch, () => {
       try {
         body = JSON.parse(body)
         const { JWT } = body
@@ -96,17 +76,9 @@ export const googleLogin = id => (dispatch, getState) => {
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
+        throw new Error(e.message || "");
       }
-    }
-    else {
-      try {
-        body = JSON.parse(body)
-        dispatch(setErrorMessage(true, body.detail));
-      } catch (e) {
-        dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
-      }
-    }
+    })
   });
 }
 
@@ -118,17 +90,3 @@ export const setErrorMessage = (isMessageSet, message) => {
     }
   }
 }
-
-/*const setupRealtimeBalance = (isBitsian, id, dispatch) => {
-  const pre = isBitsian ? 'bitsian' : 'participant'
-  const userPath = `users/${pre} - ${id}`;
-  const database = firebase.database();
-
-  const balancePath = `${userPath}/total_balance`
-  const balanceRef = database.ref(balancePath)
-  balanceRef.on('value', snap => {
-    const balance = snap.val()
-    console.log(balance)
-    dispatch(updateBalance(balance));
-  })
-}*/

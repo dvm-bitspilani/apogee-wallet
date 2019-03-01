@@ -18,7 +18,6 @@ class RecieveMoneyDrawer extends Component {
     this.props.getMyProfshows();
   }
   render() {
-    console.log(this.props.myProfshows)
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
         <div className={classes.moneyDrawersCommon}
