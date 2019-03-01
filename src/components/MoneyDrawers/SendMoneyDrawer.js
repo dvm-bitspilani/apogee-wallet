@@ -23,7 +23,8 @@ class SendMoneyDrawer extends Component {
   sendMoney() {
     const amount = Number(this.state.amount)
     if (Number.isNaN(amount)) return this.showSnackbar('Please enter a valid amount');
-    const { qrCode: qr_code } = this.props.userProfile
+    // const { qrCode: qr_code } = this.props.userProfile
+    console.log(this.state.walletId);
 
     request({
       method: 'POST',
@@ -33,7 +34,7 @@ class SendMoneyDrawer extends Component {
         'X-Wallet-Token': api.WALLET_TOKEN,
         'Authorization': `JWT ${this.props.auth.JWT}`
       },
-      body: JSON.stringify({ qr_code, amount }),
+      body: JSON.stringify({ id: this.state.walletId, amount }),
     }, (error, response, body) => {
       if (!response) {
         this.showSnackbar("Unknown error, please contact administrator")

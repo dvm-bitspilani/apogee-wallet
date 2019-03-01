@@ -9,7 +9,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import * as auth from '@/actionCreators/auth'
 import classes from './styles.module.scss'
-import { Typography, InputAdornment } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Lock } from '@material-ui/icons';
 
