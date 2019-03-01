@@ -25,19 +25,27 @@ class Login extends Component {
   }
 
   componentDidMount () {
+    this.oauthSetup();
+  }
+
+  oauthSetup () {
     let that = this;
     window.init = function () {
       let gapi = window.gapi;
-      gapi.load('auth2', function () {
-        window.auth2 = gapi.auth2.init({
-            ux_mode: 'popup',
-            scope: 'profile email'
-        });
+      if (gapi) {
+        gapi.load('auth2', function () {
+          window.auth2 = gapi.auth2.init({
+              ux_mode: 'popup',
+              scope: 'profile email'
+          });
 
-        that.setState({ isOauthReady: true, gapi: gapi })
-      });
+          that.setState({ isOauthReady: true, gapi: gapi })
+        });
+      }
+      else {
+        setTimeout(()=>window.init(), 100);
+      }
     }
-    setTimeout(()=>window.init(), 200);
   }
 
   googleLogin () {
@@ -55,7 +63,7 @@ class Login extends Component {
       console.log('wait for oauth');
     }
     else {
-      window.init();
+      this.oauthSetup();
     }
   }
 
@@ -69,36 +77,23 @@ class Login extends Component {
         <Typography className = {classes.appName} variant="h4">STORE WEB APP</Typography>
         <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
           <Grid item xs={8} container justify="center" alignItems="center">
+            <AccountCircle className = {classes.inputIcon}/>
             <TextField
               id="name"
               label="Name"
-              margin="normal"
               value={this.state.username}
               onChange={e => this.setState({ username: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
-            <TextField
-              id="password-input"
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={e => this.setState({ password: e.target.value })}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Lock />
-                  </InputAdornment>
-                ),
-              }}
-            />
+              <Lock className = {classes.inputIcon}/>
+              <TextField
+                id="password-input"
+                label="Password"
+                type="password"
+                value={this.state.password}
+                onChange={e => this.setState({ password: e.target.value })}
+              />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
             <Button
