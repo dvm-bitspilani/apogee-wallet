@@ -81,7 +81,7 @@ class Profile extends Component {
               sendMoneyDrawerOpened: false,
               profshowDrawerOpened: true,
             })}>
-            View Profshows
+            Profshows signed
           </Button>
 
           <AddMoneyDrawer

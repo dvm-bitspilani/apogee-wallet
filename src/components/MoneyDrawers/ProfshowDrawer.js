@@ -31,9 +31,10 @@ class RecieveMoneyDrawer extends Component {
           <h3
             style={{
               marginBottom: "20px"
-            }}>PROFSHOWS SIGNED</h3>
+            }}
+            className = {classes.topText}>PROFSHOWS SIGNED</h3>
           <Table>
-            <TableHead>
+            <TableHead className = {classes.profshowTableHead}>
               <TableRow>
                 <TableCell align="center">Profshow</TableCell>
                 <TableCell align="center">Quantity Remaining</TableCell>
@@ -45,7 +46,7 @@ class RecieveMoneyDrawer extends Component {
                 this.props.myProfshows
                 &&
                 Object.keys(this.props.myProfshows).map(key =>
-                  <TableRow key = {key}>
+                  <TableRow key = {key} className = {classes.profshowTableRow}>
                     <TableCell align="center">{this.props.myProfshows[key].show_name}</TableCell>
                     <TableCell align="center">{this.props.myProfshows[key].unused_count}</TableCell>
                     <TableCell align="center">{this.props.myProfshows[key].used_count}</TableCell>

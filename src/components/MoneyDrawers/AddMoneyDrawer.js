@@ -73,7 +73,8 @@ class AddMoneyDrawer extends Component {
             justifyContent: isBitsian ? "space-around" : "center"
           }}>
           <h3
-            style={{ marginBottom: isBitsian ? "" : "20px" }}>
+            style={{ marginBottom: isBitsian ? "" : "20px" }}
+            className = {classes.topText}>
             {text}
           </h3>
           {/* <TextField

@@ -21,7 +21,8 @@ class RecieveMoneyDrawer extends Component {
           <h3
           style={{
             marginBottom: "20px"
-          }}>ASK THE SENDER TO SCAN THE QR CODE</h3>
+          }}
+          className = {classes.topText}>ASK THE SENDER TO SCAN THE QR CODE</h3>
           <QRCode value={this.props.userProfile.qrCode} />
         </div>
 
