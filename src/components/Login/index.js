@@ -25,36 +25,36 @@ class Login extends Component {
   }
 
   componentDidMount () {
-    this.googleLogin();
+    let that = this;
+    window.init = function () {
+      let gapi = window.gapi;
+      gapi.load('auth2', function () {
+        window.auth2 = gapi.auth2.init({
+            ux_mode: 'popup',
+            scope: 'profile email'
+        });
+
+        that.setState({ isOauthReady: true, gapi: gapi })
+      });
+    }
+    setTimeout(()=>window.init(), 200);
   }
 
   googleLogin () {
     if (this.state.isOauthReady) {
       this.state.gapi.auth2.getAuthInstance().signIn();
+
+      window.auth2.currentUser.listen((googleUser) => {
+        let id_token = googleUser.getAuthResponse().id_token;
+        if (id_token) {
+          this.props.googleLogin(id_token);
+        }
+      });
     }
     else if (!window.isOauthScriptReady) {
       console.log('wait for oauth');
     }
     else {
-      let that = this;
-      window.init = function () {
-        let gapi = window.gapi;
-        gapi.load('auth2', function () {
-          let auth2 = gapi.auth2.init({
-              ux_mode: 'popup',
-              scope: 'profile email'
-          });
-
-          auth2.currentUser.listen((googleUser) => {
-            let id_token = googleUser.getAuthResponse().id_token;
-            if (id_token) {
-              that.props.googleLogin(id_token);
-            }
-          });
-
-          that.setState({ isOauthReady: true, gapi: gapi })
-        });
-      }
       window.init();
     }
   }

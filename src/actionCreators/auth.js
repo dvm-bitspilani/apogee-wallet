@@ -64,8 +64,6 @@ export const googleLogin = id => (dispatch, getState) => {
       id_token: id
     })
   }, (error, response, body) => {
-    dispatch(setProfile(body))
-    console.log(JSON.parse(body))
     if (!response) {
       dispatch(setErrorMessage(true, "Unknown error, please contact adminstrators"));
     }
