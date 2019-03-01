@@ -66,7 +66,7 @@ class Nav extends Component {
       //   icon: () => <MoneyIcon />
       // },
       {
-        name: 'Profshow Tickets',
+        name: 'Buy Profshow Tickets',
         link: '/profshows',
         icon: () => <LocalActivityIcon />
       },

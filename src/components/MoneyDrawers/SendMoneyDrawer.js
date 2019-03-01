@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextField, Button, Snackbar } from '@material-ui/core'
+import { TextField, Button, Snackbar, InputAdornment } from '@material-ui/core'
 import { connect } from 'react-redux'
 import request from 'request'
 
@@ -71,28 +71,36 @@ class SendMoneyDrawer extends Component {
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
         <div className={classes.moneyDrawersCommon}>
-          <h3>I WANT TO SEND</h3>
+          <h3 className = {classes.topText}>SEND MONEY</h3>
           <div style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center"
           }}>
+            <h4>I WANT TO SEND</h4>
+            <TextField
+              label="Amount"
+              value={this.state.amount}
+              onChange={e => this.setState({ amount: e.target.value })}
+              margin="normal"
+              variant="outlined"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">INR</InputAdornment>,
+              }}
+              className = {classes.inputBox}
+            />
+            <h4>TO</h4>
             <TextField
               label="WalletId"
               value={this.state.walletId}
               onChange={e => this.setState({ walletId: e.target.value })}
               margin="normal"
               variant="outlined"
-            />
-            <TextField
-              label="Amount"
-              value={this.state.amount}
-              onChange={e => this.setState({ amount: e.target.value })}
-              type="number"
-              margin="normal"
-              variant="outlined"
-              helperText="INR"
+              InputProps={{
+                startAdornment: <InputAdornment position="start">#</InputAdornment>,
+              }}
+              className = {classes.inputBox}
             />
           </div>
           <Button

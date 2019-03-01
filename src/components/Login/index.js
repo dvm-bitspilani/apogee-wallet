@@ -9,6 +9,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import * as auth from '@/actionCreators/auth'
 import classes from './styles.module.scss'
+import { Typography, InputAdornment } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Lock } from '@material-ui/icons';
 
 class Login extends Component {
   constructor(props) {
@@ -62,6 +65,8 @@ class Login extends Component {
     }
     return (
       <div id={classes.loginRoot}>
+        <Typography className = {classes.appName} variant="h3">APOGEE 2019</Typography>
+        <Typography className = {classes.appName} variant="h4">STORE WEB APP</Typography>
         <Grid container spacing={24} className={classes.loginGrid} alignContent="center" justify="center">
           <Grid item xs={8} container justify="center" alignItems="center">
             <TextField
@@ -70,6 +75,13 @@ class Login extends Component {
               margin="normal"
               value={this.state.username}
               onChange={e => this.setState({ username: e.target.value })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
@@ -79,6 +91,13 @@ class Login extends Component {
               type="password"
               value={this.state.password}
               onChange={e => this.setState({ password: e.target.value })}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Lock />
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
