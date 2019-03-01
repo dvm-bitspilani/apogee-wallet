@@ -1,20 +1,16 @@
 import React, { Component } from "react";
 import {
   Typography,
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-  Divider,
   Button
 } from "@material-ui/core";
-import { Mail as MailIcon, ArrowForwardIos as Arrow } from "@material-ui/icons";
+import {
+  ArrowForwardIos as Arrow
+} from "@material-ui/icons";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 
 import AuthRequired from "../AuthRequired";
-import classes from './styles.module.scss';
 import AppList from "../AppList";
 import * as vendors from "@/actionCreators/vendors"
 

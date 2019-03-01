@@ -10,15 +10,10 @@ import {
   Divider
 } from "@material-ui/core";
 
-import AppList from '../AppList'
 import * as orders from '@/actionCreators/orders'
 import classes from './styles.module.scss'
 
 class PastTransactions extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillMount() {
     this.props.getPastTransactions()
   }

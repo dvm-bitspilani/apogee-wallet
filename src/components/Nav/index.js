@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import { 
@@ -8,7 +8,6 @@ import {
   AccountCircle as AccountCircleIcon,
   Store as StoreIcon,
   Fastfood as FastfoodIcon,
-  Money as MoneyIcon, 
   LocalActivity as LocalActivityIcon } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,7 +20,6 @@ import Profile from '../Profile';
 import Cart from '../Cart';
 import Stalls from '../Stalls';
 import StallItems from '../StallItems';
-import PastTransactions from '../PastTransactions';
 import Profshows from '../Profshows';
 import CurrentOrders from '../CurrentOrders';
 

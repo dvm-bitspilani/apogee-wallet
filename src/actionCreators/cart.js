@@ -39,9 +39,9 @@ export const placeOrder = () => (dispatch, getState) => {
   let requestBody = {};
   let cart = getState().cart;
 
-  Object.keys(cart).map(stallId => {
+  Object.keys(cart).forEach(stallId => {
     requestBody[stallId] = {};
-    Object.keys(cart[stallId].items).map(itemId => {
+    Object.keys(cart[stallId].items).forEach(itemId => {
       requestBody[stallId][itemId] = cart[stallId].items[itemId].quantity;
     })
   })

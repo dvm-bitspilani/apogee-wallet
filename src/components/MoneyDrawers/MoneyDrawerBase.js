@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Drawer, Button } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
 

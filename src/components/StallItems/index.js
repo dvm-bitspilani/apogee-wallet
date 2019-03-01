@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import {
-  AddShoppingCart as AddCartIcon,
   ArrowBackIos as ArrowIcon,
   AddCircleOutline as AddIcon,
   RemoveCircleOutline as RemoveIcon,
@@ -14,7 +13,6 @@ import {
   ListItemSecondaryAction,
 } from "@material-ui/core";
 import { connect } from 'react-redux'
-import request from 'request'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 

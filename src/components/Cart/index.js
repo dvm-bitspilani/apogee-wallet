@@ -40,8 +40,8 @@ class Cart extends Component {
 
   computeTotalPrice() {
     let totalPrice = 0;
-    Object.keys(this.props.cart).map(stallId => {
-      Object.keys(this.props.cart[stallId].items).map(itemId => {
+    Object.keys(this.props.cart).forEach(stallId => {
+      Object.keys(this.props.cart[stallId].items).forEach(itemId => {
         let item = this.props.cart[stallId].items[itemId];
         totalPrice += (item.price * item.quantity)
       })

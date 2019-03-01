@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { TextField, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import QRCode from "qrcode.react";
 
@@ -7,9 +6,6 @@ import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
 
 class RecieveMoneyDrawer extends Component {
-  constructor(props) {
-    super(props)
-  }
   render() {
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>

@@ -8,7 +8,7 @@ import { setupRealtimeBalance } from './firebaseDatabase'
 let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let x;
-const initStore = (x = localStorage.getItem(api.LOCALSTORAGE_LOGIN)) ? JSON.parse(x) : {}
+const initStore = (x = localStorage.getItem(api.LOCALSTORAGE_LOGIN)) ? JSON.parse(x) : {}; //eslint-line-disable
 const store = createStore(combineReducers(reducers), initStore, composeEnhancers(applyMiddleware(thunk)))
 
 if (initStore.userProfile && initStore.userProfile.userId) {

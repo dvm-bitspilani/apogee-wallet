@@ -1,5 +1,4 @@
 import * as profshows from '@/constants/profshows'
-import { stat } from 'fs';
 const initialState = {
   allProfshowsData: {},
   showsCart: {

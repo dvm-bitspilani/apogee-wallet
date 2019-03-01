@@ -2,7 +2,6 @@ import React, { Component, Fragment} from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 
 import classes from './styles.module.scss';
-import { Mail as MailIcon} from "@material-ui/icons";
 
 export default class AppList extends Component {
   render () {

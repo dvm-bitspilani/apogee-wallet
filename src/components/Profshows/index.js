@@ -43,12 +43,12 @@ class Profshows extends Component {
     let totalPrice = 0;
 
     if (showsCart && allProfshowsData && allProfshowsData.shows && allProfshowsData.combos) {
-      Object.keys(showsCart.individual).map(showId => {
+      Object.keys(showsCart.individual).forEach(showId => {
         let show = allProfshowsData.shows.filter(show => show.id == showId)[0];
         totalPrice += (show.price * showsCart.individual[showId]);
       });
 
-      Object.keys(showsCart.combos).map(comboId => {
+      Object.keys(showsCart.combos).forEach(comboId => {
         let combo = allProfshowsData.combos.filter(combo => combo.id == comboId)[0];
         totalPrice += (combo.price * showsCart.combos[comboId]);
       });

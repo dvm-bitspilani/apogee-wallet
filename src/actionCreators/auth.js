@@ -2,7 +2,7 @@ import request from 'request'
 
 import * as auth from '@/constants/auth'
 import * as api from '@/constants/api'
-import { setProfile, updateBalance } from './userProfile'
+import { setProfile } from './userProfile'
 import * as ui from './ui'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'

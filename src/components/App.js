@@ -12,7 +12,6 @@ import {
 import { bindActionCreators } from 'redux'
 
 import Login from './Login'
-import store from '@/store'
 import Nav from './Nav';
 import Progress from './Progress'
 import * as ui from '@/actionCreators/ui'
