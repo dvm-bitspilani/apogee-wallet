@@ -79,7 +79,7 @@ export const googleLogin = id => (dispatch, getState) => {
       id_token: id
     })
   }, (error, response, body) => {
-    console.log('herer')
+    console.log(body);
     dispatch(setProfile(body))
     console.log(JSON.parse(body))
     if (!response) {
