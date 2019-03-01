@@ -8,6 +8,7 @@ import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
 import RecieveMoneyDrawer from "../MoneyDrawers/RecieveMoneyDrawer"
 import SendMoneyDrawer from "../MoneyDrawers/SendMoneyDrawer"
 import ProfshowDrawer from "../MoneyDrawers/ProfshowDrawer"
+import QRCode from "qrcode.react";
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -34,6 +35,8 @@ class Profile extends Component {
           <Typography variant="h6">BALANCE</Typography>
         </div>
 
+        <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} />
+
         <div className={classes.btnWrap}>
           <Button
             className={classes.btns}
@@ -47,7 +50,7 @@ class Profile extends Component {
             })}>
             Add Money
             </Button>
-          <Button
+          {/* <Button
             className={classes.btns}
             variant="contained"
             color="primary"
@@ -58,7 +61,7 @@ class Profile extends Component {
               profshowDrawerOpened: false,
             })}>
             Receive Money
-            </Button>
+            </Button> */}
           <Button
             className={classes.btns}
             variant="contained"

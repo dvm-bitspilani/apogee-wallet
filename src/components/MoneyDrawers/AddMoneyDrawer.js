@@ -20,7 +20,7 @@ class AddMoneyDrawer extends Component {
 
   addMoney() {
     const amount = Number(this.state.amount);
-    if (amount > 0 && amount < 10000) {
+    if (amount > 0) {
       request({
         method: 'POST',
         url: api.ADD_MONEY,
@@ -36,13 +36,16 @@ class AddMoneyDrawer extends Component {
         console.log('Response:', body);
       });
     }
+    else {
+      // TODO: handle err
+    }
   }
 
   render() {
 
     const isBitsian = this.props.userProfile.isBitsian;
 
-    const text = isBitsian ? "I WANT TO ADD" : "SHOW THE QR CODE TO THE TELLER"
+    const text = isBitsian ? "ADD MONEY USING SWD" : "SHOW THE QR CODE TO THE TELLER"
 
     const Content = isBitsian ?
       (<>
@@ -50,17 +53,16 @@ class AddMoneyDrawer extends Component {
           label="Amount"
           value={this.state.amount}
           onChange={e => this.setState({ amount: e.target.value })}
-          type="number"
           margin="normal"
           variant="outlined"
-          helperText="INR"
+          className = {classes.inputBox}
         />
         <Button
           variant="contained"
           color="secondary"
           onClick={this.addMoney}
           >
-          Using SWD
+          ADD
         </Button>
       </>) :
       (<><QRCode value={this.props.userProfile.qrCode} /></>)
@@ -77,20 +79,6 @@ class AddMoneyDrawer extends Component {
             className = {classes.topText}>
             {text}
           </h3>
-          {/* <TextField
-            label="Amount"
-            value={this.state.amount}
-            onChange={e => this.setState({ amount: e.target.value })}
-            type="number"
-            margin="normal"
-            variant="outlined"
-            helperText="INR"
-          />
-          <Button
-            variant="contained"
-            color="secondary">
-            Using SWD
-          </Button> */}
           {Content}
         </div>
       </MoneyDrawerBase>
