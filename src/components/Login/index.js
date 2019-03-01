@@ -25,19 +25,27 @@ class Login extends Component {
   }
 
   componentDidMount () {
+    this.oauthSetup();
+  }
+
+  oauthSetup () {
     let that = this;
     window.init = function () {
       let gapi = window.gapi;
-      gapi.load('auth2', function () {
-        window.auth2 = gapi.auth2.init({
-            ux_mode: 'popup',
-            scope: 'profile email'
-        });
+      if (gapi) {
+        gapi.load('auth2', function () {
+          window.auth2 = gapi.auth2.init({
+              ux_mode: 'popup',
+              scope: 'profile email'
+          });
 
-        that.setState({ isOauthReady: true, gapi: gapi })
-      });
+          that.setState({ isOauthReady: true, gapi: gapi })
+        });
+      }
+      else {
+        setTimeout(()=>window.init(), 100);
+      }
     }
-    setTimeout(()=>window.init(), 200);
   }
 
   googleLogin () {
@@ -55,7 +63,7 @@ class Login extends Component {
       console.log('wait for oauth');
     }
     else {
-      window.init();
+      this.oauthSetup();
     }
   }
 
@@ -85,12 +93,13 @@ class Login extends Component {
             />
           </Grid>
           <Grid item xs={8} container justify="center" alignItems="center">
-            <TextField
-              id="password-input"
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={e => this.setState({ password: e.target.value })}
+              <Lock />
+              <TextField
+                id="password-input"
+                label="Password"
+                type="password"
+                value={this.state.password}
+                onChange={e => this.setState({ password: e.target.value })}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
