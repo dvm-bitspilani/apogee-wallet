@@ -25,6 +25,7 @@ const reducer = (state = initialState, action) => {
       name, 
       isBitsian
     }} = action
+
     const newState =  {
       ...state,
       qrCode,
@@ -36,7 +37,6 @@ const reducer = (state = initialState, action) => {
       name,
       isBitsian
     }
-    console.log(newState)
     return newState;
   }
   if(type === userProfile.UPDATE_BALANCE) { 

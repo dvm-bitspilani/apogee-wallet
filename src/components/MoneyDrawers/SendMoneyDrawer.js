@@ -36,8 +36,13 @@ class SendMoneyDrawer extends Component {
       body: JSON.stringify({ id: this.state.walletId, amount }),
     }, (error, response, body) => {
       handleResponse(error, response, body, () => {
-        this.props.showSnackbar("Money sent successfully.");
-        this.props.close();
+        try {
+          this.props.showSnackbar("Money sent successfully.");
+          this.props.close();
+        }
+        catch (e) {
+          throw new Error(e.message || "")
+        }
       })
     });
   }

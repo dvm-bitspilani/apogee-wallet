@@ -37,8 +37,13 @@ class AddMoneyDrawer extends Component {
         body: JSON.stringify({ amount }) 
       }, (error, response, body) => {
         handleResponse(error, response, body, () => {
-          this.props.showSnackbar("Money added successfully.");
-          this.props.close();
+          try {
+            this.props.showSnackbar("Money added successfully.");
+            this.props.close();
+          }
+          catch (e) {
+            throw new Error(e.message || "");
+          }
         })
       });
     }

@@ -4,6 +4,9 @@ import * as orders from '@/constants/orders'
 import * as api from '@/constants/api'
 import { setupRealtimeOrders } from '@/firebaseDatabase'
 
+import { handleResponse } from '@/utils'
+import * as ui from '@/actionCreators/ui'
+
 export const setPastTransactions = transactions => ({
   type: orders.SET_PAST_TRANSACTIONS,
   payload: transactions,
@@ -32,6 +35,7 @@ export const setPastTransactions = transactions => ({
 // }
 
 export const getCurrentOrders = orders => (dispatch, getState) => {
+  dispatch(ui.showLoader());
   request({
     method: 'GET',
     url: api.GET_ORDERS,
@@ -41,32 +45,16 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
       'Authorization': `JWT ${getState().auth.JWT}`
     }
   }, (error, response, body) => {
-    if (!response) { }
-    else if (response.statusCode === 200) {
+    handleResponse(error, response, body, () => {
       try {
         body = JSON.parse(body)
-        console.log(body)
-        // const currentOrdersCode = [0, 1, 2];
-        
-        // body = body.map(
-        //   shell => ({
-        //     ...shell,
-        //     orders: shell.orders.filter(({status}) => currentOrdersCode.includes(status))
-        //   })
-        // )
-        // console.log(body)
         dispatch(setCurrentOrders(body))
         setupRealtimeOrders(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
-      } catch (e) { }
-    }
-
-    else {
-      try {
-        body = JSON.parse(body)
-      } catch (e) {
-
       }
-    }
+      catch (e) {
+        throw new Error(e.message || "");
+      }
+    })
   });
 }
 

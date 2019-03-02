@@ -63,6 +63,7 @@ export const setItems = payload => ({
 export const getItems = id => (dispatch, getState) => {
   dispatch(setItems([]));
   dispatch(getVendor(id));
+  dispatch(ui.showLoader());
   request({
     method: 'GET',
     url: `${api.GET_VENDORS}${id}/items`,
@@ -74,8 +75,15 @@ export const getItems = id => (dispatch, getState) => {
     }
   },
     function (error, response, body) {
-      body = JSON.parse(body);
-      dispatch(setItems(body));
+      handleResponse (error, response, body, () => {
+        try {
+          body = JSON.parse(body);
+          dispatch(setItems(body));
+        }
+        catch (e) {
+          throw new Error (e.message || "")
+        }
+      })
     }
   );
 }

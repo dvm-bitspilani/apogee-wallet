@@ -129,6 +129,16 @@ const reducer = (state = initialState, action) => {
     }
   }
 
+  else if (type === profshows.CLEAR) {
+    return {
+      ...state,
+      showsCart: {
+        individual: {},
+        combos: {}
+      }
+    }
+  }
+
   return { ...state };
 }
 

@@ -12,9 +12,17 @@ const initStore = (x = localStorage.getItem(api.LOCALSTORAGE_LOGIN)) ? JSON.pars
 const store = createStore(combineReducers(reducers), initStore, composeEnhancers(applyMiddleware(thunk)))
 
 if (initStore.userProfile && initStore.userProfile.userId) {
-  console.log(initStore.userProfile.userId)
   const state = store.getState()
-  setupRealtimeBalance(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch);
+
+  // becuase setupRealtimeBalance is undefined sometimes
+  const runRealTime = () => {
+    if (setupRealtimeBalance) setupRealtimeBalance(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch)
+
+    else {
+      setTimeout(() => runRealTime() , 100)
+    }
+  }
+  runRealTime();
 }
 
 store.subscribe(() => {

@@ -3,6 +3,9 @@ import request from 'request'
 import * as profshows from '@/constants/profshows'
 import * as api from '@/constants/api'
 
+import * as ui from '@/actionCreators/ui'
+import { handleResponse } from '@/utils'
+
 export const setAllProfshows = (showsData) => ({
   type: profshows.SET_ALL_PROFSHOWS,
   payload: showsData
@@ -13,36 +16,57 @@ export const setMyProfshows = (myShowsData) => ({
   payload: myShowsData
 });
 
+export const clearShowsCart = () => ({
+  type: profshows.CLEAR
+})
+
 export const getAllProfshows = () => (dispatch, getState) => {
+  dispatch(ui.showLoader())
   request({
     method: 'GET',
     url: api.GET_ALL_PROFSHOWS,
     headers: {
       'Content-Type': 'application/json',
-      'X-Wallet-Token': api.WALLET_TOKEN, 
+      'X-Wallet-Token': api.WALLET_TOKEN,
       'Authorization': `JWT ${getState().auth.JWT}`,
       'Access-Control-Allow-Origin' : '*'
     }
   }, function (error, response, body) {
-    let profshowsData = JSON.parse(body);
-    dispatch(setAllProfshows(profshowsData));
+      handleResponse (error, response, body, () => {
+        try {
+          let profshowsData = JSON.parse(body);
+          dispatch(setAllProfshows(profshowsData));
+        }
+        catch (e) {
+          throw new Error (e.message || "")
+        }
+      })
   });
 }
 
 export const buyTickets = () => (dispatch, getState) => {
+  dispatch(ui.showLoader());
   let showsCart = getState().profshows.showsCart;
   request({
     method: 'POST',
     url: api.BUY_TICKETS,
     headers: {
       'Content-Type': 'application/json',
-      'X-Wallet-Token': api.WALLET_TOKEN, 
+      'X-Wallet-Token': api.WALLET_TOKEN,
       'Authorization': `JWT ${getState().auth.JWT}`,
       'Access-Control-Allow-Origin' : '*'
     },
     body: JSON.stringify(showsCart)
   }, function (error, response, body) {
-      console.log(body);
+    handleResponse (error, response, body, () => {
+      try {
+        dispatch(ui.showSnackbar("Tickets bought!"));
+        dispatch(clearShowsCart());
+      }
+      catch (e) {
+        throw new Error (e.message || "")
+      }
+    })
   });
 }
 

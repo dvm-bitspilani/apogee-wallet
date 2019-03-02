@@ -34,11 +34,11 @@ export const login = (username, password) => (dispatch, getState) => {
       try {
         body = JSON.parse(body)
         const { JWT } = body
-        dispatch(changeLoginStatus(true, JWT))
         dispatch(setProfile({
           ...body,
           isBitsian: body.bitsian_id.trim().length > 0
         }))
+        dispatch(changeLoginStatus(true, JWT))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
         throw new Error(e.message || "");

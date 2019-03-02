@@ -67,8 +67,13 @@ export const placeOrder = () => (dispatch, getState) => {
         'Access-Control-Allow-Origin' : '*'
       }}, (error, response, body) => {
         handleResponse(error, response, body, () => {
-          dispatch(ui.showSnackbar("Order placed successfully"));
-          dispatch(clearCart());
+          try {
+            dispatch(ui.showSnackbar("Order placed successfully"));
+            dispatch(clearCart());
+          }
+          catch (e) {
+            throw new Error(e.message || "");
+          }
         })
     });
   }
