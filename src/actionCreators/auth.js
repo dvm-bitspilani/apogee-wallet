@@ -8,13 +8,23 @@ import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
 import { setupRealtimeBalance } from '@/firebaseDatabase'
 import { handleResponse } from '@/utils'
+import * as cart from './cart';
+import * as profshows from './profshows';
 
-export const changeLoginStatus = (isLoggedIn, JWT) => ({
-  type: auth.SET_LOGIN,
-  payload: {
-    JWT, isLoggedIn
+export const changeLoginStatus = (isLoggedIn, JWT) => (dispatch, getState) => {
+  
+  if (isLoggedIn) {
+    dispatch(cart.clearCart());
+    dispatch(profshows.clearShowsCart());
   }
-})
+
+  dispatch({
+    type: auth.SET_LOGIN,
+    payload: {
+      JWT, isLoggedIn
+    }
+  });
+}
 
 export const login = (username, password) => (dispatch, getState) => {
   dispatch(ui.showLoader());
