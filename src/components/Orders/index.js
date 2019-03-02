@@ -96,7 +96,7 @@ class Orders extends Component {
                       }}>
                         {/* {order.status === this.ReadyCode && <Chip label={order.status} />} */}
                         {/* {order.status > this.ReadyCode && <Chip label={order.status} />} */}
-                        {order.status <= ReadyCode &&
+                        {order.status >= ReadyCode &&
                           <Button
                             variant="outlined"
                             size="small"
