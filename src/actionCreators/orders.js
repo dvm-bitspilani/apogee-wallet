@@ -7,10 +7,10 @@ import { setupRealtimeOrders } from '@/firebaseDatabase'
 import { handleResponse } from '@/utils'
 import * as ui from '@/actionCreators/ui'
 
-export const setPastTransactions = transactions => ({
-  type: orders.SET_PAST_TRANSACTIONS,
-  payload: transactions,
-})
+// export const setPastTransactions = transactions => ({
+//   type: orders.SET_PAST_TRANSACTIONS,
+//   payload: transactions,
+// })
 
 // export const getPastTransactions = () => (dispatch, getState) => {
 //   request({
@@ -34,7 +34,7 @@ export const setPastTransactions = transactions => ({
 //   });
 // }
 
-export const getCurrentOrders = orders => (dispatch, getState) => {
+export const getOrders = orders => (dispatch, getState) => {
   dispatch(ui.showLoader());
   request({
     method: 'GET',
@@ -48,7 +48,7 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
     handleResponse(error, response, body, () => {
       try {
         body = JSON.parse(body)
-        dispatch(setCurrentOrders(body))
+        dispatch(setOrders(body))
         setupRealtimeOrders(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       }
       catch (e) {
@@ -58,8 +58,8 @@ export const getCurrentOrders = orders => (dispatch, getState) => {
   });
 }
 
-export const setCurrentOrders = payload => ({
-  type: orders.SET_CURRENT_ORDERS,
+export const setOrders = payload => ({
+  type: orders.SET_ORDERS,
   payload
 })
 

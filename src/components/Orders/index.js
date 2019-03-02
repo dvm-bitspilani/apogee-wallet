@@ -20,7 +20,7 @@ import {
 import * as orders from "@/actionCreators/orders"
 import classes from './styles.module.scss'
 
-class CurrentOrders extends Component {
+class Orders extends Component {
   CircularDiv = (props) => (
     <div style={{
       ...props,
@@ -31,18 +31,17 @@ class CurrentOrders extends Component {
   )
 
   componentWillMount() {
-    this.props.getCurrentOrders();
+    this.props.getOrders();
   }
 
   render() {
     const { CircularDiv } = this
-    const { currentOrders } = this.props.orders
-    // console.log(this.props.orders.currentOrders)
+    const { orders } = this.props.orders
     return (
       <>
-        <Typography variant="h4">CURRENT ORDERS</Typography>
+        <Typography variant="h4">ORDERS</Typography>
 
-        {currentOrders.map(
+        {orders.map(
           shell => shell.orders.map(order => (
             <ExpansionPanel key={`${shell.id}-${order.id}`} style={{ width: "100%" }}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
@@ -121,4 +120,4 @@ const mapStateToProps = state => ({
   orders: state.orders
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentOrders)
+export default connect(mapStateToProps, mapDispatchToProps)(Orders)

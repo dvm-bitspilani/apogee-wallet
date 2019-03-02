@@ -2,7 +2,7 @@ import * as orders from '@/constants/orders'
 
 const initialState = {
   pastTransactions: [],
-  currentOrders: []
+  orders: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,16 +15,16 @@ const reducer = (state = initialState, action) => {
     }
   }
 
-  else if (type === orders.SET_CURRENT_ORDERS) {
+  else if (type === orders.SET_ORDERS) {
     return {
       ...state,
-      currentOrders: action.payload
+      orders: action.payload
     }
   }
 
   else if (type === orders.UPDATE_ORDER_STATUSES) {
     const statuses = action.payload
-    const newState = JSON.parse(JSON.stringify(state.currentOrders))
+    const newState = JSON.parse(JSON.stringify(state.orders))
     for (const shellName in statuses) {
       for (const orderName in statuses[shellName]) {
         // console.log(shellName, orderName)
@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
     }
     return {
       ...state,
-      currentOrders: newState
+      orders: newState
     };
   }
 
