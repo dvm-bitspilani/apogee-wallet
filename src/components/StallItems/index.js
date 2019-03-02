@@ -29,7 +29,8 @@ class StallItems extends Component {
 
     if (!this.props.items || !this.props.stallName || !this.props.stallId || !this.props.cart) struct = [];
     else {
-      struct = this.props.items.map(item => ({
+      let availableItems = this.props.items.filter(({ is_available }) => is_available);
+      struct = availableItems.map(item => ({
         ...item,
         primary: item.name,
         secondary: item.price,
