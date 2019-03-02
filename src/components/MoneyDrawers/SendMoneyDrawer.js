@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextField, Button, Snackbar, InputAdornment } from '@material-ui/core'
+import { TextField, Button, InputAdornment } from '@material-ui/core'
 import { connect } from 'react-redux'
 import request from 'request'
 

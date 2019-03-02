@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import {
-  Typography,
-  Button
+  Typography
 } from "@material-ui/core";
 import {
   ArrowForwardIos as Arrow
 } from "@material-ui/icons";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Link } from 'react-router-dom'
 
 import AuthRequired from "../AuthRequired";
 import AppList from "../AppList";
