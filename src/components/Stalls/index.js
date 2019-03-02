@@ -17,24 +17,12 @@ class Stalls extends Component {
     this.props.getVendors()
   }
   render() {
-    let sampleStruct = [
-      {
-        primary: "Pizza Hut",
-        secondary: "",
-        icon: Arrow
-      },
-      {
-        primary: "Goosebumps",
-        secondary: "",
-        icon: Arrow
-      },
-    ];
-
-    // let sampleStruct;
+    let sampleStruct;
     if (!this.props.vendors || !this.props.vendors.vendors) sampleStruct = []
 
     else {
-      sampleStruct = this.props.vendors.vendors.map(({ id, name }) => ({
+      let openStalls = this.props.vendors.vendors.filter(({ closed }) => !closed);
+      sampleStruct = openStalls.map(({ id, name }) => ({
         primary: name,
         secondary: "",
         link: `/stall/${id}/items`,
