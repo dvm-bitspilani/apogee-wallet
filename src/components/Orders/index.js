@@ -96,7 +96,7 @@ class Orders extends Component {
                       }}>
                         {/* {order.status === this.ReadyCode && <Chip label={order.status} />} */}
                         {/* {order.status > this.ReadyCode && <Chip label={order.status} />} */}
-                        {order.status >= ReadyCode &&
+                        {order.status === ReadyCode &&
                           <Button
                             variant="outlined"
                             size="small"
@@ -112,6 +112,19 @@ class Orders extends Component {
                           >
                             {this.state.otpShown[this.countOrderNumber(i, j)] ? order.otp : "OTP"}
                           </Button>}
+                          {order.status > ReadyCode &&
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            color="primary"
+                            disabled
+                            classes={{
+                              disabled: classes.otpDisableButton
+                            }}
+                          >
+                            { order.otp }
+                          </Button>}
+                        
                         <div className={classes.orderStatus}>
                           <Typography style={{ textAlign: "right" }}>{
                             ["Pending", "Accepted", "Ready", "Finished", "Declined"][order.status]
