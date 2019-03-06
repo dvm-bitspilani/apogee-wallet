@@ -15,11 +15,12 @@ import Login from './Login'
 import Nav from './Nav';
 import Progress from './Progress'
 import * as ui from '@/actionCreators/ui'
+import * as hosting from '@/constants/hosting'
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router basename = {hosting.basename}>
         <Fragment>
           <CssBaseline />
           <Switch>
