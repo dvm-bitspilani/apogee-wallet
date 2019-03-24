@@ -14,15 +14,24 @@ import {
   TableBody,
   TableCell,
 } from '@material-ui/core'
-
 import {
   ExpandMore as ExpandMoreIcon
 } from "@material-ui/icons"
+import request from 'request'
 
+import { handleResponse } from '@/utils'
 import * as orders from "@/actionCreators/orders"
+import * as ui from "@/actionCreators/ui"
+import * as api from "@/constants/api"
 import classes from './styles.module.scss'
+import store from '@/store'
 
 class Orders extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+    this.setOtpTrue = this.setOtpTrue.bind(this);
+  }
   countOrders = shells => shells.map(shell => shell.orders).flat().length
 
   setOtpTrue = orderNumber => {
@@ -45,11 +54,6 @@ class Orders extends Component {
       borderRadius: "20px",
     }}></div>
   )
-
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
 
   componentWillMount() {
     this.props.getOrders();
@@ -107,12 +111,29 @@ class Orders extends Component {
                             }}
                             onClick={(e) => {
                               e.stopPropagation();
-                              this.setOtpTrue(this.countOrderNumber(i, j));
+                              this.props.showLoader();
+                              request({
+                                method: 'POST',
+                                url: api.MAKE_OTP_SEEN,
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  'X-Wallet-Token': api.WALLET_TOKEN,
+                                  'Access-Control-Allow-Origin': '*',
+                                  'Authorization': `JWT ${store.getState().auth.JWT}`,
+                                },
+                                body: JSON.stringify({
+                                  order_id: order.id
+                                })
+                              }, (error, response, body) => {
+                                handleResponse(error, response, body, () => {
+                                  this.setOtpTrue(this.countOrderNumber(i, j));
+                                });
+                              });
                             }}
                           >
                             {this.state.otpShown[this.countOrderNumber(i, j)] ? order.otp : "OTP"}
                           </Button>}
-                          {order.status > ReadyCode &&
+                        {order.status > ReadyCode &&
                           <Button
                             variant="outlined"
                             size="small"
@@ -122,9 +143,9 @@ class Orders extends Component {
                               disabled: classes.otpDisableButton
                             }}
                           >
-                            { order.otp }
+                            {order.otp}
                           </Button>}
-                        
+
                         <div className={classes.orderStatus}>
                           <Typography style={{ textAlign: "right" }}>{
                             ["Pending", "Accepted", "Ready", "Finished", "Declined"][order.status]
@@ -167,7 +188,7 @@ class Orders extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(
-  Object.assign({}, orders), dispatch
+  Object.assign({}, orders, ui), dispatch
 )
 
 const mapStateToProps = state => ({

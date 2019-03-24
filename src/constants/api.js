@@ -12,6 +12,7 @@ export const GET_VENDORS = `${API_ROOT}/vendor/`
 
 export const GET_ORDERS = `${API_ROOT}/orders/`
 export const PLACE_ORDER = `${API_ROOT}/orders/`
+export const MAKE_OTP_SEEN = `${API_ROOT}/orders/make_otp_seen`
 
 export const ADD_MONEY = `${API_ROOT}/monetary/add/swd`
 export const TRANSFER_MONEY = `${API_ROOT}/monetary/transfer`
