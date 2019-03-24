@@ -1,2 +1,3 @@
 export const SET_PROFILE = "SET_PROFILE"
 export const UPDATE_BALANCE = "UPDATE_BALANCE"
+export const UPDATE_TOKENS = "UPDATE_TOKENS"

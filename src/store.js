@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import * as reducers from './reducers'
 import * as api from './constants/api'
 import { setupRealtimeBalance } from './firebaseDatabase'
+import { setupRealtimeTokens } from './firebaseDatabase'
 
 let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -14,12 +15,28 @@ const store = createStore(combineReducers(reducers), initStore, composeEnhancers
 if (initStore.userProfile && initStore.userProfile.userId) {
   const state = store.getState()
 
+  let isRealtimeBalanceReady  = false;
+  let isRealtimeTokenReady  = false;
   // becuase setupRealtimeBalance is undefined sometimes
   const runRealTime = () => {
-    if (setupRealtimeBalance) setupRealtimeBalance(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch)
+    if (!isRealtimeBalanceReady) {
+      if (setupRealtimeBalance) {
+        isRealtimeBalanceReady = true;
+        setupRealtimeBalance(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch)
+      }
+      else {
+        setTimeout(() => runRealTime() , 100)
+      }
+    }
 
-    else {
-      setTimeout(() => runRealTime() , 100)
+    if (!isRealtimeTokenReady) {
+      if (setupRealtimeTokens) {
+        isRealtimeTokenReady = true;
+        setupRealtimeTokens(state.userProfile.isBitsian, state.userProfile.userId, store.dispatch)
+      }
+      else {
+        setTimeout(() => runRealTime() , 100)
+      }
     }
   }
   runRealTime();

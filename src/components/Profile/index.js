@@ -35,6 +35,11 @@ class Profile extends Component {
           <Typography variant="h6">BALANCE</Typography>
         </div>
 
+        <div className={classes.balance}>
+          <Typography variant="h4">{this.props.userProfile.tokens}</Typography>
+          <Typography variant="h6">TOKENS</Typography>
+        </div>
+
         <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} />
 
         <div className={classes.btnWrap}>

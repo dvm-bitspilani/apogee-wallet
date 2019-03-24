@@ -13,3 +13,10 @@ export const updateBalance = balance => {
     payload: { balance }
   }
 }
+
+export const updateTokens = tokens => {
+  return {
+    type: userProfile.UPDATE_TOKENS,
+    payload: { tokens }
+  }
+}
