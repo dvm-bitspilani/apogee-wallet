@@ -7,6 +7,7 @@ import * as ui from './ui'
 import firebase from 'firebase/app'
 import { provider } from '@/firebaseConfig'
 import { setupRealtimeBalance } from '@/firebaseDatabase'
+import { setupRealtimeTokens } from '@/firebaseDatabase'
 import { handleResponse } from '@/utils'
 import * as cart from './cart';
 import * as profshows from './profshows';
@@ -50,6 +51,7 @@ export const login = (username, password) => (dispatch, getState) => {
         }))
         dispatch(changeLoginStatus(true, JWT))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
+        setupRealtimeTokens(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
         throw new Error(e.message || "");
       }
@@ -85,6 +87,7 @@ export const googleLogin = id => (dispatch, getState) => {
           isBitsian: body.bitsian_id.trim().length > 0
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
+        setupRealtimeTokens(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
       } catch (e) {
         throw new Error(e.message || "");
       }

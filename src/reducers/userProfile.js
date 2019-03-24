@@ -46,6 +46,13 @@ const reducer = (state = initialState, action) => {
       balance
     }
   }
+  if(type === userProfile.UPDATE_TOKENS) { 
+    const { tokens } = action.payload;
+    return {
+      ...state, 
+      tokens
+    }
+  }
   return {
     ...state
   }
