@@ -22,6 +22,7 @@ import Stalls from '../Stalls';
 import StallItems from '../StallItems';
 import Profshows from '../Profshows';
 import Orders from '../Orders';
+import KindStore from '../KindStore';
 
 class Nav extends Component {
   constructor(props) {
@@ -69,6 +70,11 @@ class Nav extends Component {
         name: 'Buy Profshow Tickets',
         link: '/profshows',
         icon: () => <LocalActivityIcon />
+      },
+      {
+        name: 'Kind Store',
+        link: '/kindstore',
+        icon: () => <StoreIcon />
       },
     ]
     return (
@@ -118,6 +124,7 @@ class Nav extends Component {
             <Route path='/orders' component={Orders} />
             {/* <Route path='/past_transactions' component={PastTransactions} /> */}
             <Route path='/profshows' component={Profshows} />
+            <Route path='/kindstore' component={KindStore} />
           </Switch>
         </div>
       </AuthRequired>

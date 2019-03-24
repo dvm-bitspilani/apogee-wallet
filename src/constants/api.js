@@ -1,8 +1,10 @@
 import { WALLET_TOKEN } from "@/.env"
 
 //Routes
-export const API_ROOT = "http://139.59.64.214/wallet"
-export const TICKET_MANAGER = "http://139.59.64.214/tickets-manager"
+export const API_BASE = "http://test.bits-apogee.org/2019"
+export const API_ROOT = `${API_BASE}/wallet`
+export const TICKET_MANAGER = `${API_BASE}/tickets-manager`
+export const KIND_STORE = `${API_BASE}/kind-store/items`
 
 export const LOGIN = `${API_ROOT}/auth`
 
