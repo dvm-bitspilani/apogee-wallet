@@ -8,7 +8,8 @@ import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
 import RecieveMoneyDrawer from "../MoneyDrawers/RecieveMoneyDrawer"
 import SendMoneyDrawer from "../MoneyDrawers/SendMoneyDrawer"
 import ProfshowDrawer from "../MoneyDrawers/ProfshowDrawer"
-import QRCode from "qrcode.react";
+// import QRCode from "qrcode.react";
+import QRCode from "qrcode-react";
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -25,6 +26,9 @@ class Profile extends Component {
     this.closeDrawer = this.closeDrawer.bind(this);
   }
   render() {
+    let qrVal = "";
+    if (this.props.userProfile.qrCode) qrVal = this.props.userProfile.qrCode;
+
     return (
       <AuthRequired>
         <Typography variant="h4">{this.props.userProfile.name}</Typography>
@@ -40,7 +44,9 @@ class Profile extends Component {
           <Typography variant="h6">TOKENS</Typography>
         </div>
 
-        <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} />
+        {/* <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} /> */}
+        
+        <QRCode className = {classes.qr} value={qrVal} />
 
         <div className={classes.btnWrap}>
           <Button

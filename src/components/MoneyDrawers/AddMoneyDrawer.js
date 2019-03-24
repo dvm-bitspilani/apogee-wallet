@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import QRCode from "qrcode.react";
+import QRCode from "qrcode-react";
 import request from 'request'
 
 import MoneyDrawerBase from './MoneyDrawerBase'
@@ -58,6 +58,9 @@ class AddMoneyDrawer extends Component {
 
     const text = isBitsian ? "ADD MONEY USING SWD" : "SHOW THE QR CODE TO THE TELLER"
 
+    let qrVal = "";
+    if (this.props.userProfile.qrCode) qrVal = this.props.userProfile.qrCode;
+
     const Content = isBitsian ?
       (<>
         <TextField
@@ -76,7 +79,7 @@ class AddMoneyDrawer extends Component {
           ADD
         </Button>
       </>) :
-      (<><QRCode value={this.props.userProfile.qrCode} /></>)
+      (<><QRCode value={qrVal} /></>)
 
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import QRCode from "qrcode.react";
+import QRCode from "qrcode-react";
 
 import MoneyDrawerBase from './MoneyDrawerBase'
 import classes from './styles.module.scss'
 
 class RecieveMoneyDrawer extends Component {
   render() {
+    let qrVal = "";
+    if (this.props.userProfile.qrCode) qrVal = this.props.userProfile.qrCode;
+
     return (
       <MoneyDrawerBase open={this.props.open} close={this.props.close}>
         <div
@@ -19,7 +22,7 @@ class RecieveMoneyDrawer extends Component {
             marginBottom: "20px"
           }}
           className = {classes.topText}>ASK THE SENDER TO SCAN THE QR CODE</h3>
-          <QRCode value={this.props.userProfile.qrCode} />
+          <QRCode value={qrVal} />
         </div>
 
       </MoneyDrawerBase>
