@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import {
-  Typography,
-  Button,
+  Fab,
+  Icon,
   Table,
+  Button,
+  TableRow,
   TableHead,
   TableBody,
-  TableRow,
-  TableCell
+  TableCell,
+  Typography,
 } from "@material-ui/core";
+import {
+  Refresh as RefreshIcon
+} from "@material-ui/icons"
 import { connect } from "react-redux";
 import QRCode from "qrcode-react";
 
@@ -51,7 +56,7 @@ class Profile extends Component {
           <Typography variant="h4">{this.props.userProfile.tokens}</Typography>
           <Typography variant="h6">TOKENS</Typography>
         </div> */}
-        <Table style={{marginBottom: "15px"}}>
+        <Table style={{ marginBottom: "5px" }}>
           <TableHead />
           <TableBody>
             {Object.entries({
@@ -63,9 +68,9 @@ class Profile extends Component {
                 <TableCell align="center">
                   <Typography style={{ fontWeight: "bold" }}>{name}</Typography>
                 </TableCell>
-                <TableCell 
+                <TableCell
                   align="center"
-                  dangerouslySetInnerHTML={{__html: val}}>
+                  dangerouslySetInnerHTML={{ __html: val }}>
                 </TableCell>
               </TableRow>
             ))}
@@ -84,9 +89,24 @@ class Profile extends Component {
           </TableBody>
         </Table>
 
-        {/* <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} /> */}
-
-        <QRCode className={classes.qr} value={qrVal} />
+        <div style={{position: "relative"}}>
+          <QRCode className={classes.qr} value={qrVal} />
+          <Fab
+            color="secondary" 
+            aria-label="Edit" 
+            size="small"
+            style={{
+              position: "absolute",
+              right: "-15px",
+              bottom: "-10px",
+              height: "30px",
+              width: "30px",
+              minHeight: "0"
+            }}
+            >
+            <RefreshIcon />
+          </Fab>
+        </div>
 
         <div className={classes.btnWrap}>
           <Button
