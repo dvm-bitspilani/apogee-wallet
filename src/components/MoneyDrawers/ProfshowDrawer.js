@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   Table,
-  IconButton,
+  Typography,
+  // IconButton,
   TableBody,
   TableCell,
   TableHead,
@@ -37,8 +38,11 @@ class RecieveMoneyDrawer extends Component {
             <TableHead className={classes.profshowTableHead}>
               <TableRow>
                 <TableCell align="center">Profshow</TableCell>
-                <TableCell align="center">Tickets&nbsp;
-                <Tooltip
+                <TableCell align="center">Tickets<br/><span style={{
+                  color: "grey",
+                  fontSize: "12px"
+                }}>(Remaining/Total)</span>&nbsp;
+                {/* <Tooltip
                     title="Remaining/Total"
                     placement="top"
                     disableHoverListener
@@ -46,7 +50,7 @@ class RecieveMoneyDrawer extends Component {
                     <IconButton>
                       <HelpIcon fontSize="small"/>
                     </IconButton>
-                  </Tooltip>
+                  </Tooltip> */}
                 </TableCell>
               </TableRow>
             </TableHead>

@@ -31,7 +31,7 @@ class Stalls extends Component {
     }
     return (
       <AuthRequired>
-        <Typography variant="h4">STALLS</Typography>
+        <Typography variant="h4">MENU</Typography>
 
         <AppList items={sampleStruct}/>
 

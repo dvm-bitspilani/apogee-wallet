@@ -52,7 +52,7 @@ class Nav extends Component {
         icon: () => <AccountCircleIcon />
       },
       {
-        name: 'Stalls',
+        name: 'Menu',
         link: '/stalls',
         icon: () => <StoreIcon />
       },
