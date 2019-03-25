@@ -7,6 +7,7 @@ export const TICKET_MANAGER = `${API_BASE}/tickets-manager`
 export const KIND_STORE = `${API_BASE}/kind-store/items`
 
 export const LOGIN = `${API_ROOT}/auth`
+export const REFRESH_QR = `${API_ROOT}/auth/qr-code/refresh`
 
 export const GET_VENDORS = `${API_ROOT}/vendor/`
 

@@ -53,6 +53,13 @@ const reducer = (state = initialState, action) => {
       tokens
     }
   }
+  if(type === userProfile.UPDATE_QR) { 
+    const { qrCode } = action.payload;
+    return {
+      ...state, 
+      qrCode
+    }
+  }
   return {
     ...state
   }

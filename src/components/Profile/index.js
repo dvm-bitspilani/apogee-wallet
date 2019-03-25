@@ -15,7 +15,9 @@ import {
 } from "@material-ui/icons"
 import { connect } from "react-redux";
 import QRCode from "qrcode-react";
+import { bindActionCreators } from "redux"
 
+import * as userProfile from "@/actionCreators/userProfile"
 import classes from "./styles.module.scss";
 import AuthRequired from "../AuthRequired";
 import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
@@ -64,7 +66,7 @@ class Profile extends Component {
               "Balance": `&#8377; ${that.props.userProfile.balance || ""}`,
               "Tokens": that.props.userProfile.tokens
             }).map(([name, val]) => (
-              <TableRow key="name">
+              <TableRow key={name}>
                 <TableCell align="center">
                   <Typography style={{ fontWeight: "bold" }}>{name}</Typography>
                 </TableCell>
@@ -89,11 +91,11 @@ class Profile extends Component {
           </TableBody>
         </Table>
 
-        <div style={{position: "relative"}}>
+        <div style={{ position: "relative" }}>
           <QRCode className={classes.qr} value={qrVal} />
           <Fab
-            color="secondary" 
-            aria-label="Edit" 
+            color="secondary"
+            aria-label="Edit"
             size="small"
             style={{
               position: "absolute",
@@ -103,7 +105,8 @@ class Profile extends Component {
               width: "30px",
               minHeight: "0"
             }}
-            >
+            onClick={this.props.refreshQR}
+          >
             <RefreshIcon />
           </Fab>
         </div>
@@ -177,8 +180,11 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userProfile: state.userProfile
 })
 
-export default connect(mapStateToProps, null)(Profile)
+const mapDispatchToProps = dispatch => bindActionCreators(
+  Object.assign({}, userProfile), dispatch
+)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
