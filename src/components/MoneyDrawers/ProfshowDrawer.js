@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
   Table,
+  IconButton,
   TableBody,
   TableCell,
   TableHead,
@@ -31,14 +32,22 @@ class RecieveMoneyDrawer extends Component {
             style={{
               marginBottom: "20px"
             }}
-            className = {classes.topText}>PROFSHOWS SIGNED</h3>
+            className={classes.topText}>PROFSHOWS SIGNED</h3>
           <Table>
-            <TableHead className = {classes.profshowTableHead}>
+            <TableHead className={classes.profshowTableHead}>
               <TableRow>
                 <TableCell align="center">Profshow</TableCell>
-                <TableCell align="center">Tickets&nbsp;<Tooltip title = "Remaining/Total" placement = "top" ><div style = {{float: 'right', display: 'flex'}}>
-                  <HelpIcon/>
-                </div></Tooltip> </TableCell>
+                <TableCell align="center">Tickets&nbsp;
+                <Tooltip
+                    title="Remaining/Total"
+                    placement="top"
+                    disableHoverListener
+                  >
+                    <IconButton>
+                      <HelpIcon fontSize="small"/>
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -46,7 +55,7 @@ class RecieveMoneyDrawer extends Component {
                 this.props.myProfshows
                 &&
                 Object.keys(this.props.myProfshows).map(key =>
-                  <TableRow key = {key} className = {classes.profshowTableRow}>
+                  <TableRow key={key} className={classes.profshowTableRow}>
                     <TableCell align="center">{this.props.myProfshows[key].show_name}</TableCell>
                     <TableCell align="center">{this.props.myProfshows[key].unused_count}/{this.props.myProfshows[key].used_count + this.props.myProfshows[key].unused_count}</TableCell>
                   </TableRow>
@@ -70,7 +79,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(
-  Object.assign({}, profshows), 
+  Object.assign({}, profshows),
   dispatch
 )
 
