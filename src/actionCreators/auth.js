@@ -47,7 +47,7 @@ export const login = (username, password) => (dispatch, getState) => {
         const { JWT } = body
         dispatch(setProfile({
           ...body,
-          isBitsian: body.bitsian_id.trim().length > 0
+          isBitsian: body.bitsian_id && body.bitsian_id.trim().length > 0
         }))
         dispatch(changeLoginStatus(true, JWT))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
@@ -84,7 +84,7 @@ export const googleLogin = id => (dispatch, getState) => {
         dispatch(changeLoginStatus(true, JWT))
         dispatch(setProfile({
           ...body,
-          isBitsian: body.bitsian_id.trim().length > 0
+          isBitsian: body.bitsian_id && body.bitsian_id.trim().length > 0
         }))
         setupRealtimeBalance(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
         setupRealtimeTokens(getState().userProfile.isBitsian, getState().userProfile.userId, dispatch);
