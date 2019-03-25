@@ -1,6 +1,15 @@
 import React, { Component } from "react";
-import { Typography, Button } from "@material-ui/core";
+import {
+  Typography,
+  Button,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell
+} from "@material-ui/core";
 import { connect } from "react-redux";
+import QRCode from "qrcode-react";
 
 import classes from "./styles.module.scss";
 import AuthRequired from "../AuthRequired";
@@ -8,8 +17,6 @@ import AddMoneyDrawer from "../MoneyDrawers/AddMoneyDrawer"
 import RecieveMoneyDrawer from "../MoneyDrawers/RecieveMoneyDrawer"
 import SendMoneyDrawer from "../MoneyDrawers/SendMoneyDrawer"
 import ProfshowDrawer from "../MoneyDrawers/ProfshowDrawer"
-// import QRCode from "qrcode.react";
-import QRCode from "qrcode-react";
 
 class Profile extends Component {
   closeDrawer = drawerName => () => this.setState({
@@ -28,13 +35,14 @@ class Profile extends Component {
   render() {
     let qrVal = "";
     if (this.props.userProfile.qrCode) qrVal = this.props.userProfile.qrCode;
+    const that = this;
 
     return (
       <AuthRequired>
         <Typography variant="h4">{this.props.userProfile.name}</Typography>
-        <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography>
+        {/* <Typography variant="h5">WALLET ID: {this.props.userProfile.userId}</Typography> */}
 
-        <div className={classes.balance}>
+        {/* <div className={classes.balance}>
           <Typography variant="h4">{this.props.userProfile.balance}</Typography>
           <Typography variant="h6">BALANCE</Typography>
         </div>
@@ -42,11 +50,43 @@ class Profile extends Component {
         <div className={classes.balance}>
           <Typography variant="h4">{this.props.userProfile.tokens}</Typography>
           <Typography variant="h6">TOKENS</Typography>
-        </div>
+        </div> */}
+        <Table style={{marginBottom: "15px"}}>
+          <TableHead />
+          <TableBody>
+            {Object.entries({
+              "Wallet ID": that.props.userProfile.userId,
+              "Balance": `&#8377; ${that.props.userProfile.balance || ""}`,
+              "Tokens": that.props.userProfile.tokens
+            }).map(([name, val]) => (
+              <TableRow key="name">
+                <TableCell align="center">
+                  <Typography style={{ fontWeight: "bold" }}>{name}</Typography>
+                </TableCell>
+                <TableCell 
+                  align="center"
+                  dangerouslySetInnerHTML={{__html: val}}>
+                </TableCell>
+              </TableRow>
+            ))}
+            {/* <TableRow>
+              <TableCell align="center"><Typography style={{ fontWeight: "bold" }}>Wallet ID</Typography></TableCell>
+              <TableCell align="center">{this.props.userProfile.userId}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Balance</TableCell>
+              <TableCell>&#8377;{this.props.userProfile.balance}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Tokens</TableCell>
+              <TableCell>{this.props.userProfile.tokens}</TableCell>
+            </TableRow> */}
+          </TableBody>
+        </Table>
 
         {/* <QRCode className = {classes.qr} value={this.props.userProfile.qrCode} /> */}
-        
-        <QRCode className = {classes.qr} value={qrVal} />
+
+        <QRCode className={classes.qr} value={qrVal} />
 
         <div className={classes.btnWrap}>
           <Button
@@ -102,13 +142,13 @@ class Profile extends Component {
             open={this.state.addMoneyDrawerOpened}
             close={this.closeDrawer('addMoney')} />
           <RecieveMoneyDrawer
-            open={this.state.recieveMoneyDrawerOpened} 
+            open={this.state.recieveMoneyDrawerOpened}
             close={this.closeDrawer('recieveMoney')} />
           <SendMoneyDrawer
-            open={this.state.sendMoneyDrawerOpened} 
+            open={this.state.sendMoneyDrawerOpened}
             close={this.closeDrawer('sendMoney')} />
           <ProfshowDrawer
-            open={this.state.profshowDrawerOpened} 
+            open={this.state.profshowDrawerOpened}
             close={this.closeDrawer('profshow')} />
 
         </div>
