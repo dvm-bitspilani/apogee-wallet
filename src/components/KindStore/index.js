@@ -31,7 +31,7 @@ class KindStore extends Component {
     return (
       <AuthRequired>
         <Typography variant="h4">KIND STORE</Typography>
-
+        <Typography variant="subheading" style={{color: "grey"}}>Redeem the tokens available at the Kind Store (stall)</Typography>
         {
             stores.map(({name, is_available, image, price}) => <div className = {classes.item} key = {name}>
                 <img src = {image} className = {classes.itemImg} alt = {name}/>

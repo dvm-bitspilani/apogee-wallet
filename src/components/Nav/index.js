@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import { SwipeableDrawer, List, ListItem, ListItemText, ListItemIcon, AppBar, Toolbar, IconButton, Typography, Button, Badge } from '@material-ui/core';
 import { 
   ShoppingCartOutlined as ShoppingCartIcon, 
   Menu as MenuIcon, 
@@ -77,6 +77,15 @@ class Nav extends Component {
         icon: () => <StoreIcon />
       },
     ]
+
+    let totalItems = 0;
+    for (let stallId in this.props.cart) {
+      let items = this.props.cart[stallId].items;
+      for (let itemId in items) {
+        totalItems += items[itemId].quantity;
+      }
+    }
+
     return (
       <AuthRequired>
         <AppBar position="static" className={classes.appBar}>
@@ -88,7 +97,9 @@ class Nav extends Component {
               Wallet
             </Typography>
             <Link to = "/cart">
-              <Button color="inherit"><ShoppingCartIcon /></Button>
+              <Badge badgeContent = {totalItems} color = "secondary">
+                <Button color="inherit"><ShoppingCartIcon /></Button>
+              </Badge>
             </Link>
           </Toolbar>
         </AppBar>
@@ -132,8 +143,12 @@ class Nav extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  cart: state.cart
+});
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(Object.assign({}, auth), dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Nav);
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
