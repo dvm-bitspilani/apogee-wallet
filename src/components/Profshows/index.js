@@ -7,7 +7,8 @@ import {
   ListSubheader,
   ListItem,
   ListItemText,
-  Button
+  Button,
+  Badge
 } from "@material-ui/core";
 import {
   AddCircleOutline as AddIcon,
@@ -25,7 +26,8 @@ class Profshows extends Component {
       totalPrice: 0
     }
 
-    this.computeTotalPrice.bind(this);
+    this.computeTotalPrice = this.computeTotalPrice.bind(this);
+    this.computeTotalTickets = this.computeTotalTickets.bind(this);
   }
   componentWillMount() {
     console.log('All profshows being fetched')
@@ -59,9 +61,30 @@ class Profshows extends Component {
     }
   }
 
+  computeTotalTickets () {
+    let showsCart = this.props.profshows.showsCart;
+    let allProfshowsData = this.props.profshows.allProfshowsData;
+    let totalTickets = 0;
+
+    if (showsCart && allProfshowsData && allProfshowsData.shows && allProfshowsData.combos) {
+      Object.keys(showsCart.individual).forEach(showId => {
+        totalTickets += showsCart.individual[showId];
+      });
+
+      Object.keys(showsCart.combos).forEach(comboId => {
+        totalTickets +=showsCart.combos[comboId];
+      });
+    }
+
+    return totalTickets;
+  }
+
   render() {
     let shows = this.props.profshows.allProfshowsData.shows;
     let combos = this.props.profshows.allProfshowsData.combos;
+
+    let totalTickets = this.computeTotalTickets();
+
     return (
       <>
         <Typography variant="h4">PROFSHOWS</Typography>
@@ -108,13 +131,15 @@ class Profshows extends Component {
         <div className={classes.bottom}>
           <Typography variant="h6">Total Price: INR <span>{this.state.totalPrice}</span></Typography>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick = {this.props.buyTickets}
-            >
-            Buy Tickets
-          </Button>
+          <Badge badgeContent = {totalTickets} color = "secondary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick = {this.props.buyTickets}
+              >
+              Buy Tickets
+            </Button>
+          </Badge>
         </div>
       </>
     )
