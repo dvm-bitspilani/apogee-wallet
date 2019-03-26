@@ -39,7 +39,7 @@ export const decreaseQty = (stallId, itemId) => ({
 });
 
 export const clearCart = () => ({
-  type: cart.CLEAR
+  type: cart.CART_CLEAR
 });
 
 export const placeOrder = () => (dispatch, getState) => {

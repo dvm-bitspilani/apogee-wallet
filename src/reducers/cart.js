@@ -87,7 +87,7 @@ const reducer = (state = initialState, action) => {
     return newState;
   }
 
-  else if (type === cart.CLEAR) {
+  else if (type === cart.CART_CLEAR) {
     return {}
   }
 

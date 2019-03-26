@@ -129,7 +129,7 @@ const reducer = (state = initialState, action) => {
     }
   }
 
-  else if (type === profshows.CLEAR) {
+  else if (type === profshows.SHOWS_CLEAR) {
     return {
       ...state,
       showsCart: {

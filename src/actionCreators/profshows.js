@@ -17,7 +17,7 @@ export const setMyProfshows = (myShowsData) => ({
 });
 
 export const clearShowsCart = () => ({
-  type: profshows.CLEAR
+  type: profshows.SHOWS_CLEAR
 })
 
 export const getAllProfshows = () => (dispatch, getState) => {
