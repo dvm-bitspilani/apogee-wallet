@@ -22,6 +22,8 @@ export const GET_MY_PROFSHOWS = `${TICKET_MANAGER}/tickets`
 export const GET_ALL_PROFSHOWS = `${TICKET_MANAGER}/shows`
 export const BUY_TICKETS = `${TICKET_MANAGER}/signup`
 
+export const ANALYTICS = `${API_ROOT}/analytics/webapp`
+
 //Wallet
 export { WALLET_TOKEN };
 

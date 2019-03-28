@@ -70,6 +70,21 @@ export const placeOrder = () => (dispatch, getState) => {
           try {
             dispatch(ui.showSnackbar("Order placed successfully"));
             dispatch(clearCart());
+
+            request({
+              method: 'POST',
+              url: api.ANALYTICS,
+              body: JSON.stringify({key: "orders_by_webapp"}),
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Wallet-Token': api.WALLET_TOKEN, 
+                'Authorization': `JWT ${getState().auth.JWT}`,
+                'Access-Control-Allow-Origin' : '*'
+              }}, (error, response, body) => {
+                handleResponse(error, response, body, () => {
+        
+                })
+            });
           }
           catch (e) {
             throw new Error(e.message || "");
