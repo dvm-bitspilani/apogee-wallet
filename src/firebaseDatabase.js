@@ -18,7 +18,7 @@ export const setupRealtimeBalance = (isBitsian, id, dispatch) => {
 	const balancePath = `${userPath}/total_balance`
 	const balanceRef = database.ref(balancePath)
 	balanceRef.on('value', snap => {
-		const balance = snap.val()
+    const balance = snap.val()
 		dispatch(updateBalance(balance));
 	})
 }

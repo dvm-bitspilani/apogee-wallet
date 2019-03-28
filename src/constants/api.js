@@ -1,7 +1,7 @@
 import { WALLET_TOKEN } from "@/.env"
 
 //Routes
-export const API_BASE = "http://test.bits-apogee.org/2019"
+export const API_BASE = "https://bits-apogee.org/2019"
 export const API_ROOT = `${API_BASE}/wallet`
 export const TICKET_MANAGER = `${API_BASE}/tickets-manager`
 export const KIND_STORE = `${API_BASE}/kind-store/items`
