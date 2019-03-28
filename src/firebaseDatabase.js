@@ -7,7 +7,7 @@ const getUserPath = (isBitsian, id) => {
 	if (id === null || id === undefined) return;
 
 	const pre = isBitsian ? 'bitsian' : 'participant'
-	const userPath = `users/${pre} - ${id}`;
+  const userPath = `users/${pre} - ${id}`;
 	return userPath
 }
 
@@ -16,9 +16,10 @@ export const setupRealtimeBalance = (isBitsian, id, dispatch) => {
 	const database = firebase.database();
 
 	const balancePath = `${userPath}/total_balance`
-	const balanceRef = database.ref(balancePath)
+  const balanceRef = database.ref(balancePath)
 	balanceRef.on('value', snap => {
     const balance = snap.val()
+
 		dispatch(updateBalance(balance));
 	})
 }

@@ -41,9 +41,10 @@ class Profile extends Component {
   }
   render() {
     let qrVal = "";
+    let balance = "-";
     if (this.props.userProfile.qrCode) qrVal = this.props.userProfile.qrCode;
-    const that = this;
-
+    if (this.props.userProfile.balance != null) balance = this.props.userProfile.balance;
+    let that = this;
     return (
       <AuthRequired>
         <Typography variant="h4">{this.props.userProfile.name}</Typography>
@@ -63,7 +64,7 @@ class Profile extends Component {
           <TableBody>
             {Object.entries({
               "Wallet ID": that.props.userProfile.userId,
-              "Balance": `&#8377; ${that.props.userProfile.balance || ""}`,
+              "Balance": `&#8377; ${balance}`,
               "Tokens": that.props.userProfile.tokens
             }).map(([name, val]) => (
               <TableRow key={name}>
