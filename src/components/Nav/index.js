@@ -135,7 +135,7 @@ class Nav extends Component {
             <Route path='/orders' component={Orders} />
             {/* <Route path='/past_transactions' component={PastTransactions} /> */}
             <Route path='/profshows' component={Profshows} />
-            <Route path='/kindstore' component={KindStore} />
+            {/* <Route path='/kindstore' component={KindStore} /> */}
           </Switch>
         </div>
       </AuthRequired>

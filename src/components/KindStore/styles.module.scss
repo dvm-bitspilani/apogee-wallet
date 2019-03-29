@@ -1,3 +1,11 @@
+.heading1 {
+  margin-top: 20px !important;
+}
+
+.heading1, .heading2 {
+  text-align: center;
+}
+
 .item {
     display: flex;
     justify-content: space-around;
@@ -7,11 +15,12 @@
 }
 
 .itemImg {
-    width: 20vw;
-    height: auto;
+    width: auto;
+    max-width: 30vw;
+    height: 20vh;
 
     @media all and (max-width: 700px) {
-        width: 30vw;
+        height: 100px;
     }
 }
 

@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux'
 import Login from './Login'
 import Nav from './Nav';
 import Progress from './Progress'
+import KindStore from './KindStore';
 import * as ui from '@/actionCreators/ui'
 import * as hosting from '@/constants/hosting'
 
@@ -24,6 +25,7 @@ class App extends Component {
         <Fragment>
           <CssBaseline />
           <Switch>
+            <Route exact path='/kindstore' component={KindStore} />
             <Route exact path="/login" component={Login} />
             <Route path="/" component={Nav} />
           </Switch>
