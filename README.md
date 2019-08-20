@@ -13,6 +13,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Backend
  - Hemanth V. Alluri ([Github](https://github.com/hypro999))
 
+## Screenshots
+<img src = "/screenshots/w1.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w2.png" alt = "Login page" width = "400"/>
+<img src = "/screenshots/w3.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w4.png" alt = "Login page" width = "400"/>
+<img src = "/screenshots/w5.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w6.png" alt = "Login page" width = "400"/>
+
 ## Scripts
 
 In the project directory, you can run:
