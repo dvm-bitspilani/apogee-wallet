@@ -14,9 +14,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  - Hemanth V. Alluri ([Github](https://github.com/hypro999))
 
 ## Screenshots
-<img src = "/screenshots/w1.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w2.png" alt = "Login page" width = "400"/>
-<img src = "/screenshots/w3.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w4.png" alt = "Login page" width = "400"/>
-<img src = "/screenshots/w5.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w6.png" alt = "Login page" width = "400"/>
+<img src = "/screenshots/w1.png" alt = "Login page" width = "400"/> <img src = "/screenshots/w2.png" alt = "Profile page" width = "400"/>
+<img src = "/screenshots/w3.png" alt = "Stalls page" width = "400"/> <img src = "/screenshots/w4.png" alt = "Menu page" width = "400"/>
+<img src = "/screenshots/w5.png" alt = "Cart page" width = "400"/> <img src = "/screenshots/w6.png" alt = "Orders page" width = "400"/>
 
 ## Scripts
 
